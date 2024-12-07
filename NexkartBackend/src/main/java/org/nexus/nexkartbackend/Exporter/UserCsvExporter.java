@@ -27,7 +27,6 @@ public class UserCsvExporter extends AbstractExporter {
 
         for (User user : listUsers) {
             csvWriter.write(user, fieldMapping);
-
         }
 
         csvWriter.close();

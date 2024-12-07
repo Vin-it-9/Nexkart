@@ -6,8 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title>Home Admin</title>
-	<!-- Linking Tailwind CSS -->
-	<!--  <link rel="icon" type="image/x-icon" th:href="@{/NexKart_T_fav.png}"/> 	-->
 	
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 	<link th:href="@{https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css}" rel="stylesheet">
@@ -17,8 +15,7 @@
 
 	<link rel="stylesheet" type="text/css" th:href="@{/animation.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/icons/all.css}">
-		
-	<!-- 	favicon CSS -->
+
 	<link rel="apple-touch-icon" th:href="@{/apple-touch-icon.png}" sizes="180x180">
 	<!-- <link rel="icon" type="image/x-icon" th:href="@{/nexkart_fav.png}"> -->
 	<link rel="icon" type="image/x-icon" th:href="@{/nexfav.ico}">
@@ -218,22 +215,19 @@
 							class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a>
 					</li>
 					<li class="relative">
-															    <button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
-															        <span sec:authentication="principal.Fullname"></span>
+						<button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
+							<span sec:authentication="principal.Fullname"></span>
 																	
-															        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-															            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-															        </svg>
-															    </button>
+							<svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+								<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+						</button>
 													
-									<form id="logoutForm"  th:action="@{/logout}" method="post">
-									         <button type="submit" class="bg-blue-500 block  mt-3 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
-									             Logout
-									         </button>
-									</form>
-					
-		
-
+						<form id="logoutForm"  th:action="@{/logout}" method="post">
+							<button type="submit" class="bg-blue-500 block  mt-3 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
+								Logout
+							</button>
+						</form>
 				</ul>
 			</div>
 			<p class="my-4 text-xs text-center text-gray-400">
