@@ -37,10 +37,10 @@ public class UserService {
     }
 
     public void save(User user) {
+
         boolean isUpdatingUser = (user.getId() != null);
 
         if(isUpdatingUser) {
-
 
             User existingUser = userRepo.findById(user.getId()).get();
 
@@ -54,7 +54,6 @@ public class UserService {
         }
         userRepo.save(user);
     }
-
 
     private void encodePassword(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -72,12 +71,9 @@ public class UserService {
         }else {
             if(userByEmail.getId() != id) {
                 return false;
-
             }
         }
-
         return true;
-
     }
 
     public User get(Integer id) throws UserNotFoundException {
@@ -94,6 +90,7 @@ public class UserService {
 
 
     public void delete(Integer id) throws UserNotFoundException {
+
         Long countById = userRepo.countById(id);
 
         if(countById == null || countById == 0) {

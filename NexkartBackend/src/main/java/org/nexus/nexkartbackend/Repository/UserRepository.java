@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     public Long countById(Integer id);
 
+    boolean existsByEmail(String email);
+
 }
