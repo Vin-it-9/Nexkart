@@ -16,10 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-//    @Bean
-//    UserDetailsService userDetailsService() {
-//        return new  NexkartUserDetailsService();
-//    }
+    @Bean
+    UserDetailsService userDetailsService() {
+        return new  NexkartUserDetailsService();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -27,22 +27,23 @@ public class WebSecurityConfig {
 
     }
 
-//    @Bean
-//    DaoAuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService());
-//        authProvider.setPasswordEncoder(passwordEncoder());
-//
-//        return authProvider;
-//    }
+    @Bean
+    DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+
+        return authProvider;
+    }
 
     @Bean
     SecurityFilterChain configureHttp(HttpSecurity http) throws Exception {
-//        http.authenticationProvider(authenticationProvider());
+        http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/Users/**").hasAuthority("Admin")
                         .requestMatchers("/categories/**").hasAnyAuthority("Admin" , "Editor")
+                        .requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -51,13 +52,10 @@ public class WebSecurityConfig {
                         .permitAll())
 
                 .logout(logout -> logout.permitAll());
+
         return http.build();
     }
 
-    @Bean
-    WebSecurityCustomizer configureWebSecurity() throws Exception {
-        return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/webjars/**");
-    }
 
 
 }
