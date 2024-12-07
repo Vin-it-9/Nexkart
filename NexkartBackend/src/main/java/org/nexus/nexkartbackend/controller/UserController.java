@@ -58,6 +58,7 @@ public class UserController {
 
     @PostMapping("/users/save")
     public String saveUser(User user ,RedirectAttributes redirectAttributes) {
+
         System.out.println(user);
         service.save(user);
 
