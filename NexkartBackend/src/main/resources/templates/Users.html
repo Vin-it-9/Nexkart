@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Home Admin</title>
+	
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<link th:href="@{https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css}" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<script th:src="@{/nav.js}" type="text/javascript"></script>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/animation.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/icons/all.css}">
+
+	<link rel="apple-touch-icon" th:href="@{/apple-touch-icon.png}" sizes="180x180">
+	<!-- <link rel="icon" type="image/x-icon" th:href="@{/nexkart_fav.png}"> -->
+	<link rel="icon" type="image/x-icon" th:href="@{/nexfav.ico}">
+	<link rel="manifest" th:href="@{/site.webmanifest}">
+	<link rel="mask-icon" th:href="@{/safari-pinned-tab.svg}" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+
+	<style>
+		@media only screen and (max-width: 768px) {
+			.logo {
+				height: 1.8em;
+			}
+		}
+	</style>
+
+
+</head>
+
+<body class="" >
+	
+	<form  th:action="@{/logout}" method="post" th:hidden="true"
+	name="logoutForm" >
+		<input type="submit">
+	</form>
+
+	<nav class="sticky top-0 left-0 right-0 z-10 px-4 py-4  flex justify-between items-center bg-gray-100 shadow-md">
+		<div class="flex items-center">
+			<!-- <a class="" href="#">
+                    <img class="logo h-10" src="Nexkart_T.png" alt="">  
+                </a> -->
+
+			<a class="flex items-center" th:href="@{/}">
+				<img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="">
+			</a>
+
+		</div>
+
+		<div class="lg:hidden flex items-center">
+			<button class="navbar-burger flex items-center pr-3">
+				<svg class="block w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+					<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+				</svg>
+			</button>
+		</div>
+
+		<ul class="hidden flex mr-8 items-center space-x-6 lg:static lg:flex lg:items-center lg:space-x-6">
+			<li><a th:href="@{/Users}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a></li>
+			<li><a th:href="@{/Categories}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a>
+			</li>
+			<li><a th:href="@{/Brands}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a>
+			</li>
+			<li><a th:href="@{/Products}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a>
+			</li>
+			<li><a th:href="@{/Customers}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a>
+			</li>
+			<li><a th:href="@{/Shipping}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a>
+			</li>
+			<li><a th:href="@{/Orders}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a>
+			</li>
+			<li><a th:href="@{/Report}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a>
+			</li>
+			<li><a th:href="@{/Articles}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a>
+			</li>
+			<li><a th:href="@{/menu}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
+			<li><a th:href="@{/Settings}"
+					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a>
+			</li>
+			
+		
+			<li class="relative">
+			    <button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
+			        <span sec:authentication="principal.Fullname"></span>
+					
+			        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+			            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+			        </svg>
+			    </button>
+			    <div class="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded shadow-lg hidden group-hover:block z-10">
+			        <ul class="py-1">
+			            <li>
+			                <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Profile</a>
+			            </li>
+						<li>
+						 <a id="logoutLink"  href="" class="block px-4 py-2 text-gray-700 hover:bg-blue-50
+						  hover:text-blue-600">Logout</a>
+					</li>
+					
+			        </ul>
+			    </div>
+			</li>
+			
+			
+			<script type="text/javascript" >
+				
+				 $(document).ready(function() {
+				 $("#logoutLink").on("click" , function(e) {
+					e.preventDefault();
+					document.logoutForm.submit();
+				 });
+				 });	
+				
+				document.addEventListener('DOMContentLoaded', function () {
+				    const button = document.querySelector('li > button');
+				    const dropdown = button.nextElementSibling;
+
+				    button.addEventListener('click', function () {
+				        dropdown.classList.toggle('hidden');
+				    });
+
+				    document.addEventListener('click', function (event) {
+				        if (!button.contains(event.target)) {
+				            dropdown.classList.add('hidden');
+				        }
+				    });
+				});
+
+			</script>
+
+			
+					
+		</ul>
+	</nav>
+
+	<!-- below code is for side nav bar  -->
+
+	<div id="Nav" class="navbar-menu relative z-50 hidden">
+		<div class=" navbar-backdrop fixed inset-0 bg-gray-900 opacity-30"></div>
+
+		<nav class="fixed top-0 left-0 bottom-0 flex flex-col w- max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
+
+			<div class=" flex items-center mb-4">
+				<!--                  
+                    <a class="mr-auto " href="#">
+                            <img class="logo h-10" src="Nexkart_T.png" alt="">  
+                    </a> -->
+
+				<a class="flex items-center" th:href="@{/}">
+					<img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="">
+				</a>
+
+				<button class="navbar-close">
+					<svg class="h-6 w-12 text-gray-400 cursor-pointer hover:text-gray-500"
+						xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+						</path>
+					</svg>
+				</button>
+
+			</div>
+
+			<div>
+
+				<ul>
+					<li class="mb-1 border-b"><a th:href="@{/Users}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Brands}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Products}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Customers}"
+							class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Categories}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Shipping}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Orders}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Report}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/Articles}"
+							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a>
+					</li>
+					<li class="mb-1 border-b"><a th:href="@{/menu}"
+							class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">menu</a>
+					</li>
+					<li class="mb-5 border-b"><a th:href="@{/Settings}"
+							class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a>
+					</li>
+					<li class="relative">
+						<button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
+							<span sec:authentication="principal.Fullname"></span>
+																	
+							<svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+								<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+						</button>
+													
+						<form id="logoutForm"  th:action="@{/logout}" method="post">
+							<button type="submit" class="bg-blue-500 block  mt-3 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
+								Logout
+							</button>
+						</form>
+				</ul>
+			</div>
+			<p class="my-4 text-xs text-center text-gray-400">
+				<span> NexKart 2024</span>
+			</p>
+		</nav>
+
+
+	</div>
+	<style>
+		@media (max-width: 768px) {
+		         .manage-users {
+		             flex-direction: column;
+		             text-align: center;
+		             padding: 0.5rem;
+					 justify-content: start;
+		         }
+
+		         .manage-users h2 {
+					font-size: 20px ;
+					margin-top:15px ;
+		             margin-bottom: 0.5rem;
+		         }
+
+		         .manage-users img {
+					height: 25px ; 
+					margin-top:15px ;
+		             margin-bottom: 0.5rem;
+		         }
+				 .manage-users a {
+				 				font-size: 13px ;
+				 	             margin-bottom: 0.5rem;
+				 	         }
+	
+		     }
+
+		     @media (max-width: 576px) {
+		         .container {
+		             padding: 0.5rem;
+		         }
+		     }
+	</style>
+
+	
+	<!-- content part from here  -->
+	<div class="flex justify-between items-center manage-users  p-8 rounded-lg ">
+	    <div class="flex items-center">
+	        <h2 class="text-2xl font-bold mr-8">Manage Users</h2> 
+	        <a th:href="@{/users/export/csv}" class="text-white   rounded transition duration-400 ease-in-out mr-2">
+	           <img class="h-9"  th:src="@{/images/csv.png}" alt="">
+	        </a>
+			<a th:href="@{/users/export/excel}" class="text-white   rounded transition duration-400 ease-in-out mr-2">
+			           <img class="h-9"  th:src="@{/images/excel.png}" alt="">
+			</a>
+			<a th:href="@{/users/export/pdf}" class="text-white   rounded transition duration-400 ease-in-out mr-2">
+				<img class="h-9"  th:src="@{/images/pdf.png}" alt="">
+			</a>  
+	</div>
+
+	    <a th:href="@{/users/new}" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-400 ease-in-out">
+	        Create New User
+	    </a>
+	</div>
+
+
+	<style>
+		#table{
+								background-color:#0561f4;
+							}
+		@media (max-width: 578px) {
+			.ph{
+				display: none;
+			}
+			
+			#table{
+						background-color:#0561f4;
+					}
+					table {
+					              display: block;
+					              overflow-x: auto;
+					              white-space: nowrap;
+					          }
+
+					          th, td {
+					              min-width: 120px;
+					              padding: 0.75rem 0.5rem;
+					          }
+
+					          th:first-child, td:first-child {
+					              min-width: auto;
+					              padding-left: 0.75rem;
+					          }
+
+					          th:last-child, td:last-child {
+					              padding-right: 0.75rem;
+					          }
+		   }
+		
+		   
+		
+		
+	</style>
+	
+	<div th:if="${message != null}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative center" role="alert">
+		    <span class="block sm:inline">[[${message}]]</span>
+		</div>
+		
+		
+	<div class="pl-8 pr-8 mb-16">
+
+		<table class="w-full border border-collapse ">
+			<thead id="table" class="text-white">
+				<tr>
+					<th class="px-4 py-2 text-left border">User ID</th>
+					<th class="px-4 py-2 text-left border ph">Photos</th>
+					<th class="px-4 py-2 text-left border">Email</th> 
+					<th class="px-4 py-2 text-left border">First Name</th>
+					<th class="px-4 py-2 text-left border">Last Name</th>
+					<th class="px-4 py-2 text-left border">Roles</th>
+					<th class="px-4 py-2 text-left border">Enabled</th>
+					<th class="px-4 py-2 text-left border"></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="user : ${listUsers}" class="border-b mb-16 text-center border-gray-300 hover:bg-gray-100">
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.id}"></td> 
+					<td class="px-4 py-2  border hover:bg-gray-200 fa-solid fa-user fa-2x ph" style=" color:rgb(40, 40, 255);	border: none;" th:text="${user.photos}"></td>
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.email}"></td> 
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.firstName}"></td> 
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.lastName}"></td> 
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.roles}"></td>
+					 
+					<td class="px-4 py-2 text-center border hover:bg-gray-200 " >
+						<a th:if="${user.enabled == true }" class="text-green-500 fa-regular fa-check-circle fa-2x "></a>
+						<a th:if="${user.enabled == false }" class="text-gray-500 fa-regular fa-check-circle fa-2x"></a>
+										
+					</td> 
+					<td class="px-4 py-2 text-left border hover:bg-gray-200">
+						<a th:href="@{'/users/edit/'+${user.id}}" title="Edit this User" class="text-green-600 hover:text-green-800 fa-solid fa-user-pen "></a>   
+						<a th:href="@{'/users/delete/'+${user.id}}" title="Delete This User"  class=" link-delete text-red-600 hover:text-red-800 	">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

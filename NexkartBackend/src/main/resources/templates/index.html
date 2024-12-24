@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home Admin</title>
+    <!-- Linking Tailwind CSS -->
+
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon-32x32.png}"/>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="nav.js" type="text/javascript"></script>
+
+
+
+    <style>
+        @media only screen and (max-width: 768px) {
+            .logo{
+                height: 1.8em;
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body class="">
+
+
+<nav class="sticky top-0 left-0 right-0 z-10 px-4 py-4  flex justify-between items-center bg-white shadow-md">
+    <div class="flex items-center">
+        <a class="flex items-center" th:href="@{/}">
+            <img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="" >
+        </a>
+
+    </div>
+
+    <div class="lg:hidden flex items-center">
+        <button class="navbar-burger flex items-center pr-3">
+            <svg class="block w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <form  th:action="@{/logout}" method="post" th:hidden="true"
+           name="logoutForm" >
+        <input type="submit">
+    </form>
+
+
+    <ul class="hidden flex mr-8 items-center space-x-6 lg:static lg:flex lg:items-center lg:space-x-6">
+
+
+        <li><a th:href="@{/Users}" sec:authorize = "hasAuthority('Admin')"  class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a></li>
+        <li><a th:href="@{/Categories}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a></li>
+        <li><a th:href="@{/Brands}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a></li>
+        <li><a th:href="@{/Products}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a></li>
+        <li><a th:href="@{/Customers}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a></li>
+        <li><a th:href="@{/Shipping}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
+        <li><a th:href="@{/Orders}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
+        <li><a th:href="@{/Report}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
+        <li><a th:href="@{/Articles}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a></li>
+        <li><a th:href="@{/menu}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
+        <li><a th:href="@{/Settings}"  sec:authorize = "hasAuthority('Admin')"   class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Settings </a></li>
+
+        <li class="relative">
+            <button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
+                <span sec:authentication="principal.Fullname"></span>
+
+                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div class="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded shadow-lg hidden group-hover:block z-10">
+                <ul class="py-1">
+                    <li>
+                        <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Profile</a>
+                    </li>
+                    <li>
+                        <a id="logoutLink"  href="" class="block px-4 py-2 text-gray-700 hover:bg-blue-50
+									  hover:text-blue-600">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+<!-- below code is for side nav bar  -->
+
+<div id="Nav" class="navbar-menu relative z-50 hidden">
+    <div class=" navbar-backdrop fixed inset-0 bg-gray-900 opacity-30"></div>
+
+    <nav class="fixed top-0 left-0 bottom-0 flex flex-col w- max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
+
+        <div class=" flex items-center mb-4">
+
+
+            <a class="flex items-center" th:href="@{/}">
+                <img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="" >
+            </a>
+
+            <button class="navbar-close">
+                <svg class="h-6 w-12 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+        </div>
+
+        <div>
+
+            <ul>
+                <li sec:authorize = "hasAuthority('Admin')"   class="mb-1 border-b"><a th:href="@{/Users}"   class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/Brands}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/Products}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a> </li>
+                <li class="mb-1 border-b"><a th:href="@{/Customers}" class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/Categories}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/Shipping}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/Orders}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/Report}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/Articles}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a> </li>
+                <li class="mb-1 border-b"><a th:href="@{/menu}" class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
+                <li sec:authorize = "hasAuthority('Admin')"  class="mb-3 border-b"><a th:href="@{/Settings}"    class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a></li>
+                <li class="relative">
+                    <button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
+                        <span sec:authentication="principal.Fullname"></span>
+
+                        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <form id="logoutForm"  th:action="@{/logout}" method="post">
+                        <button type="submit" class="bg-blue-500 block  mt-3 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
+                            Logout
+                        </button>
+                    </form>
+
+
+
+            </ul>
+        </div>
+
+
+        <p class="my-4 text-xs text-center text-gray-400">
+            <span> NexKart 2024</span>
+        </p>
+    </nav>
+</div>
+
+
+<div  class="main p-14 " >
+    Welcome
+    <a th:href="@{/account}" class="text-blue-500 font-semibold" sec:authentication = "principal.fullname"></a>
+    <span sec:authentication = "principal.authorities"  ></span>
+
+
+
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#logoutLink").on("click" , function(e) {
+            e.preventDefault();
+            document.logoutForm.submit();
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.querySelector('li > button');
+        const dropdown = button.nextElementSibling;
+
+        button.addEventListener('click', function () {
+            dropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!button.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+
+</script>
+
+
+
+</body>
+</html>
