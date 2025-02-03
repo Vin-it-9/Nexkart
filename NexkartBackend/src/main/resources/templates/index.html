@@ -7,16 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Home Admin</title>
-    <!-- Linking Tailwind CSS -->
-
     <link rel="icon" type="image/x-icon" th:href="@{/favicon-32x32.png}"/>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link th:href="@{https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="nav.js" type="text/javascript"></script>
-
-
 
     <style>
         @media only screen and (max-width: 768px) {
@@ -26,12 +21,9 @@
         }
     </style>
 
-
-
 </head>
 
 <body class="">
-
 
 <nav class="sticky top-0 left-0 right-0 z-10 px-4 py-4  flex justify-between items-center bg-white shadow-md">
     <div class="flex items-center">
@@ -59,16 +51,16 @@
 
 
         <li><a th:href="@{/Users}" sec:authorize = "hasAuthority('Admin')"  class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a></li>
-        <li><a th:href="@{/Categories}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a></li>
-        <li><a th:href="@{/Brands}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a></li>
-        <li><a th:href="@{/Products}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a></li>
-        <li><a th:href="@{/Customers}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a></li>
-        <li><a th:href="@{/Shipping}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
-        <li><a th:href="@{/Orders}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
-        <li><a th:href="@{/Report}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
-        <li><a th:href="@{/Articles}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a></li>
+        <li><a th:href="@{/categories}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a></li>
+        <li><a th:href="@{/brands}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a></li>
+        <li><a th:href="@{/products}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a></li>
+        <li><a th:href="@{/customers}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a></li>
+        <li><a th:href="@{/shipping}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
+        <li><a th:href="@{/orders}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
+        <li><a th:href="@{/report}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
+        <li><a th:href="@{/articles}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a></li>
         <li><a th:href="@{/menu}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
-        <li><a th:href="@{/Settings}"  sec:authorize = "hasAuthority('Admin')"   class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Settings </a></li>
+        <li><a th:href="@{/settings}"  sec:authorize = "hasAuthority('Admin')"   class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Settings </a></li>
 
         <li class="relative">
             <button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
@@ -122,16 +114,16 @@
 
             <ul>
                 <li sec:authorize = "hasAuthority('Admin')"   class="mb-1 border-b"><a th:href="@{/Users}"   class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/Brands}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/Products}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a> </li>
-                <li class="mb-1 border-b"><a th:href="@{/Customers}" class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/Categories}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/Shipping}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/Orders}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/Report}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/Articles}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a> </li>
+                <li class="mb-1 border-b"><a th:href="@{/brands}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/products}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a> </li>
+                <li class="mb-1 border-b"><a th:href="@{/customers}" class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/categories}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/shipping}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/orders}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/report}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/articles}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a> </li>
                 <li class="mb-1 border-b"><a th:href="@{/menu}" class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
-                <li sec:authorize = "hasAuthority('Admin')"  class="mb-3 border-b"><a th:href="@{/Settings}"    class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a></li>
+                <li sec:authorize = "hasAuthority('Admin')"  class="mb-3 border-b"><a th:href="@{/settings}"    class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a></li>
                 <li class="relative">
                     <button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
                         <span sec:authentication="principal.Fullname"></span>
@@ -164,12 +156,7 @@
     Welcome
     <a th:href="@{/account}" class="text-blue-500 font-semibold" sec:authentication = "principal.fullname"></a>
     <span sec:authentication = "principal.authorities"  ></span>
-
-
-
 </div>
-
-
 
 
 

@@ -301,7 +301,10 @@
 			.ph{
 				display: none;
 			}
-			
+			.mobile-hidden {
+				display: none;
+			}
+
 			#table{
 						background-color:#0561f4;
 					}
@@ -325,25 +328,24 @@
 					              padding-right: 0.75rem;
 					          }
 		   }
-		
-		   
-		
-		
+
+
+
+
 	</style>
-	
+
 	<div th:if="${message != null}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative center" role="alert">
 		    <span class="block sm:inline">[[${message}]]</span>
 		</div>
-		
-		
-	<div class="pl-8 pr-8 mb-16">
 
+
+	<div class="pl-8 pr-8 mb-16">
 		<table class="w-full border border-collapse ">
 			<thead id="table" class="text-white">
 				<tr>
 					<th class="px-4 py-2 text-left border">User ID</th>
 					<th class="px-4 py-2 text-left border ph">Photos</th>
-					<th class="px-4 py-2 text-left border">Email</th> 
+					<th class="px-4 py-2 text-left border">Email</th>
 					<th class="px-4 py-2 text-left border">First Name</th>
 					<th class="px-4 py-2 text-left border">Last Name</th>
 					<th class="px-4 py-2 text-left border">Roles</th>
@@ -351,28 +353,40 @@
 					<th class="px-4 py-2 text-left border"></th>
 				</tr>
 			</thead>
-			
+
 			<tbody>
 				<tr th:each="user : ${listUsers}" class="border-b mb-16 text-center border-gray-300 hover:bg-gray-100">
-					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.id}"></td> 
-					<td class="px-4 py-2  border hover:bg-gray-200 fa-solid fa-user fa-2x ph" style=" color:rgb(40, 40, 255);	border: none;" th:text="${user.photos}"></td>
-					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.email}"></td> 
-					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.firstName}"></td> 
-					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.lastName}"></td> 
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.id}"></td>
+
+					<td class="px-4 py-2 border hover:bg-gray-200 flex mobile-hidden items-center justify-center" style="height: 100px;">
+						<div class="w-24 h-24 rounded-full  overflow-hidden inline-flex items-center justify-center">
+							<img th:if="${user.photos != null}" th:src="@{${user.photoImagePath}}"
+								 class="w-full h-full object-cover">
+							<i th:if="${user.photos == null}" class="fas fa-user-circle text-4xl"
+							   style="color: rgb(40, 40, 255);"></i>
+						</div>
+					</td>
+
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.email}"></td>
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.firstName}"></td>
+					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.lastName}"></td>
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.roles}"></td>
-					 
+
 					<td class="px-4 py-2 text-center border hover:bg-gray-200 " >
 						<a th:if="${user.enabled == true }" class="text-green-500 fa-regular fa-check-circle fa-2x "></a>
 						<a th:if="${user.enabled == false }" class="text-gray-500 fa-regular fa-check-circle fa-2x"></a>
-										
-					</td> 
+
+					</td>
 					<td class="px-4 py-2 text-left border hover:bg-gray-200">
-						<a th:href="@{'/users/edit/'+${user.id}}" title="Edit this User" class="text-green-600 hover:text-green-800 fa-solid fa-user-pen "></a>   
+						<a th:href="@{'/users/edit/'+${user.id}}" title="Edit this User" class="text-green-600 hover:text-green-800 fa-solid fa-user-pen "></a>  
 						<a th:href="@{'/users/delete/'+${user.id}}" title="Delete This User"  class=" link-delete text-red-600 hover:text-red-800 	">Delete</a>
 					</td>
 				</tr>
 			</tbody>
+
 		</table>
 	</div>
+
+
 </body>
 </html>

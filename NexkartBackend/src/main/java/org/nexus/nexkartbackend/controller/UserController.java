@@ -5,6 +5,7 @@ import org.hibernate.tool.schema.spi.Exporter;
 import org.nexus.nexkartbackend.Exporter.UserCsvExporter;
 import org.nexus.nexkartbackend.Exporter.UserExcelExporter;
 import org.nexus.nexkartbackend.Exporter.UserPdfExporter;
+import org.nexus.nexkartbackend.FileUploadUtil;
 import org.nexus.nexkartbackend.entity.Role;
 import org.nexus.nexkartbackend.entity.User;
 import org.nexus.nexkartbackend.exception.UserNotFoundException;
@@ -14,9 +15,12 @@ import org.springframework.data.web.JsonPath;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -57,12 +61,31 @@ public class UserController {
     }
 
     @PostMapping("/users/save")
-    public String saveUser(User user ,RedirectAttributes redirectAttributes) {
+    public String saveUser(User user , RedirectAttributes redirectAttributes, @RequestParam("fileImage") MultipartFile multipartFile ) throws IOException  {
 
-        System.out.println(user);
-        service.save(user);
+        if(!multipartFile.isEmpty()) {
+
+            String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            user.setPhotos(filename);
+            User savedUser = service.save(user);
+            String uploadDir = "user-photos/" + savedUser.getId();
+            FileUploadUtil.cleanDir(uploadDir);
+            FileUploadUtil.saveFile(uploadDir,filename,multipartFile);
+
+        }
+
+        else
+        {
+            if(user.getPhotos().isEmpty()) {
+                user.setPhotos(null);
+            }
+            service.save(user);
+        }
+
+        //        service.save(user);
 
         redirectAttributes.addFlashAttribute("message" , "User added successfully ");
+
         return "redirect:/Users";
 
     }
