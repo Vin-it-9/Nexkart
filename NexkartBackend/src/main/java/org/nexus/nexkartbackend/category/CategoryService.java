@@ -87,6 +87,14 @@ public class CategoryService {
         }
     }
 
+    public void delete(Integer id) throws CategoryNotFoundException {
+        Long countById = repo.countById(id);
+        if(countById== null || countById == 0) {
+            throw new CategoryNotFoundException("Could not find category with id: " + id);
+        }
+        repo.deleteById(id);
+    }
+
 
 
 

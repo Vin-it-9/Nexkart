@@ -37,6 +37,42 @@ public class Category {
 
     }
 
+
+    public static Category copyIdAndName(Category category) {
+        Category copyCategory = new Category();
+        copyCategory.setId(category.getId());
+        copyCategory.setName(category.getName());
+
+        return copyCategory;
+    }
+
+    public static Category copyIdAndName(Integer id, String name) {
+        Category copyCategory = new Category();
+        copyCategory.setId(id);
+        copyCategory.setName(name);
+
+        return copyCategory;
+    }
+
+    public static Category copyFull(Category category) {
+        Category copyCategory = new Category();
+        copyCategory.setId(category.getId());
+        copyCategory.setName(category.getName());
+        copyCategory.setImage(category.getImage());
+        copyCategory.setAlias(category.getAlias());
+        copyCategory.setEnabled(category.isEnabled());
+        copyCategory.setHasChildren(category.getChildren().size() > 0);
+
+        return copyCategory;
+    }
+
+    public static Category copyFull(Category category, String name) {
+        Category copyCategory = Category.copyFull(category);
+        copyCategory.setName(name);
+
+        return copyCategory;
+    }
+
     public Category(String name) {
         this.name = name;
         this.alias = name;
@@ -47,15 +83,15 @@ public class Category {
         this(name);
         this.parent = parent;
     }
-    public Category(Integer id) {
+    public Category (Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -109,8 +145,22 @@ public class Category {
 
     @Transient
     public String getImagePath() {
+
+        if (this.id == null) return "/images/default.png";
+
         return "/category-images/" + this.id + "/" + this.image;
     }
+
+    @Transient
+    private boolean hasChildren;
+
+    public boolean isHasChildren() {
+        return hasChildren;
+    }
+    public void setHasChildren(boolean hasChildren) {
+        this.hasChildren = hasChildren;
+    }
+
 
 
 }

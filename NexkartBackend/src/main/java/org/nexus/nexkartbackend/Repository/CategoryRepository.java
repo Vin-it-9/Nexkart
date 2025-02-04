@@ -7,4 +7,7 @@ import org.nexus.nexkartbackend.entity.Category;
 
 public interface CategoryRepository extends CrudRepository<Category, Integer>, PagingAndSortingRepository<Category, Integer> {
 
+    public Long countById(Integer id);
+
+
 }
