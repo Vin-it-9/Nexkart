@@ -9,12 +9,12 @@
 	
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 	<link th:href="@{https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
 	<script th:src="@{/nav.js}" type="text/javascript"></script>
 
 	<link rel="stylesheet" type="text/css" th:href="@{/animation.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/icons/all.css}">
 
 	<link rel="apple-touch-icon" th:href="@{/apple-touch-icon.png}" sizes="180x180">
 	<!-- <link rel="icon" type="image/x-icon" th:href="@{/nexkart_fav.png}"> -->
@@ -43,200 +43,10 @@
 		<input type="submit">
 	</form>
 
-	<nav class="sticky top-0 left-0 right-0 z-10 px-4 py-4  flex justify-between items-center bg-gray-100 shadow-md">
-		<div class="flex items-center">
-			<!-- <a class="" href="#">
-                    <img class="logo h-10" src="Nexkart_T.png" alt="">  
-                </a> -->
-
-			<a class="flex items-center" th:href="@{/}">
-				<img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="">
-			</a>
-
-		</div>
-
-		<div class="lg:hidden flex items-center">
-			<button class="navbar-burger flex items-center pr-3">
-				<svg class="block w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-					<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-				</svg>
-			</button>
-		</div>
-
-		<ul class="hidden flex mr-8 items-center space-x-6 lg:static lg:flex lg:items-center lg:space-x-6">
-			<li><a th:href="@{/Users}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a></li>
-			<li><a th:href="@{/Categories}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a>
-			</li>
-			<li><a th:href="@{/Brands}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a>
-			</li>
-			<li><a th:href="@{/Products}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a>
-			</li>
-			<li><a th:href="@{/Customers}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a>
-			</li>
-			<li><a th:href="@{/Shipping}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a>
-			</li>
-			<li><a th:href="@{/Orders}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a>
-			</li>
-			<li><a th:href="@{/Report}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a>
-			</li>
-			<li><a th:href="@{/Articles}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a>
-			</li>
-			<li><a th:href="@{/menu}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
-			<li><a th:href="@{/Settings}"
-					class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a>
-			</li>
-			
-		
-			<li class="relative">
-			    <button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
-			        <span sec:authentication="principal.Fullname"></span>
-					
-			        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-			            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-			        </svg>
-			    </button>
-			    <div class="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded shadow-lg hidden group-hover:block z-10">
-			        <ul class="py-1">
-			            <li>
-			                <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Profile</a>
-			            </li>
-						<li>
-						 <a id="logoutLink"  href="" class="block px-4 py-2 text-gray-700 hover:bg-blue-50
-						  hover:text-blue-600">Logout</a>
-					</li>
-					
-			        </ul>
-			    </div>
-			</li>
-			
-			
-			<script type="text/javascript" >
-				
-				 $(document).ready(function() {
-				 $("#logoutLink").on("click" , function(e) {
-					e.preventDefault();
-					document.logoutForm.submit();
-				 });
-				 });	
-				
-				document.addEventListener('DOMContentLoaded', function () {
-				    const button = document.querySelector('li > button');
-				    const dropdown = button.nextElementSibling;
-
-				    button.addEventListener('click', function () {
-				        dropdown.classList.toggle('hidden');
-				    });
-
-				    document.addEventListener('click', function (event) {
-				        if (!button.contains(event.target)) {
-				            dropdown.classList.add('hidden');
-				        }
-				    });
-				});
-
-			</script>
-
-			
-					
-		</ul>
-	</nav>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 	<!-- below code is for side nav bar  -->
 
-	<div id="Nav" class="navbar-menu relative z-50 hidden">
-		<div class=" navbar-backdrop fixed inset-0 bg-gray-900 opacity-30"></div>
-
-		<nav class="fixed top-0 left-0 bottom-0 flex flex-col w- max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
-
-			<div class=" flex items-center mb-4">
-				<!--                  
-                    <a class="mr-auto " href="#">
-                            <img class="logo h-10" src="Nexkart_T.png" alt="">  
-                    </a> -->
-
-				<a class="flex items-center" th:href="@{/}">
-					<img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="">
-				</a>
-
-				<button class="navbar-close">
-					<svg class="h-6 w-12 text-gray-400 cursor-pointer hover:text-gray-500"
-						xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-						</path>
-					</svg>
-				</button>
-
-			</div>
-
-			<div>
-
-				<ul>
-					<li class="mb-1 border-b"><a th:href="@{/Users}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Users</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Brands}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Brands</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Products}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Products</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Customers}"
-							class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Categories}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Shipping}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Orders}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Report}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/Articles}"
-							class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a>
-					</li>
-					<li class="mb-1 border-b"><a th:href="@{/menu}"
-							class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">menu</a>
-					</li>
-					<li class="mb-5 border-b"><a th:href="@{/Settings}"
-							class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a>
-					</li>
-					<li class="relative">
-						<button class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded w-full flex items-center justify-between">
-							<span sec:authentication="principal.Fullname"></span>
-																	
-							<svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-								<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-							</svg>
-						</button>
-													
-						<form id="logoutForm"  th:action="@{/logout}" method="post">
-							<button type="submit" class="bg-blue-500 block  mt-3 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
-								Logout
-							</button>
-						</form>
-				</ul>
-			</div>
-			<p class="my-4 text-xs text-center text-gray-400">
-				<span> NexKart 2024</span>
-			</p>
-		</nav>
-
-
-	</div>
 	<style>
 		@media (max-width: 768px) {
 		         .manage-users {
@@ -336,7 +146,36 @@
 
 	<div th:if="${message != null}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative center" role="alert">
 		    <span class="block sm:inline">[[${message}]]</span>
-		</div>
+	</div>
+
+	<div class=" ml-10">
+		<form th:action="@{/users/page/1}" class=" p-6 w-full max-w-md">
+			<h2 class="text-lg font-semibold text-gray-700 mb-4">Filter Users</h2>
+			<div class="flex items-center space-x-2">
+				<input
+						type="search"
+						name="keyword"
+						th:value="${keyword }"
+						required
+						class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+						placeholder="Search..."
+				>
+				<button
+						type="submit"
+						class="px-4 py-2 bg-blue-600 text-white rounded-md  transition"
+				>
+					Search
+				</button>
+				<button
+						type="button"
+						class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md  transition"
+						onclick="clearFilter()"
+				>
+					Clear
+				</button>
+			</div>
+		</form>
+	</div>
 
 
 	<div class="pl-8 pr-8 mb-16">
@@ -386,6 +225,65 @@
 
 		</table>
 	</div>
+
+	<div class="flex justify-center items-center mb-20" th:if="${totalItems > 0}">
+		<span>Showing Users # [[${startcount}]] to [[${endcount}]] of [[${totalItems}]]</span>
+	</div>
+	<div class="flex justify-center items-center mb-20" th:unless="${totalItems > 0}">
+		<span>No User found</span>
+	</div>
+
+
+	<div class="flex justify-center items-center mb-20 " th:if="${totalPages > 1}" >
+	<nav >
+		<ul class="flex items-center -space-x-px h-8 text-sm">
+			<li>
+				<a th:href="@{'/users/page/' + ${currentpage - 1} + ${keyword != null ? '?keyword=' + keyword : ''} }"  class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+					<span class="sr-only">Previous</span>
+					<svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+					</svg>
+				</a>
+			</li>
+
+			<li>
+				<a th:href="@{/users/page/1} "  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
+			</li>
+
+			<!--Numbers below of the pages -->
+				<li th:each="i : ${#numbers.sequence(1, totalPages)}"
+					th:classappend="${currentpage == i} ? 'bg-blue-500 text-white border-blue-500' : 'bg-white text-blue-600 border-gray-300'"
+					class="px-3 h-8  border  hover:bg-blue-100 hover:text-blue-700 transition-all duration-200">
+
+					<a th:href="@{'/users/page/' + ${i} + ${keyword != null ? '?keyword=' + keyword : ''} }"
+					   class="flex items-center justify-center  h-8  w-full h-full">
+						[[${i}]]
+					</a>
+				</li>
+
+			<!--Numbers above of the pages -->
+			<li>
+				<a th:href="@{'/users/page/' + ${totalPages}}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
+			</li>
+			<li>
+				<a th:href="@{'/users/page/' + ${currentpage + 1} + ${keyword != null ? '?keyword=' + keyword : ''}}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+					<span class="sr-only">Next</span>
+					<svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+					</svg>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	</div>
+
+<script type="text/javascript" >
+
+	function clearFilter() {
+		window.location = "[[@{/users}]]";
+	}
+
+</script>
 
 
 </body>

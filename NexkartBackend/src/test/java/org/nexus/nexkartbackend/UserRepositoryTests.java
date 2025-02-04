@@ -3,6 +3,7 @@ package org.nexus.nexkartbackend;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,10 +17,14 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
 
 
 @DataJpaTest(showSql = false)
@@ -124,6 +129,41 @@ public class UserRepositoryTests {
         assertThat(countById).isNotNull().isGreaterThan(0);
     }
 
+    @Test
+    public void testListFirstPage() {
+        int pageNumber = 1;
+        int pageSize = 4;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+       Page<User>  page = repo.findAll(pageable);
+
+        List<User> listUsers = page.getContent();
+
+        listUsers.forEach(user -> System.out.println(user));
+
+        assertThat(listUsers.size()).isEqualTo(pageSize);
+
+    }
+
+
+    @Test
+    public void testSearchUser() {
+        String keyword = "chri";
+
+        int pageNumber = 0;
+        int pageSize = 4;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+        Page<User>  page = repo.findAll(keyword,pageable);
+
+        List<User> listUsers = page.getContent();
+
+        listUsers.forEach(user -> System.out.println(user));
+
+        assertThat(listUsers.size()).isGreaterThan(0);
+
+    }
 
 
 

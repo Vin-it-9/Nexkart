@@ -1,7 +1,6 @@
 package org.nexus.nexkartbackend.controller;
 
 
-import org.hibernate.tool.schema.spi.Exporter;
 import org.nexus.nexkartbackend.Exporter.UserCsvExporter;
 import org.nexus.nexkartbackend.Exporter.UserExcelExporter;
 import org.nexus.nexkartbackend.Exporter.UserPdfExporter;
@@ -11,9 +10,9 @@ import org.nexus.nexkartbackend.entity.User;
 import org.nexus.nexkartbackend.exception.UserNotFoundException;
 import org.nexus.nexkartbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.JsonPath;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,14 +34,41 @@ public class UserController {
 
     @Autowired
     private UserService service ;
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("/Users")
-    public String listAll(Model model) {
-        List<User> listUsers = service.listAll();
+    @GetMapping("/users")
+    public String ListFirstPage(Model model) {
+        return listPage(1,model,null);
+    }
+
+    @GetMapping("/users/page/{pageNum}")
+    public String listPage(@PathVariable (name = "pageNum") int pageNum, Model model , @Param("keyword") String keyword) {
+
+        Page<User> page = service.listByPage(pageNum,keyword);
+
+        List<User> listUsers = page.getContent();
+
+        long startcount = (pageNum - 1) * userService.USERS_PER_PAGE  + 1;
+        long endcount = startcount + userService.USERS_PER_PAGE - 1;
+
+        if(endcount > page.getTotalElements()) {
+            endcount = page.getTotalElements();
+        }
+
+        model.addAttribute("startcount", startcount);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("currentpage", pageNum);
+        model.addAttribute("endcount", endcount);
+        model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listUsers" , listUsers);
+        model.addAttribute("keyword", keyword);
 
         return "Users" ;
     }
+
+
+
 
     @GetMapping("/users/new")
     public String newUser(Model model) {
@@ -86,7 +112,7 @@ public class UserController {
 
         redirectAttributes.addFlashAttribute("message" , "User added successfully ");
 
-        return "redirect:/Users";
+        return "redirect:/users";
 
     }
 
@@ -108,7 +134,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message" , ex.getMessage());
 
         }
-        return "redirect:/Users";
+        return "redirect:/users";
 
     }
 
@@ -124,7 +150,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message" , ex.getMessage());
 
         }
-        return "redirect:/Users";
+        return "redirect:/users";
     }
 
 

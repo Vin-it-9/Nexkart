@@ -10,6 +10,9 @@ import org.nexus.nexkartbackend.entity.Role;
 import org.nexus.nexkartbackend.entity.User;
 import org.nexus.nexkartbackend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+    public static final int USERS_PER_PAGE = 4;
 
     @Autowired
     private UserRepository userRepo;
@@ -29,6 +34,17 @@ public class UserService {
 
     public List<User> listAll() {
         return (List<User>) userRepo.findAll();
+    }
+
+
+    public Page<User> listByPage(int pageNum, String keyword) {
+        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE);
+
+        if (keyword != null && !keyword.isEmpty()) {
+            return userRepo.findAll(keyword, pageable);
+        }
+
+        return userRepo.findAll(pageable);
     }
 
     public List<Role> listRoles() {
