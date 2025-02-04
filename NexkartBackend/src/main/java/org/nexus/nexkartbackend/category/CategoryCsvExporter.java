@@ -1,9 +1,9 @@
-package org.nexus.nexkartbackend.Category;
+package org.nexus.nexkartbackend.category;
+
 
 import java.io.IOException;
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletResponse;
 import org.nexus.nexkartbackend.Exporter.AbstractExporter;
 import org.nexus.nexkartbackend.entity.Category;
 import org.supercsv.io.CsvBeanWriter;
@@ -12,9 +12,8 @@ import org.supercsv.prefs.CsvPreference;
 
 
 public class CategoryCsvExporter extends AbstractExporter {
-    public void export(List<Category> listCategories, HttpServletResponse response)
+    public void export(List<Category> listCategories, jakarta.servlet.http.HttpServletResponse response)
             throws IOException {
-
         super.setResponseHeader(response, "text/csv", ".csv", "categories_");
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),

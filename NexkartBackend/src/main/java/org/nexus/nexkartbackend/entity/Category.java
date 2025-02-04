@@ -1,11 +1,10 @@
 package org.nexus.nexkartbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "categories")
@@ -15,43 +14,27 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 128, nullable = false, unique = true)
+    @Column(length = 128, nullable = false , unique = true)
     private String name;
 
-    @Column(length = 64, nullable = false, unique = true)
+    @Column(length = 64, nullable = true , unique = true)
     private String alias;
 
-    @Lob
-    @Column(nullable = true)
-    @JsonIgnore
-    private Blob image;
-
-    public Blob getImage() {
-        return image;
-    }
-
-    public void setImage(Blob image) {
-        this.image = image;
-    }
+    @Column(length = 128, nullable = true)
+    private String image;
 
     private boolean enabled;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
-    private Set<Category> children = new HashSet<Category>();
+    private Set<Category> children = new HashSet();
 
-
-    @Column(name = "all_parent_ids", length = 256, nullable = true)
-    private String allParentIDs;
 
     public Category() {
-    }
 
-    public Category(Integer id) {
-        this.id = id;
     }
 
     public Category(String name) {
@@ -64,19 +47,15 @@ public class Category {
         this(name);
         this.parent = parent;
     }
-
-    public Category(Integer id, String name, String alias) {
-        super();
+    public Category(Integer id) {
         this.id = id;
-        this.name = name;
-        this.alias = alias;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -96,6 +75,13 @@ public class Category {
         this.alias = alias;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public boolean isEnabled() {
         return enabled;
@@ -121,62 +107,10 @@ public class Category {
         this.children = children;
     }
 
-    public static Category copyIdAndName(Category category) {
-        Category copyCategory = new Category();
-        copyCategory.setId(category.getId());
-        copyCategory.setName(category.getName());
-
-        return copyCategory;
-    }
-
-    public static Category copyIdAndName(Integer id, String name) {
-        Category copyCategory = new Category();
-        copyCategory.setId(id);
-        copyCategory.setName(name);
-
-        return copyCategory;
-    }
-
-    public static Category copyFull(Category category) {
-        Category copyCategory = new Category();
-        copyCategory.setId(category.getId());
-        copyCategory.setName(category.getName());
-        copyCategory.setImage(category.getImage());
-        copyCategory.setAlias(category.getAlias());
-        copyCategory.setEnabled(category.isEnabled());
-        copyCategory.setHasChildren(category.getChildren().size() > 0);
-
-        return copyCategory;
-    }
-
-    public static Category copyFull(Category category, String name) {
-        Category copyCategory = Category.copyFull(category);
-        copyCategory.setName(name);
-
-        return copyCategory;
-    }
-
-    public boolean isHasChildren() {
-        return hasChildren;
-    }
-
-    public void setHasChildren(boolean hasChildren) {
-        this.hasChildren = hasChildren;
-    }
-
     @Transient
-    private boolean hasChildren;
-
-    @Override
-    public String toString() {
-        return this.name;
+    public String getImagePath() {
+        return "/category-images/" + this.id + "/" + this.image;
     }
 
-    public String getAllParentIDs() {
-        return allParentIDs;
-    }
 
-    public void setAllParentIDs(String allParentIDs) {
-        this.allParentIDs = allParentIDs;
-    }
 }
