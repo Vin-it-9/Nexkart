@@ -14,6 +14,7 @@ import org.supercsv.prefs.CsvPreference;
 public class CategoryCsvExporter extends AbstractExporter {
     public void export(List<Category> listCategories, jakarta.servlet.http.HttpServletResponse response)
             throws IOException {
+
         super.setResponseHeader(response, "text/csv", ".csv", "categories_");
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),

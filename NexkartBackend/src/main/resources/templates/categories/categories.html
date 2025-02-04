@@ -41,13 +41,32 @@
     </div>
 
     <!-- Search Form -->
-    <div class="mb-6">
-        <form th:action="@{/categories}" method="get" class="flex gap-2">
-            <input type="text" name="keyword" placeholder="Search categories..."
-                   class="flex-1 p-2 border rounded-lg" th:value="${keyword}">
-            <button type="submit" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg">
-                Search
-            </button>
+    <div class="">
+        <form th:action="@{/categories/page/1}" class=" p-6 w-full max-w-md">
+            <h2 class="text-lg font-semibold text-gray-700 mb-4">Filter Users</h2>
+            <div class="flex items-center space-x-2">
+                <input
+                        type="search"
+                        name="keyword"
+                        th:value="${keyword }"
+                        required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        placeholder="Search..."
+                >
+                <button
+                        type="submit"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-md  transition"
+                >
+                    Search
+                </button>
+                <button
+                        type="button"
+                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md  transition"
+                        onclick="clearFilter()"
+                >
+                    Clear
+                </button>
+            </div>
         </form>
     </div>
 
@@ -145,10 +164,61 @@
         </div>
     </div>
 
+    <div class="flex justify-center items-center mb-20 mt-16" th:if="${totalPages > 0}" >
+        <nav >
+            <ul class="flex items-center -space-x-px h-8 text-sm">
+                <li>
+                    <a th:href="@{'/categories/page/' + ${currentpage - 1} + ${keyword != null ? '?keyword=' + keyword : ''} }"  class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                        </svg>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/categories/page/1} "  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
+                </li>
+
+                <!--Numbers below of the pages -->
+                <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${currentpage == i} ? 'bg-blue-500 text-white border-blue-500' : 'bg-white text-blue-600 border-gray-300'"
+                    class="px-3 h-8  border  hover:bg-blue-100 hover:text-blue-700 transition-all duration-200">
+
+                    <a th:href="@{'/categories/page/' + ${i} + ${keyword != null ? '?keyword=' + keyword : ''} }"
+                       class="flex items-center justify-center  h-8  w-full h-full">
+                        [[${i}]]
+                    </a>
+                </li>
+
+                <!--Numbers above of the pages -->
+                <li>
+                    <a th:href="@{'/categories/page/' + ${totalPages}}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
+                </li>
+                <li>
+                    <a th:href="@{'/categories/page/' + ${currentpage + 1} + ${keyword != null ? '?keyword=' + keyword : ''}}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Next</span>
+                        <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
 </div>
 
 <script th:src="@{/js/common_form.js}"></script>
 <script th:src="@{/js/common_list.js}"></script>
+
+<script type="text/javascript" >
+
+    function clearFilter() {
+        window.location = "[[@{/categories}]]";
+    }
+
+</script>
 
 
 </body>

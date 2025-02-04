@@ -4,6 +4,9 @@ import org.nexus.nexkartbackend.Repository.CategoryRepository;
 import org.nexus.nexkartbackend.entity.Category;
 import org.nexus.nexkartbackend.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +15,8 @@ import java.util.Set;
 
 @Service
 public class CategoryService {
+
+    private static final int ROOT_CATEGORIES_PER_PAGE = 4;
 
     @Autowired
     private CategoryRepository repo;
@@ -32,6 +37,40 @@ public class CategoryService {
         return (List<Category>) repo.findAll();
     }
 
+
+
+    public List<Category> listByPage ( CategoryPageInfo categoryPageInfo ,int pageNum
+    , String keyword) {
+
+        Pageable pageable = PageRequest.of(pageNum - 1, ROOT_CATEGORIES_PER_PAGE);
+
+        Page<Category> pageCategories = null;
+
+        if (keyword != null && !keyword.isEmpty()) {
+           pageCategories = repo.search(keyword, pageable);
+        }
+        else {
+           pageCategories = repo.findRootCategories(pageable);
+        }
+
+        List<Category> rootCategories =  pageCategories.getContent();
+
+        categoryPageInfo.setTotalElements(pageCategories.getTotalElements());
+        categoryPageInfo.setTotalPages(pageCategories.getTotalPages());
+
+        if(keyword != null && !keyword.isEmpty()) {
+            List<Category> searchResult = pageCategories.getContent();
+            for(Category category : searchResult) {
+                category.setHasChildren(category.getChildren().size() > 0);
+            }
+
+            return searchResult;
+        }
+
+        else {
+            return rootCategories;
+        }
+    }
 
 
     public List<Category> listCategoriesUsedInForm() {

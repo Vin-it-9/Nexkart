@@ -6,6 +6,7 @@ import org.nexus.nexkartbackend.FileUploadUtil;
 import org.nexus.nexkartbackend.entity.Category;
 import org.nexus.nexkartbackend.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,12 +23,38 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/categories")
-    public String categories(Model model) {
+    @GetMapping("/categories/all")
+    public String Allcategories(Model model) {
         List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("categories", categories);
         return "categories/categories";
     }
+
+    @GetMapping("/categories")
+    public String categories( Model model) {
+       return listByPage(1,model,null);
+    }
+
+
+
+    @GetMapping("/categories/page/{pageNum}")
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model
+    ,@Param("keyword") String keyword ) {
+
+        CategoryPageInfo pageInfo = new CategoryPageInfo();
+        List<Category> categories = categoryService.listByPage(pageInfo,pageNum,keyword);
+
+
+        model.addAttribute("totalPages",pageInfo.getTotalPages());
+        model.addAttribute("totalItems" , pageInfo.getTotalElements());
+        model.addAttribute("currentpage" , pageNum);
+        model.addAttribute("keyword" , keyword);
+        model.addAttribute("categories", categories);
+
+        return "categories/categories";
+
+    }
+
 
 
     @GetMapping("/categories/new")
@@ -39,27 +66,6 @@ public class CategoryController {
 
         return "categories/category_form";
     }
-
-//    @PostMapping("/categories/save")
-//    public String saveCategory(Category category , @RequestParam("fileImage") MultipartFile multipartFile, RedirectAttributes redirectAttributes ) {
-//
-//
-//        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//        category.setImage(fileName);
-//
-//        Category savedcategory = categoryService.save(category);
-//        String uploadDir = "./category-images/" + savedcategory.getId();
-//        try {
-//            FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        redirectAttributes.addFlashAttribute("message", "Category saved successfully");
-//
-//        return "redirect:/categories";
-//
-//    }
 
     @PostMapping("/categories/save")
     public String saveCategory(Category category,
@@ -101,8 +107,6 @@ public class CategoryController {
             return "redirect:/categories";
         }
     }
-
-
 
     @GetMapping("/categories/export/csv")
     public void exportToCSV(HttpServletResponse response) throws IOException {
