@@ -44,7 +44,6 @@ public class CategoryController {
         CategoryPageInfo pageInfo = new CategoryPageInfo();
         List<Category> categories = categoryService.listByPage(pageInfo,pageNum,keyword);
 
-
         model.addAttribute("totalPages",pageInfo.getTotalPages());
         model.addAttribute("totalItems" , pageInfo.getTotalElements());
         model.addAttribute("currentpage" , pageNum);
@@ -85,7 +84,7 @@ public class CategoryController {
         }
 
         ra.addFlashAttribute("message", "The category has been saved successfully.");
-        return "redirect:/categories";
+        return "redirect:/categories/all";
     }
 
 

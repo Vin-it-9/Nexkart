@@ -25,6 +25,9 @@ public class Category {
 
     private boolean enabled;
 
+    @Column(name = "all_parent_ids", length = 256, nullable = true)
+    private String allParentIDs;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
@@ -161,6 +164,17 @@ public class Category {
         this.hasChildren = hasChildren;
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
 
+    public String getAllParentIDs() {
+        return allParentIDs;
+    }
+
+    public void setAllParentIDs(String allParentIDs) {
+        this.allParentIDs = allParentIDs;
+    }
 
 }

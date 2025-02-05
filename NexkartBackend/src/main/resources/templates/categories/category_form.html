@@ -63,11 +63,11 @@
           <select th:field="*{parent}"
                   class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 appearance-none bg-select-arrow bg-no-repeat bg-right-2">
             <option value="0">No Parent</option>
+
             <th:block th:each="cat : ${listCategories}">
-              <option th:value="${cat.id}" th:text="${cat.name}"
-                      th:selected="${category.parent != null and category.parent.id == cat.id}">
-              </option>
+              <option th:value="${cat.id}">[[${cat.name}]]</option>
             </th:block>
+
           </select>
         </div>
 

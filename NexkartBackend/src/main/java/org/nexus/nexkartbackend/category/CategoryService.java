@@ -21,7 +21,18 @@ public class CategoryService {
     @Autowired
     private CategoryRepository repo;
 
+//    public Category save(Category category) {
+//        return repo.save(category);
+//    }
+
     public Category save(Category category) {
+        Category parent = category.getParent();
+        if (parent != null) {
+            String allParentIds = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
+            allParentIds += String.valueOf(parent.getId()) + "-";
+            category.setAllParentIDs(allParentIds);
+        }
+
         return repo.save(category);
     }
 
@@ -73,27 +84,47 @@ public class CategoryService {
     }
 
 
-    public List<Category> listCategoriesUsedInForm() {
+//    public List<Category> listCategoriesUsedInForm() {
+//
+//        List<Category> categoriesUsedInForm = new ArrayList<>();
+//
+//        Iterable<Category> categoriesInDB = repo.findAll();
+//
+//        for (Category category : categoriesInDB) {
+//
+//            if (category.getParent() == null) {
+//                categoriesUsedInForm.add(new Category(category.getName()));
+//            }
+//
+//            Set<Category> children = category.getChildren();
+//
+//            for (Category subcategory : children) {
+//
+//                String name = "--" + subcategory.getName();
+//                categoriesUsedInForm.add(new Category(name));
+//
+//                listChildren(categoriesUsedInForm,subcategory,1);
+//
+//            }
+//        }
+//        return categoriesUsedInForm;
+//    }
 
+    public List<Category> listCategoriesUsedInForm() {
         List<Category> categoriesUsedInForm = new ArrayList<>();
 
         Iterable<Category> categoriesInDB = repo.findAll();
 
         for (Category category : categoriesInDB) {
-
-            if (category.getParent() == null) {
-                categoriesUsedInForm.add(new Category(category.getName()));
-            }
+            categoriesUsedInForm.add(Category.copyIdAndName(category));
 
             Set<Category> children = category.getChildren();
 
-            for (Category subcategory : children) {
+            for (Category subCategory : children) {
+                String name = "--" + subCategory.getName();
+                categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
 
-                String name = "--" + subcategory.getName();
-                categoriesUsedInForm.add(new Category(name));
-
-                listChildren(categoriesUsedInForm,subcategory,1);
-
+                listChildren(categoriesUsedInForm, subCategory, 1);
             }
         }
         return categoriesUsedInForm;
@@ -133,20 +164,6 @@ public class CategoryService {
         }
         repo.deleteById(id);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
