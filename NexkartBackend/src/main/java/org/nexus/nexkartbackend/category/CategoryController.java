@@ -42,6 +42,7 @@ public class CategoryController {
     ,@Param("keyword") String keyword ) {
 
         CategoryPageInfo pageInfo = new CategoryPageInfo();
+
         List<Category> categories = categoryService.listByPage(pageInfo,pageNum,keyword);
 
         model.addAttribute("totalPages",pageInfo.getTotalPages());

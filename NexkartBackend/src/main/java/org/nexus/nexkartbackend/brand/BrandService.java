@@ -3,8 +3,10 @@ package org.nexus.nexkartbackend.brand;
 
 import org.nexus.nexkartbackend.Repository.BrandRepository;
 import org.nexus.nexkartbackend.entity.Brand;
-import org.nexus.nexkartbackend.paging.PagingAndSortingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,20 @@ public class BrandService {
 
     public List<Brand> listAll() {
         return (List<Brand>) brandRepository.findAll();
+    }
+
+    public Page<Brand> listByPage(int pageNum , String keyword) {
+
+        Pageable pageable = PageRequest.of(pageNum - 1, BRANDS_PER_PAGE);
+
+        if(keyword != null) {
+
+            return brandRepository.findAll(keyword, pageable);
+
+        }
+
+        return brandRepository.findAll(pageable);
+
     }
 
 

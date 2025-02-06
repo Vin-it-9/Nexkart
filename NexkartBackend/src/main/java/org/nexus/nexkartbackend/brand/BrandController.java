@@ -6,6 +6,8 @@ import org.nexus.nexkartbackend.category.CategoryService;
 import org.nexus.nexkartbackend.entity.Brand;
 import org.nexus.nexkartbackend.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -27,14 +29,51 @@ public class BrandController {
         CategoryService categoryService;
 
 
+//    @GetMapping("/brands")
+//    public String listAll(Model model) {
+//        List<Brand> listBrands = brandService.listAll();
+//        model.addAttribute("listBrands", listBrands);
+//
+//        return "brands/brands";
+//
+//    }
+
     @GetMapping("/brands")
     public String listAll(Model model) {
-        List<Brand> listBrands = brandService.listAll();
+        return listByPage(1,model,null);
+    }
+
+
+
+    @GetMapping("brands/page/{pageNum}")
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model , @Param("keyword") String keyword) {
+
+        Page<Brand> page = brandService.listByPage(pageNum, keyword);
+        List<Brand> listBrands = page.getContent();
+
+        long startCount = (pageNum - 1) * BrandService.BRANDS_PER_PAGE + 1;
+
+        long endCount = startCount + BrandService.BRANDS_PER_PAGE - 1;
+
+        if(endCount > page.getTotalElements()) {
+            endCount = page.getTotalElements();
+        }
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("keyword" , keyword);
         model.addAttribute("listBrands", listBrands);
+
 
         return "brands/brands";
 
+
     }
+
+
 
     @GetMapping("/brands/new")
     public String newBrand(Model model) {
