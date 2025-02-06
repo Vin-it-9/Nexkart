@@ -87,11 +87,23 @@
               <span class="text-sm text-gray-500">Click to upload or drag and drop</span>
             </div>
           </div>
-          <div class="mt-4">
-            <img id="thumbnail" alt="Image preview"
-                 th:src="@{${category.imagePath}}"
-                 class="w-32 h-32 object-cover rounded-lg border shadow-sm hover:shadow-md transition-shadow">
+
+
+<!--          <div class="mt-4">-->
+<!--            <img id="thumbnail" alt="Image preview"-->
+<!--                 th:src="@{${category.imagePath}}"-->
+<!--                 class="w-32 h-32 object-cover rounded-lg border shadow-sm hover:shadow-md transition-shadow">-->
+<!--          </div>-->
+
+          <div class="mt-4 flex items-center justify-center">
+            <div class="w-40 h-40 flex items-center justify-center border rounded-lg overflow-hidden bg-gray-50 shadow-sm hover:shadow-md transition-shadow">
+              <img id="thumbnail" alt="Image preview"
+                   th:src="@{${category.imagePath}}"
+                   class="max-w-full max-h-full object-contain p-1" />
+            </div>
           </div>
+
+
         </div>
 
         <!-- Enabled Checkbox -->

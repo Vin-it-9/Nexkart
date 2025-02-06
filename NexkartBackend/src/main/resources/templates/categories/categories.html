@@ -93,11 +93,23 @@
             <!-- Otherwise, iterate through categories -->
             <tr th:each="cat : ${categories}" th:unless="${#lists.isEmpty(categories)}">
                 <td class="px-6 py-8" th:text="${cat.id}">null</td>
-                <td class="px-6 py-8">
-                    <!-- If imagePath is available, display image; otherwise, show "null" -->
-                    <img th:if="${cat.image != null}" th:src="@{${cat.getImagePath()}}" class="w-32 h-32 object-cover rounded">
-                    <span th:if="${cat.image == null}">null</span>
+
+<!--                <td class="px-6 py-8">-->
+<!--                    &lt;!&ndash; If imagePath is available, display image; otherwise, show "null" &ndash;&gt;-->
+<!--                    <img th:if="${cat.image != null}" th:src="@{${cat.getImagePath()}}" class="w-32 h-32 object-cover rounded">-->
+<!--                    <span th:if="${cat.image == null}">null</span>-->
+
+
+<!--                </td>-->
+
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="w-32 h-32 flex items-center justify-center overflow-hidden bg-gray-50 rounded border">
+                        <img th:src="@{${cat.getImagePath()}}"
+                             class="max-w-full max-h-full object-contain p-0.5"
+                             alt="category image" />
+                    </div>
                 </td>
+
                 <td class="px-6 py-4 font-medium text-gray-900"
                     th:text="${cat.name != null ? cat.name : 'null'}">null</td>
                 <td class="px-6 py-4 text-gray-500 hidden lg:table-cell"

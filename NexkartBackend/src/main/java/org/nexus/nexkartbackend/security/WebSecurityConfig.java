@@ -37,13 +37,34 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
+//    @Bean
+//    SecurityFilterChain configureHttp(HttpSecurity http) throws Exception {
+//        http.authenticationProvider(authenticationProvider());
+//
+//        http.authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/Users/**").hasAuthority("Admin")
+//                        .requestMatchers("/categories/**").hasAnyAuthority("Admin" , "Editor")
+//                        .requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .formLogin(form -> form
+//                        .loginPage("/login")
+//                        .usernameParameter("email")
+//                        .permitAll())
+//
+//                .logout(logout -> logout.permitAll());
+//
+//        return http.build();
+//    }
+
     @Bean
     SecurityFilterChain configureHttp(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/test/**").permitAll() // Allow access to all /test APIs without authentication
                         .requestMatchers("/Users/**").hasAuthority("Admin")
-                        .requestMatchers("/categories/**").hasAnyAuthority("Admin" , "Editor")
+                        .requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
                         .requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -56,6 +77,7 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
 
 
 
