@@ -3,6 +3,7 @@ package org.nexus.nexkartbackend.brand;
 
 import org.nexus.nexkartbackend.Repository.BrandRepository;
 import org.nexus.nexkartbackend.entity.Brand;
+import org.nexus.nexkartbackend.paging.PagingAndSortingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +13,22 @@ import java.util.NoSuchElementException;
 @Service
 public class BrandService {
 
+    public static final int BRANDS_PER_PAGE = 10;
+
     @Autowired
     private BrandRepository brandRepository;
+
+
 
     public List<Brand> listAll() {
         return (List<Brand>) brandRepository.findAll();
     }
 
+
     public Brand save(Brand brand) {
         return brandRepository.save(brand);
     }
+
 
     public Brand get(Integer id) throws BrandNotFoundException {
         try {

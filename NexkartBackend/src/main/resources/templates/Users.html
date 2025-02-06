@@ -211,15 +211,37 @@
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.lastName}"></td>
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.roles}"></td>
 
-					<td class="px-4 py-2 text-center border hover:bg-gray-200 " >
-						<a th:if="${user.enabled == true }" class="text-green-500 fa-regular fa-check-circle fa-2x "></a>
-						<a th:if="${user.enabled == false }" class="text-gray-500 fa-regular fa-check-circle fa-2x"></a>
+					<td class="px-4 py-2 text-center border hover:bg-gray-200">
+
+<!--						<a th:if="${user.enabled}" title="Enabled" class="text-green-500">-->
+<!--							<i class="fas fa-check-circle fa-2x"></i>-->
+<!--						</a>-->
+<!--						<a th:unless="${user.enabled}" title="Disabled" class="text-gray-500">-->
+<!--							<i class="fas fa-times-circle fa-2x"></i>-->
+<!--						</a>-->
+
+						<span th:if="${user.enabled}" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+             			   Enabled
+						</span>
+						<span th:unless="${user.enabled}" class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+							Disabled
+						</span>
 
 					</td>
-					<td class="px-4 py-2 text-left border hover:bg-gray-200">
-						<a th:href="@{'/users/edit/'+${user.id}}" title="Edit this User" class="text-green-600 hover:text-green-800 fa-solid fa-user-pen "></a>  
-						<a th:href="@{'/users/delete/'+${user.id}}" title="Delete This User"  class=" link-delete text-red-600 hover:text-red-800 	">Delete</a>
+
+					<td class="px-4 py-2 text-center border hover:bg-gray-200 space-x-3">
+						<!-- Edit Button -->
+						<a th:href="@{'/users/edit/' + ${user.id}}" title="Edit User" class="text-blue-600 hover:text-blue-800">
+							<i class="fas fa-edit "></i>
+						</a>
+
+						<!-- Delete Button -->
+						<a th:href="@{'/users/delete/' + ${user.id}}" title="Delete User" class="text-red-600 hover:text-red-800 link-delete">
+							<i class="fas fa-trash"></i>
+						</a>
 					</td>
+
+
 				</tr>
 			</tbody>
 

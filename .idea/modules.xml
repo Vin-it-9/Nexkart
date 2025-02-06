@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Nexkart.iml" filepath="$PROJECT_DIR$/.idea/Nexkart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NexkartBackend/NexkartBackend.iml" filepath="$PROJECT_DIR$/NexkartBackend/NexkartBackend.iml" />
     </modules>
   </component>
 </project>

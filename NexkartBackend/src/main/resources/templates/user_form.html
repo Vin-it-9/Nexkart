@@ -63,111 +63,123 @@
 		}
 	</style>
 	
-	
+
 	<div class="main">
-	<form th:action="@{/users/save}" enctype="multipart/form-data"  onsubmit="return checkEmailUnique(this);" th:object="${user}" method="post"
-		id="form" class="max-w-md mx-auto mt-8 z-5  shadow-md rounded px-8 pt-6 pb-8 mb-4 mb-16">
-		<input type="hidden" th:field = "*{id}">
-		<!-- Email input -->
-		<div class="mb-4">
-			<label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-				Email
-			</label>
-			<input
-				class="shadow appearance-none focus:bg-blue-50 border-b-2 border-gray-400 focus:border-blue-500 active:border-blue-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				id="email" th:field="*{email}" required minlength="8" maxlength="128" type="email"
-				placeholder="Enter your email">
-		</div>
-		<!-- First Name input -->
-		<div class="mb-4">
-			<label class="block text-gray-700 text-sm font-bold mb-2" for="first-name">
-				First Name
-			</label>
-			<input
-				class="shadow appearance-none focus:bg-blue-50 border-b-2 border-gray-400 focus:border-blue-500 active:border-blue-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				id="first-name" th:field="*{firstName}" required minlength="4" maxlength="50" type="text"
-				placeholder="Enter your first name">
-		</div>
-		<!-- Last Name input -->
-		<div class="mb-4">
-			<label class="block text-gray-700 text-sm font-bold mb-2" for="last-name">
-				Last Name
-			</label>
-			<input
-				class="shadow appearance-none focus:bg-blue-50 border-b-2 border-gray-400 focus:border-blue-500 active:border-blue-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				id="last-name" th:field="*{lastName}" required minlength="4" maxlength="50" type="text"
-				placeholder="Enter your last name">
-		</div>
-		<!-- Password input -->
-		<div class="mb-4">
-			<label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-				Password
-			</label>
-			<input
-				class="shadow appearance-none focus:bg-blue-50 border-b-2 border-gray-400 focus:border-blue-500 active:border-blue-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				id="password" th:if="${user.id == null}" th:field="*{password}" required minlength="4" maxlength="20" type="password"
-				placeholder="Enter your password">
-				
+		<form th:action="@{/users/save}" enctype="multipart/form-data" onsubmit="return checkEmailUnique(this);" th:object="${user}" method="post"
+			  id="form" class="max-w-md mx-auto mt-8 bg-white shadow-xl rounded-2xl px-8 pt-8 pb-8 mb-16 transition-all duration-300 hover:shadow-2xl">
+			<input type="hidden" th:field = "*{id}">
+
+			<!-- Email input -->
+			<div class="mb-6">
+				<label class="block text-gray-700 text-sm font-semibold mb-3" for="email">
+					Email Address
+				</label>
 				<input
-				class="shadow appearance-none focus:bg-blue-50 border-b-2 border-gray-400 focus:border-blue-500 active:border-blue-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				id="password" th:if="${user.id != null}" th:field="*{password}"  minlength="4" maxlength="20" type="password"
-				placeholder="Enter your password">
-		</div>
-		<!-- Roles checkboxes  -->
-		<div class="mb-4">
-			<label class="block text-gray-700 text-sm font-bold mb-2">
-				Roles
-			</label>
-
-			<div class="grid grid-cols-2 md:grid-cols-2 gap-3">
-				<th:block th:each="role : ${listRoles}">
-					<label class="flex items-center">
-						<input type="checkbox" th:field="*{roles}" th:value="${role.id}"
-							class="form-checkbox h-3 w-3 text-indigo-600">
-						<span class="ml-2 text-sm text-gray-800" th:text="${role.name}"></span>
-					</label>
-				</th:block>
+						class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 placeholder-gray-400"
+						id="email" th:field="*{email}" required minlength="8" maxlength="128" type="email"
+						placeholder="john.doe@example.com">
 			</div>
-		</div>
 
-		<!-- Enabled checkbox -->
-		<div class="mb-4">
-			<label for="enabled" class="text-gray-700 text-sm  font-bold mb-2 pr-4">Enabled</label>
-			<input type="checkbox" th:field="*{enabled}" id="enabled" name="enabled" class="mr-2 	h-3 w-3 ">
-		</div>
+			<!-- Name inputs in grid -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+				<div>
+					<label class="block text-gray-700 text-sm font-semibold mb-3" for="first-name">
+						First Name
+					</label>
+					<input
+							class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 placeholder-gray-400"
+							id="first-name" th:field="*{firstName}" required minlength="4" maxlength="50" type="text"
+							placeholder="John">
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-semibold mb-3" for="last-name">
+						Last Name
+					</label>
+					<input
+							class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 placeholder-gray-400"
+							id="last-name" th:field="*{lastName}" required minlength="4" maxlength="50" type="text"
+							placeholder="Doe">
+				</div>
+			</div>
 
+			<!-- Password input -->
+			<div class="mb-6">
+				<label class="block text-gray-700 text-sm font-semibold mb-3" for="password">
+					Password
+				</label>
+				<input
+						class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 placeholder-gray-400"
+						id="password" th:if="${user.id == null}" th:field="*{password}" required minlength="4" maxlength="20" type="password"
+						placeholder="••••••••">
+				<input
+						class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 placeholder-gray-400"
+						id="password" th:if="${user.id != null}" th:field="*{password}"  minlength="4" maxlength="20" type="password"
+						placeholder="••••••••">
+			</div>
 
-<!--		image input-->
-		<div class="flex flex-col items-center">
-			<input type="hidden" th:field="*{photos}">
-			<input type="file" id="fileImage" name="fileImage" accept="image/jpeg,image/png,image/bmp"
-				   class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
-			<img id="thumbnail" alt="Photo Preview" src="/default.png"
-				 class="mt-4 mb-5 w-40 h-40 object-cover border border-gray-300 rounded-lg shadow-md ">
-		</div>
+			<!-- Roles checkboxes -->
+			<div class="mb-6">
+				<label class="block text-gray-700 text-sm font-semibold mb-3">
+					User Roles
+				</label>
+				<div class="grid grid-cols-2 gap-4">
+					<th:block th:each="role : ${listRoles}">
+						<label class="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+							<input type="checkbox" th:field="*{roles}" th:value="${role.id}"
+								   class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+							<span class="text-sm text-gray-700" th:text="${role.name}"></span>
+						</label>
+					</th:block>
+				</div>
+			</div>
 
-		<!-- Submit button -->
-		<div class="flex items-center justify-evenly">
-			<button
-				class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-5 rounded focus:outline-none focus:shadow-outline"
-				type="submit">
-				Submit
-			</button>
-			<button
-				class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-				type="submit" id="buttonCancel">
-				Cancel
-			</button>
-		</div>
+			<!-- Enabled checkbox -->
+			<div class="mb-6 flex items-center">
+				<input type="checkbox" th:field="*{enabled}" id="enabled" name="enabled"
+					   class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+				<label for="enabled" class="ml-3 block text-sm text-gray-700 font-semibold">
+					Account Enabled
+				</label>
+			</div>
 
-	</form>
-	
+			<!-- Image upload -->
+			<div class="flex flex-col items-center mb-8">
+				<input type="hidden" th:field="*{photos}">
+				<div class="relative w-full">
+					<input type="file" id="fileImage" name="fileImage" accept="image/jpeg,image/png,image/bmp"
+						   class="opacity-0 absolute inset-0 w-full h-full cursor-pointer">
+					<label for="fileImage" class="block w-full bg-white border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-500 transition-colors duration-200 cursor-pointer">
+						<svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+						</svg>
+						<span class="mt-2 block text-sm font-semibold text-gray-600">Upload profile photo</span>
+						<span class="block text-xs text-gray-500 mt-1">PNG, JPG, BMP up to 5MB</span>
+					</label>
+				</div>
+				<img id="thumbnail" alt="Photo Preview" src="/default.png"
+					 class="mt-4 w-32 h-32 object-cover border-4 border-white rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+			</div>
+
+			<!-- Form actions -->
+			<div class="flex items-center justify-between mt-8">
+				<button
+						class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md"
+						type="submit">
+					Save Changes
+				</button>
+				<button
+						class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+						type="submit" id="buttonCancel">
+					Cancel
+				</button>
+			</div>
+		</form>
 	</div>
 	
 	
 	
-	
-	<script> 
+	<script>
+
 		$(document).ready(function() {
 					 $("#logoutLink").on("click" , function(e) {
 						e.preventDefault();

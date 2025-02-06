@@ -27,7 +27,6 @@ public class BrandController {
         CategoryService categoryService;
 
 
-
     @GetMapping("/brands")
     public String listAll(Model model) {
         List<Brand> listBrands = brandService.listAll();
@@ -88,6 +87,7 @@ public class BrandController {
         }
 
     }
+
     @GetMapping("/brands/delete/{id}")
     public String deleteBrand(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
             try {
