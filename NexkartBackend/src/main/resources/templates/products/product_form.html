@@ -91,7 +91,7 @@
 				<div th:replace="~{products/product_description :: content}"></div>
 			</div>
 			<div x-show="tab === 'images'" class="space-y-4">
-<!--				<div th:replace="~{products/product_images :: content}"></div>-->
+				<div th:replace="~{products/product_images :: content}"></div>
 			</div>
 			<div x-show="tab === 'details'" class="space-y-4">
 				<p class="text-gray-600">Details tab content here.</p>
@@ -127,10 +127,12 @@
 
 <script type="text/javascript">
 
-	let MAX_FILE_SIZE = 502400; // 500KB
-	const moduleURL = "[[@{/products}]]";
-	const brandModuleURL = "[[@{/brands}]]";
-	const checkUniqueUrl = "[[@{/products/check_unique}]]";
+	MAX_FILE_SIZE = 502400; // 500KB
+	moduleURL = "[[@{/products}]]";
+	 brandModuleURL = "[[@{/brands}]]";
+	 defaultImageThumbnailSrc = "[[@{/images/image-thumbnail.png}]]";
+	 checkUniqueUrl = "[[@{/products/check_unique}]]";
+
 
 </script>
 

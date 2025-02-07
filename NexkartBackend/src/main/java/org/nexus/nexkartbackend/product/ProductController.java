@@ -1,7 +1,6 @@
 package org.nexus.nexkartbackend.product;
 
 
-import jakarta.servlet.ServletRequest;
 import org.nexus.nexkartbackend.FileUploadUtil;
 import org.nexus.nexkartbackend.brand.BrandService;
 import org.nexus.nexkartbackend.category.CategoryService;
@@ -9,7 +8,6 @@ import org.nexus.nexkartbackend.entity.Brand;
 import org.nexus.nexkartbackend.entity.Product;
 import org.nexus.nexkartbackend.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -71,26 +68,72 @@ public class ProductController {
 //    }
 
     @PostMapping("/products/save")
-    public String saveProduct(Product product, Model model , RedirectAttributes redirectAttributes , @RequestParam("fileImage")MultipartFile multipartFile) throws IOException {
+    public String saveProduct(Product product, Model model , RedirectAttributes redirectAttributes
+            , @RequestParam("fileImage")MultipartFile mainImagemultipartFile
+            , @RequestParam("extraImage") MultipartFile [] extraImageMultiparts) throws IOException {
 
-        if(!multipartFile.isEmpty()) {
-            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            product.setMainImage(fileName);
+
+            setMainImageName(mainImagemultipartFile ,product);
+            setExtraImageNames(extraImageMultiparts,product);
 
             Product savedProduct = productService.save(product);
-            String uploadDir = "./product-images/" + savedProduct.getId();
 
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
-        }
+            saveUploadedImages(mainImagemultipartFile,extraImageMultiparts,savedProduct);
 
-        else {
-            productService.save(product);
-        }
+
 
         redirectAttributes.addFlashAttribute("message", "The Product has been Saved Successfully");
         return "redirect:/products";
 
+    }
+
+    private void saveUploadedImages(MultipartFile mainImagemultipartFile, MultipartFile[] extraImageMultiparts, Product savedProduct) throws IOException {
+
+        if(!mainImagemultipartFile.isEmpty()) {
+            String fileName = StringUtils.cleanPath(mainImagemultipartFile.getOriginalFilename());
+
+            String uploadDir = "./product-images/" + savedProduct.getId();
+
+            FileUploadUtil.cleanDir(uploadDir);
+            FileUploadUtil.saveFile(uploadDir,fileName,mainImagemultipartFile);
+
+        }
+        if(extraImageMultiparts.length > 0) {
+
+            String uploadDir = "./product-images/" + savedProduct.getId() + "/extras";
+
+            for (MultipartFile multipartFile : extraImageMultiparts) {
+                if (!multipartFile.isEmpty()) {
+                    continue;
+                }
+                String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+                FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+
+            }
+
+        }
+
+    }
+
+    private void setExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
+        if(extraImageMultiparts.length > 0) {
+            for (MultipartFile multipartFile : extraImageMultiparts) {
+                if(!multipartFile.isEmpty()) {
+                    String fileName =  StringUtils.cleanPath(multipartFile.getOriginalFilename());
+                    product.addExtraImage(fileName);
+                }
+            }
+        }
+
+
+    }
+
+    public void setMainImageName(MultipartFile mainImagemultipartFile ,Product product) {
+
+        if(!mainImagemultipartFile.isEmpty()) {
+            String fileName = StringUtils.cleanPath(mainImagemultipartFile.getOriginalFilename());
+            product.setMainImage(fileName);
+        }
     }
 
     @GetMapping("/products/{id}/enabled/{status}")
@@ -112,6 +155,11 @@ public class ProductController {
 
         try {
             productService.delete(id);
+            String productExtraImageDir = "./product-images/" + id + "/extras";
+            String productImageDir = "./product-images/" + id + "/extras";
+            FileUploadUtil.removeDir(productExtraImageDir);
+            FileUploadUtil.removeDir(productImageDir);
+
             redirectAttributes.addFlashAttribute("message", "The Product ID " + id + " has been Deleted");
         }
         catch (ProductNotFoundException e) {

@@ -154,6 +154,15 @@ public class ProductRepositoryTests {
 
     }
 
+    @Test
+    public void testSaveProductWithDetails() {
+        Integer id = 1;
+        Product  product = productRepository.findById(id).get();
+
+
+
+    }
+
 
 
 
