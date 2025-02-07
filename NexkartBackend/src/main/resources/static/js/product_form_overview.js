@@ -3,6 +3,7 @@ dropdownCategories = $("#category");
 
 $(document).ready(function() {
 
+	//
 	$("#shortDescription").richText();
 	$("#fullDescription").richText();
 
@@ -16,6 +17,7 @@ $(document).ready(function() {
 });
 
 function getCategoriesForNewForm() {
+
 	catIdField = $("#categoryId");
 	editMode = false;
 
@@ -38,25 +40,29 @@ function getCategories() {
 }
 
 function checkUnique(form) {
-	productId = $("#id").val();
-	productName = $("#name").val();
 
-	csrfValue = $("input[name='_csrf']").val();
+	let productId = $("#id").val();
+	let productName = $("#name").val();
+	let csrfValue = $("input[name='_csrf']").val();
 
-	params = { id: productId, name: productName, _csrf: csrfValue };
+	let params = { id: productId, name: productName, _csrf: csrfValue };
 
 	$.post(checkUniqueUrl, params, function(response) {
-		if (response == "OK") {
+		if (response === "OK") {
 			form.submit();
-		} else if (response == "Duplicate") {
-			showWarningModal("There is another product having the name " + productName);
+		} else if (response === "Duplicate") {
+			document.getElementById("warningMessage").textContent =
+				"There is another product with the name: " + productName;
+			document.getElementById("warningModal").classList.remove("hidden");
 		} else {
-			showErrorModal("Unknown response from server");
+			document.getElementById("warningMessage").textContent =
+				"Unknown response from server.";
+			document.getElementById("warningModal").classList.remove("hidden");
 		}
-
 	}).fail(function() {
-		showErrorModal("Could not connect to the server");
+		document.getElementById("warningMessage").textContent =
+			"Could not connect to the server.";
+		document.getElementById("warningModal").classList.remove("hidden");
 	});
-
 	return false;
-}	
+}

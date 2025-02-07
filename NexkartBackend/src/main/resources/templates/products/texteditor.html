@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RichText Editor Integration</title>
+
+    <!-- jQuery (Required) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- RichText CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/richtext.min.css">
+</head>
+<body>
+<!-- Textarea for the RichText Editor -->
+<textarea class="content" name="example"></textarea>
+
+<!-- RichText JS -->
+<script src="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/jquery.richtext.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.content').richText();
+    });
+</script>
+</body>
+</html>

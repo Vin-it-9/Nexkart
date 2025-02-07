@@ -1,6 +1,8 @@
 package org.nexus.nexkartbackend.brand;
 
 public class CategoryDTO {
+
+
     private Integer id;
     private String name;
 
