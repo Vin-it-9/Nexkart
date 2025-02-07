@@ -139,6 +139,23 @@ public class ProductRepositoryTests {
 
     }
 
+    @Test
+    public void testSavedProductWithImages() {
+        Integer id = 1;
+       Product  product = productRepository.findById(id).get();
+
+       product.setMainImage("main_image.jpg");
+       product.addExtraImage("extra_image.jpg");
+       product.addExtraImage("extra_image2.jpg");
+       product.addExtraImage("extra_image3.jpg");
+
+          Product saveProduct =  productRepository.save(product);
+         assertThat(saveProduct.getImages().size()).isEqualTo(3);
+
+    }
+
+
+
 
 }
 
