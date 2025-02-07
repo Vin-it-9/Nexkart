@@ -75,16 +75,15 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                 <tr th:each="product : ${listProducts}" class="hover:bg-gray-50 transition-colors">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" th:text="${product.id}"></td>
+
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="w-16 h-16 rounded-lg overflow-hidden border border-gray-200">
-                            <img th:if="${product.name}" th:src="@{${product.name}}"
-                                 alt="Product image" class="w-full h-full object-cover">
-                            <div th:unless="${product.name}"
-                                 class="w-full h-full bg-gray-100 flex items-center justify-center">
-                                <i class="fas fa-image text-gray-400"></i>
-                            </div>
+                        <div class="w-32 h-32 flex items-center justify-center overflow-hidden bg-gray-50 rounded border">
+                            <img th:src="@{${product.mainImagePath}}"
+                                 class="max-w-full max-h-full object-contain p-0.5"
+                                 alt="Brand Logo" />
                         </div>
                     </td>
+
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium" th:text="${product.name}"></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${product.brand.name}"></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${product.category.name}"></td>

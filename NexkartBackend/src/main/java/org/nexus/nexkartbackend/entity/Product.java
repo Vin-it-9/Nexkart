@@ -235,5 +235,15 @@ public class Product {
         this.images.add(new ProductImage(imageName,this));
     }
 
+    @Transient
+    public String getMainImagePath() {
+
+        if(id == null || mainImage == null){
+            return "default.jpg";
+        }
+
+        return "/product-images/" + this.id + "/" + this.mainImage;
+    }
+
 
 }
