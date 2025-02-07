@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag" class="space-y-6">
+
+	<!-- Informational Text -->
+	<div class="mb-4 text-gray-700">
+		The following information is important to calculate shipping cost for the product.<br>
+		The dimensions (L X W X H) are for the box that is used to package the product – not the product's dimensions.
+	</div>
+
+	<!-- Length Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Length (inch):</label>
+		<div class="col-span-9">
+			<input type="number" step="0.01"
+				   class="w-full border border-gray-300 rounded p-2"
+				   th:field="*{length}" />
+		</div>
+	</div>
+
+	<!-- Width Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Width (inch):</label>
+		<div class="col-span-9">
+			<input type="number" step="0.01"
+				   class="w-full border border-gray-300 rounded p-2"
+				   th:field="*{width}" />
+		</div>
+	</div>
+
+	<!-- Height Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Height (inch):</label>
+		<div class="col-span-9">
+			<input type="number" step="0.01"
+				   class="w-full border border-gray-300 rounded p-2"
+				   th:field="*{height}" />
+		</div>
+	</div>
+
+	<!-- Weight Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Weight (pounds):</label>
+		<div class="col-span-9">
+			<input type="number" step="0.01"
+				   class="w-full border border-gray-300 rounded p-2"
+				   th:field="*{weight}" />
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

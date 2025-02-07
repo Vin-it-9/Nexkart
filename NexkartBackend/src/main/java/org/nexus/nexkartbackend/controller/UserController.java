@@ -34,6 +34,7 @@ public class UserController {
 
     @Autowired
     private UserService service ;
+
     @Autowired
     private UserService userService;
 

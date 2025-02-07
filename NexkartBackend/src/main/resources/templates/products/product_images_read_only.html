@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag" class="p-4">
+	<!-- Responsive grid layout for images -->
+	<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+		<!-- Main Image -->
+		<div class="border p-4">
+			<div>
+				<label class="block text-gray-700 font-medium">
+					Main Image: [[${product.mainImage}]]
+				</label>
+			</div>
+			<div class="my-2">
+				<img alt="Main image preview" class="w-full h-auto"
+					 th:src="@{${product.mainImagePath}}" />
+			</div>
+		</div>
+
+		<!-- Extra Images -->
+		<th:block th:each="productImage, status : ${product.images}">
+			<div class="border p-4">
+				<div>
+					<label class="block text-gray-700 font-medium">
+						Extra Image #[[${status.index + 1}]]: [[${productImage.name}]]
+					</label>
+				</div>
+				<div class="my-2">
+					<img th:alt="'Extra image #' + ${status.index + 1} + ' preview'"
+						 class="w-full h-auto"
+						 th:src="@{${productImage.imagePath}}" />
+				</div>
+			</div>
+		</th:block>
+	</div>
+</div>
+</body>
+</html>

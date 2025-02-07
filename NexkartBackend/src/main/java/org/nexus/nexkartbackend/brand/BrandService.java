@@ -21,7 +21,6 @@ public class BrandService {
     private BrandRepository brandRepository;
 
 
-
     public List<Brand> listAll() {
         return (List<Brand>) brandRepository.findAll();
     }
@@ -63,6 +62,8 @@ public class BrandService {
         }
         brandRepository.deleteById(id);
     }
+
+
 }
 
 

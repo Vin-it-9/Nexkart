@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" id="divProductDetails" class="space-y-4">
+	<th:block th:each="detail, status : ${product.details}">
+		<div class="flex items-center space-x-4" th:id="'divDetail' + ${status.index}">
+			<input type="hidden" name="detailIDs" th:value="${detail.id}" />
+			<div class="w-1/4">
+				<label class="block text-gray-700 font-medium">Name:</label>
+				<input type="text" name="detailNames" class="w-full border border-gray-300 rounded p-2" maxlength="255"
+					   th:value="${detail.name}">
+			</div>
+			<div class="w-1/4">
+				<label class="block text-gray-700 font-medium">Value:</label>
+				<input type="text" name="detailValues" class="w-full border border-gray-300 rounded p-2" maxlength="255"
+					   th:value="${detail.value}">
+			</div>
+			<button type="button" class="text-red-500 hover:text-red-700">
+				<i class="fas fa-times-circle fa-2x"></i>
+			</button>
+		</div>
+	</th:block>
+
+	<!-- Blank Detail for Adding a New Entry -->
+	<div class="flex items-center space-x-4" th:id="'divDetail' + ${#lists.size(product.details)}">
+		<input type="hidden" name="detailIDs" value="0" />
+		<div class="w-1/4">
+			<label class="block text-gray-700 font-medium">Name:</label>
+			<input type="text" name="detailNames" class="w-full border border-gray-300 rounded p-2" maxlength="255">
+		</div>
+		<div class="w-1/4">
+			<label class="block text-gray-700 font-medium">Value:</label>
+			<input type="text" name="detailValues" class="w-full border border-gray-300 rounded p-2" maxlength="255">
+		</div>
+	</div>
+</div>
+</body>
+</html>

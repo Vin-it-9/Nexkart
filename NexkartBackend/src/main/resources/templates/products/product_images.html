@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag" class="p-4">
+	<!-- Use a responsive grid layout for product images -->
+	<div id="divProductImages" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+		<!-- Main Image -->
+		<div class="border p-4">
+			<div>
+				<label class="block text-gray-700">
+					Main Image: [[${product.mainImage}]]
+				</label>
+			</div>
+			<div class="my-2">
+				<img id="thumbnail" alt="Main image preview" class="w-full h-auto"
+					 th:src="@{${product.mainImagePath}}" />
+			</div>
+			<div>
+				<input type="file" id="fileImage" name="fileImage"
+					   th:required="${product.mainImage == null}"
+					   accept="image/png, image/jpeg"
+					   class="block w-full text-gray-700" />
+			</div>
+			<input type="hidden" th:field="*{mainImage}" />
+		</div>
+
+		<!-- Extra Images (Iterated) -->
+		<th:block th:each="productImage, status : ${product.images}">
+			<div class="border p-4" th:id="'divExtraImage' + ${status.index}">
+				<div class="flex justify-between items-center">
+					<label class="text-gray-700">
+						Extra Image #[[${status.index + 1}]]: [[${productImage.name}]]
+					</label>
+					<a name="linkRemoveExtraImage" class="text-red-600 hover:text-red-800" title="Remove this image">
+						<i class="fas fa-times-circle fa-2x"></i>
+					</a>
+				</div>
+				<div class="my-2">
+					<img th:id="'extraThumbnail' + ${status.index}"
+						 th:alt="'Extra image #' + ${status.index + 1} + ' preview'"
+						 class="w-full h-auto"
+						 th:src="@{${productImage.imagePath}}" />
+				</div>
+				<div>
+					<input type="file" name="extraImage"
+						   accept="image/png, image/jpeg"
+						   class="block w-full text-gray-700" />
+				</div>
+				<input type="hidden" name="imageIDs"
+					   th:id="'imageId' + ${status.index}"
+					   th:value="${productImage.id}" />
+				<input type="hidden" name="imageNames"
+					   th:id="'imageName' + ${status.index}"
+					   th:value="${productImage.name}" />
+			</div>
+		</th:block>
+
+		<!-- Placeholder for an Additional Extra Image -->
+		<div class="border p-4" th:id="'divExtraImage' + ${numberOfExistingExtraImages}">
+			<div th:id="'extraImageHeader' + ${numberOfExistingExtraImages}">
+				<label class="text-gray-700">
+					Extra Image #[[${numberOfExistingExtraImages + 1}]]:
+				</label>
+			</div>
+			<div class="my-2">
+				<img th:id="'extraThumbnail' + ${numberOfExistingExtraImages}"
+					 th:alt="'Extra image' + ${numberOfExistingExtraImages} + ' preview'"
+					 class="w-full h-auto"
+					 th:src="@{/images/image-thumbnail.png}" />
+			</div>
+			<div>
+				<input type="file" name="extraImage"
+					   accept="image/png, image/jpeg"
+					   class="block w-full text-gray-700" />
+			</div>
+		</div>
+
+	</div>
+</div>
+</body>
+</html>

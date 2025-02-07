@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag" class="space-y-4">
+	<!-- Length Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Length (inch):</label>
+		<div class="col-span-9">
+			<input type="text"
+				   th:value="${product.length}"
+				   readonly
+				   class="w-full border border-gray-300 rounded p-2 bg-gray-100" />
+		</div>
+	</div>
+
+	<!-- Width Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Width (inch):</label>
+		<div class="col-span-9">
+			<input type="text"
+				   th:value="${product.width}"
+				   readonly
+				   class="w-full border border-gray-300 rounded p-2 bg-gray-100" />
+		</div>
+	</div>
+
+	<!-- Height Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Height (inch):</label>
+		<div class="col-span-9">
+			<input type="text"
+				   th:value="${product.height}"
+				   readonly
+				   class="w-full border border-gray-300 rounded p-2 bg-gray-100" />
+		</div>
+	</div>
+
+	<!-- Weight Field -->
+	<div class="grid grid-cols-12 gap-4 items-center">
+		<label class="col-span-3 text-gray-700 font-medium">Weight (pounds):</label>
+		<div class="col-span-9">
+			<input type="text"
+				   th:value="${product.weight}"
+				   readonly
+				   class="w-full border border-gray-300 rounded p-2 bg-gray-100" />
+		</div>
+	</div>
+
+</div>
+</body>
+</html>
