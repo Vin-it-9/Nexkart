@@ -7,7 +7,6 @@ import org.nexus.nexkartbackend.entity.Product;
 @Entity
 public class ProductImage {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,8 +23,8 @@ public class ProductImage {
     }
 
     public ProductImage(String name , Product product) {
-        this.id = id;
         this.name = name;
+        this.product = product;
     }
 
     public Integer getId() {
