@@ -97,15 +97,8 @@
 				padding-right: 0.75rem;
 			}
 		}
-
-
-
-
 	</style>
-
-
 </head>
-
 <body class="" >
 	
 	<form  th:action="@{/logout}" method="post" th:hidden="true"
@@ -114,7 +107,6 @@
 	</form>
 
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
-
 	<!-- content part from here  -->
 	<div class="flex justify-between items-center manage-users  p-8 rounded-lg ">
 	    <div class="flex items-center">
@@ -135,7 +127,6 @@
 	    </a>
 	</div>
 
-
 	<div th:if="${message != null}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative center" role="alert">
 		    <span class="block sm:inline">[[${message}]]</span>
 	</div>
@@ -144,31 +135,16 @@
 		<form th:action="@{/users/page/1}" class=" p-6 w-full max-w-md">
 			<h2 class="text-lg font-semibold text-gray-700 mb-4">Filter Users</h2>
 			<div class="flex items-center space-x-2">
-				<input
-						type="search"
-						name="keyword"
-						th:value="${keyword }"
-						required
-						class="w-full px-4 py-2 border border-gray-300 rounded-lg"
-						placeholder="Search..."
-				>
-				<button
-						type="submit"
-						class="px-4 py-2 bg-blue-600 text-white rounded-md  transition"
-				>
+				<input type="search" name="keyword" th:value="${keyword }" required class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Search..." >
+				<button 	type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md  transition">
 					Search
 				</button>
-				<button
-						type="button"
-						class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md  transition"
-						onclick="clearFilter()"
-				>
+				<button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md  transition" onclick="clearFilter()" >
 					Clear
 				</button>
 			</div>
 		</form>
 	</div>
-
 
 	<div class="pl-8 pr-8 mb-16">
 		<table class="w-full border border-collapse ">
@@ -204,21 +180,12 @@
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.roles}"></td>
 
 					<td class="px-4 py-2 text-center border hover:bg-gray-200">
-
-<!--						<a th:if="${user.enabled}" title="Enabled" class="text-green-500">-->
-<!--							<i class="fas fa-check-circle fa-2x"></i>-->
-<!--						</a>-->
-<!--						<a th:unless="${user.enabled}" title="Disabled" class="text-gray-500">-->
-<!--							<i class="fas fa-times-circle fa-2x"></i>-->
-<!--						</a>-->
-
 						<span th:if="${user.enabled}" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
              			   Enabled
 						</span>
 						<span th:unless="${user.enabled}" class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
 							Disabled
 						</span>
-
 					</td>
 
 					<td class="px-4 py-2 text-center border hover:bg-gray-200 space-x-3">
@@ -226,17 +193,13 @@
 						<a th:href="@{'/users/edit/' + ${user.id}}" title="Edit User" class="text-blue-600 hover:text-blue-800">
 							<i class="fas fa-edit "></i>
 						</a>
-
 						<!-- Delete Button -->
 						<a th:href="@{'/users/delete/' + ${user.id}}" title="Delete User" class="text-red-600 hover:text-red-800 link-delete">
 							<i class="fas fa-trash"></i>
 						</a>
 					</td>
-
-
 				</tr>
 			</tbody>
-
 		</table>
 	</div>
 
@@ -246,7 +209,6 @@
 	<div class="flex justify-center items-center mb-20" th:unless="${totalItems > 0}">
 		<span>No User found</span>
 	</div>
-
 
 	<div class="flex justify-center items-center mb-20 " th:if="${totalPages > 1}" >
 	<nav >
@@ -298,7 +260,5 @@
 	}
 
 </script>
-
-
 </body>
 </html>

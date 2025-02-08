@@ -4,15 +4,11 @@
 <div th:fragment="content" th:remove="tag" class="p-4 space-y-4">
 	<div>
 		<label class="block text-gray-700 font-medium mb-2">Short Description:</label>
-		<textarea class="w-full border border-gray-300 rounded p-2"
-				  th:field="*{shortDescription}"
-				  rows="3" required></textarea>
+		<textarea class="w-full border border-gray-300 rounded p-2" th:field="*{shortDescription}"   rows="3" required></textarea>
 	</div>
 	<div>
 		<label class="block text-gray-700 font-medium mb-2">Full Description:</label>
-		<textarea class="w-full border border-gray-300 rounded p-2"
-				  th:field="*{fullDescription}"
-				  rows="6" required></textarea>
+		<textarea class="w-full border border-gray-300 rounded p-2" th:field="*{fullDescription}" rows="6" required></textarea>
 	</div>
 </div>
 </body>
