@@ -61,7 +61,7 @@ public class Product {
     @OneToMany(mappedBy = "product" , cascade = CascadeType.ALL)
     private Set<ProductImage> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "product" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductDetail> details = new ArrayList<>();
 
     public Integer getId() {
@@ -235,6 +235,8 @@ public class Product {
     public void addExtraImage(String imageName){
         this.images.add(new ProductImage(imageName,this));
     }
+    
+
 
     @Transient
     public String getMainImagePath() {
@@ -256,6 +258,10 @@ public class Product {
 
     public void addDetail(String name,String value){
         this.details.add(new ProductDetail(name,value,this));
+    }
+
+    public void addDetail(Integer id, String name, String value) {
+        this.details.add(new ProductDetail(id, name, value, this));
     }
 
 

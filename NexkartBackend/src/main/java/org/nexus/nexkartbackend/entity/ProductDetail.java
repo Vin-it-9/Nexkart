@@ -4,6 +4,7 @@ package org.nexus.nexkartbackend.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "product_details")
 public class ProductDetail {
 
     @Id
@@ -12,6 +13,7 @@ public class ProductDetail {
 
     @Column(nullable = false, length = 255)
     private String name;
+
     @Column(nullable = false, length = 255)
     private String value;
 
@@ -20,7 +22,14 @@ public class ProductDetail {
     private Product product;
 
     public ProductDetail() {
+    }
 
+    public ProductDetail(Integer id, String name, String value, Product product) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.product = product;
     }
 
     public ProductDetail(String name, String value, Product product) {
