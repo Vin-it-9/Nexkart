@@ -159,7 +159,11 @@ public class ProductRepositoryTests {
         Integer id = 1;
         Product  product = productRepository.findById(id).get();
 
+        product.addDetail("Device Memory" , "128GB");
+        product.addDetail("CPU Model" , "Intel i5");
 
+        Product savedProduct = productRepository.save(product);
+        assertThat(savedProduct.getDetails()).isNotNull();
 
     }
 

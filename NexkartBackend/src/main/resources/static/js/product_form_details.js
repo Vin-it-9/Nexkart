@@ -8,33 +8,34 @@ $(document).ready(function() {
 });
 
 function addNextDetailSection() {
-	allDivDetails = $("[id^='divDetail']");
-	divDetailsCount = allDivDetails.length;
 
-	htmlDetailSection = `
-		<div class="form-inline" id="divDetail${divDetailsCount}">
-			<input type="hidden" name="detailIDs" value="0" />
-			<label class="m-3">Name:</label>
-			<input type="text" class="form-control w-25" name="detailNames" maxlength="255" />
-			<label class="m-3">Value:</label>
-			<input type="text" class="form-control w-25" name="detailValues" maxlength="255" />
-		</div>
-	`;
+	var allDivDetails = $("[id^='divDetail']");
+	var divDetailsCount = allDivDetails.length;
+
+	var htmlDetailSection = `
+        <div class="flex items-center space-x-4" id="divDetail${divDetailsCount}">
+            <input type="hidden" name="detailIDs" value="0" />
+            <div class="w-1/4">
+                <label class="block text-gray-700 font-medium">Name:</label>
+                <input type="text" name="detailNames"
+                       class="w-full border border-gray-300 rounded p-2" maxlength="255" />
+            </div>
+            <div class="w-1/4">
+                <label class="block text-gray-700 font-medium">Value:</label>
+                <input type="text" name="detailValues"
+                       class="w-full border border-gray-300 rounded p-2" maxlength="255" />
+            </div>
+            <button type="button"
+                    class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded"
+                    onclick="removeDetailSectionById('divDetail${divDetailsCount}')">
+                <i class="fas fa-times-circle"></i>
+            </button>
+        </div>
+    `;
 
 	$("#divProductDetails").append(htmlDetailSection);
 
-	previousDivDetailSection = allDivDetails.last();
-	previousDivDetailID = previousDivDetailSection.attr("id");
-
-	htmlLinkRemove = `
-		<a class="btn fas fa-times-circle fa-2x icon-dark"
-			href="javascript:removeDetailSectionById('${previousDivDetailID}')"
-			title="Remove this detail"></a>
-	`;
-
-	previousDivDetailSection.append(htmlLinkRemove);
-
-	$("input[name='detailNames']").last().focus();
+	$(`#divDetail${divDetailsCount} input[name='detailNames']`).focus();
 }
 
 function removeDetailSectionById(id) {
