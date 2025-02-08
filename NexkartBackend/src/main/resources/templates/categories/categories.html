@@ -9,57 +9,40 @@
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link th:href="@{https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="nav.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/animation.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/animation.css">
 
-
 </head>
 <body class="">
 <!-- Navigation -->
-
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-
-
 <div class="container mx-auto p-4 mt-5">
 
     <div th:if="${message != null}" class="bg-green-100 mb-5 border border-green-400 text-green-700 px-4 py-3 rounded relative center" role="alert">
         <span class="block sm:inline">[[${message}]]</span>
     </div>
-
     <!-- Header Section with Centered Search -->
     <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
-
         <!-- Title -->
         <h1 class="text-2xl font-bold text-gray-800">Manage Categories</h1>
-
         <!-- Centered Search Form -->
         <form th:action="@{/categories/page/1}" class="flex-grow flex justify-center">
             <div class="relative w-full max-w-lg flex items-center space-x-2 bg-white border border-gray-300 rounded-lg px-3 py-0">
-                <input type="search"
-                       name="keyword"
-                       th:value="${keyword}"
-                       required
-                       class="w-full px-3 py-2 border-none outline-none focus:ring-0"
-                       placeholder="Search categories...">
-
+                <input type="search" name="keyword" th:value="${keyword}" required class="w-full px-3 py-2 border-none outline-none focus:ring-0" placeholder="Search categories...">
                 <!-- Search Button -->
-                <button type="submit"
-                        class="px-3 py-1 bg-blue-600 text-white rounded-md transition hover:bg-blue-700">
+                <button type="submit" class="px-3 py-1 bg-blue-600 text-white rounded-md transition hover:bg-blue-700">
                     <i class="fas fa-search"></i>
                 </button>
-
                 <!-- Clear Button -->
-                <button type="button"
-                        class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md transition hover:bg-gray-400"
-                        onclick="clearFilter()">
+                <button type="button" class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md transition hover:bg-gray-400" onclick="clearFilter()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
         </form>
-
         <!-- Action Buttons -->
         <div class="space-x-3 flex">
             <a th:href="@{/categories/new}" class="bg-blue-700 hover:bg-blue-600 text-white p-2 rounded-lg flex items-center">
@@ -70,8 +53,6 @@
             </a>
         </div>
     </div>
-
-
     <!-- Categories Table -->
     <div class="bg-white  shadow overflow-hidden">
         <!-- Desktop Table -->
@@ -86,7 +67,6 @@
                 <th class="px-6 py-3 text-left text-sm font-medium ">Actions</th>
             </tr>
             </thead>
-
             <tbody class="divide-y divide-gray-200">
             <!-- If no categories exist, show a row with "null" -->
             <tr th:if="${#lists.isEmpty(categories)}">
@@ -95,15 +75,6 @@
             <!-- Otherwise, iterate through categories -->
             <tr th:each="cat : ${categories}" th:unless="${#lists.isEmpty(categories)}">
                 <td class="px-6 py-8" th:text="${cat.id}">null</td>
-
-<!--                <td class="px-6 py-8">-->
-<!--                    &lt;!&ndash; If imagePath is available, display image; otherwise, show "null" &ndash;&gt;-->
-<!--                    <img th:if="${cat.image != null}" th:src="@{${cat.getImagePath()}}" class="w-32 h-32 object-cover rounded">-->
-<!--                    <span th:if="${cat.image == null}">null</span>-->
-
-
-<!--                </td>-->
-
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="w-32 h-32 flex items-center justify-center overflow-hidden bg-gray-50 rounded border">
                         <img th:src="@{${cat.getImagePath()}}"
@@ -111,40 +82,30 @@
                              alt="category image" />
                     </div>
                 </td>
-
                 <td class="px-6 py-4 font-medium text-gray-900"
                     th:text="${cat.name != null ? cat.name : 'null'}">null</td>
                 <td class="px-6 py-4 text-gray-500 hidden lg:table-cell"
                     th:text="${cat.alias != null ? cat.alias : 'null'}">null</td>
                 <td class="px-6 py-4">
-
               <span th:if="${cat.enabled}" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
                 Enabled
               </span>
                     <span th:unless="${cat.enabled}" class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
                 Disabled
               </span>
-
                 </td>
-
                 <td class="px-6 py-4 space-x-2">
-
                     <a th:href="@{/categories/edit/{id}(id=${cat.id})}" class="text-blue-500 hover:text-blue-600">
                         <i class="fas fa-edit"></i>
                     </a>
-
                     <th:block th:if="${cat.hasChildren == false}">
                        <a title="Delete this category" class="fas fa-trash link-delete" th:href="@{'/categories/delete/' + ${cat.id}}"
                         th:entityId = "${cat.id}" ></a>
                     </th:block>
-
                 </td>
-
-
             </tr>
             </tbody>
         </table>
-
         <!-- Mobile List -->
         <div class="md:hidden space-y-4 p-4">
             <div th:if="${#lists.isEmpty(categories)}" class="bg-gray-50 p-4 rounded-lg text-center">
@@ -180,7 +141,6 @@
             </div>
         </div>
     </div>
-
     <div class="flex justify-center items-center mb-20 mt-16" th:if="${totalPages > 0}" >
         <nav >
             <ul class="flex items-center -space-x-px h-8 text-sm">
@@ -196,18 +156,15 @@
                 <li>
                     <a th:href="@{/categories/page/1} "  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
                 </li>
-
                 <!--Numbers below of the pages -->
                 <li th:each="i : ${#numbers.sequence(1, totalPages)}"
                     th:classappend="${currentpage == i} ? 'bg-blue-500 text-white border-blue-500' : 'bg-white text-blue-600 border-gray-300'"
                     class="px-3 h-8  border  hover:bg-blue-100 hover:text-blue-700 transition-all duration-200">
-
                     <a th:href="@{'/categories/page/' + ${i} + ${keyword != null ? '?keyword=' + keyword : ''} }"
                        class="flex items-center justify-center  h-8  w-full h-full">
                         [[${i}]]
                     </a>
                 </li>
-
                 <!--Numbers above of the pages -->
                 <li>
                     <a th:href="@{'/categories/page/' + ${totalPages}}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
@@ -223,22 +180,13 @@
             </ul>
         </nav>
     </div>
-
-
-
 </div>
-
 <script th:src="@{/js/common_form.js}"></script>
 <script th:src="@{/js/common_list.js}"></script>
-
 <script type="text/javascript" >
-
     function clearFilter() {
         window.location = "[[@{/categories}]]";
     }
-
 </script>
-
-
 </body>
 </html>
