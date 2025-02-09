@@ -88,7 +88,7 @@
 
 			<div x-show="tab === 'details'" id="details" class="space-y-4">
 				<!-- Inject the product details fragment -->
-				<div th:replace="products/product_details :: content"></div>
+				<div th:replace="~{products/product_details :: content}"></div>
 				<div>
 					<button type="button"
 							class="bg-blue-600 hover:bg-blue-700 text-white  py-2 px-4 rounded"
