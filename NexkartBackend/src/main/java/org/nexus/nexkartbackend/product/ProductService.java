@@ -5,6 +5,9 @@ import org.nexus.nexkartbackend.entity.Product;
 import org.nexus.nexkartbackend.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +20,7 @@ import java.util.NoSuchElementException;
 public class ProductService {
 
 
-    public static final int PRODUCTS_PER_PAGE = 5;
+    public static final int PRODUCTS_PER_PAGE = 4;
 
 
     @Autowired
@@ -150,6 +153,17 @@ public class ProductService {
         } catch (NoSuchElementException ex) {
             throw new ProductNotFoundException("Could not find any product with ID " + id);
         }
+    }
+
+    public Page<Product> listByPage(int pageNum, String keyword) {
+
+        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
+
+        if (keyword != null) {
+            return productRepository.findAll(keyword, pageable);
+        }
+
+        return productRepository.findAll(pageable);
     }
 
 

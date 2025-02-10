@@ -1,5 +1,6 @@
 package org.nexus.nexkartbackend.category;
 
+import jakarta.transaction.Transactional;
 import org.nexus.nexkartbackend.Repository.CategoryRepository;
 import org.nexus.nexkartbackend.entity.Category;
 import org.nexus.nexkartbackend.exception.CategoryNotFoundException;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class CategoryService {
 
     private static final int ROOT_CATEGORIES_PER_PAGE = 4;

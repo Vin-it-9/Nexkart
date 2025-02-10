@@ -1,6 +1,7 @@
 package org.nexus.nexkartbackend.brand;
 
 
+import jakarta.transaction.Transactional;
 import org.nexus.nexkartbackend.Repository.BrandRepository;
 import org.nexus.nexkartbackend.entity.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class BrandService {
 
     public static final int BRANDS_PER_PAGE = 10;

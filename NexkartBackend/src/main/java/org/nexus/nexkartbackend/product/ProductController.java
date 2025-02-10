@@ -10,6 +10,8 @@ import org.nexus.nexkartbackend.exception.ProductNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -41,16 +43,50 @@ public class ProductController {
     private CategoryService categoryService;
 
 
+
     @GetMapping("/products")
-    public String getProduct(Model model) {
+    public String listFirstPage(Model model) {
+        return listByPage(1, model, null);
+    }
 
-        List<Product> listProducts = productService.listAll();
+    @GetMapping("/products/page/{pageNum}")
+    public String listByPage(
+            @PathVariable(name = "pageNum") int pageNum, Model model,
+            @Param("keyword") String keyword
+    ) {
+        Page<Product> page = productService.listByPage(pageNum , keyword);
+        List<Product> listProducts = page.getContent();
 
+        long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
+        long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
+        if (endCount > page.getTotalElements()) {
+            endCount = page.getTotalElements();
+        }
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("keyword", keyword);
         model.addAttribute("listProducts", listProducts);
 
         return "products/products";
-
     }
+
+
+
+
+//    @GetMapping("/products")
+//    public String getProduct(Model model) {
+//
+//        List<Product> listProducts = productService.listAll();
+//
+//        model.addAttribute("listProducts", listProducts);
+//
+//        return "products/products";
+//
+//    }
 
     @GetMapping("/products/new")
     public String newProduct(Model model) {
