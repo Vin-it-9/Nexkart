@@ -155,12 +155,35 @@ public class ProductService {
         }
     }
 
-    public Page<Product> listByPage(int pageNum, String keyword) {
+//    public Page<Product> listByPage(int pageNum, String keyword) {
+//
+//        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
+//
+//        if (keyword != null) {
+//            return productRepository.findAll(keyword, pageable);
+//        }
+//
+//        return productRepository.findAll(pageable);
+//    }
+
+    public Page<Product> listByPage(int pageNum,
+                                    String keyword, Integer categoryId) {
+
 
         Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
 
-        if (keyword != null) {
+        if (keyword != null && !keyword.isEmpty()) {
+            if (categoryId != null && categoryId > 0) {
+                String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+                return productRepository.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
+            }
+
             return productRepository.findAll(keyword, pageable);
+        }
+
+        if (categoryId != null && categoryId > 0) {
+            String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+            return productRepository.findAllInCategory(categoryId, categoryIdMatch, pageable);
         }
 
         return productRepository.findAll(pageable);

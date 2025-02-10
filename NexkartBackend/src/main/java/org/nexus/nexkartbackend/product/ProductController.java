@@ -5,6 +5,7 @@ import org.nexus.nexkartbackend.FileUploadUtil;
 import org.nexus.nexkartbackend.brand.BrandService;
 import org.nexus.nexkartbackend.category.CategoryService;
 import org.nexus.nexkartbackend.entity.Brand;
+import org.nexus.nexkartbackend.entity.Category;
 import org.nexus.nexkartbackend.entity.Product;
 import org.nexus.nexkartbackend.exception.ProductNotFoundException;
 import org.slf4j.Logger;
@@ -46,22 +47,52 @@ public class ProductController {
 
     @GetMapping("/products")
     public String listFirstPage(Model model) {
-        return listByPage(1, model, null);
+        return listByPage(1, model, null,0);
     }
+
+//    @GetMapping("/products/page/{pageNum}")
+//    public String listByPage(
+//            @PathVariable(name = "pageNum") int pageNum, Model model,
+//            @Param("keyword") String keyword
+//    ) {
+//        Page<Product> page = productService.listByPage(pageNum , keyword);
+//        List<Product> listProducts = page.getContent();
+//
+//        long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
+//        long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
+//        if (endCount > page.getTotalElements()) {
+//            endCount = page.getTotalElements();
+//        }
+//
+//        model.addAttribute("currentPage", pageNum);
+//        model.addAttribute("totalPages", page.getTotalPages());
+//        model.addAttribute("startCount", startCount);
+//        model.addAttribute("endCount", endCount);
+//        model.addAttribute("totalItems", page.getTotalElements());
+//        model.addAttribute("keyword", keyword);
+//        model.addAttribute("listProducts", listProducts);
+//
+//        return "products/products";
+//    }
 
     @GetMapping("/products/page/{pageNum}")
     public String listByPage(
             @PathVariable(name = "pageNum") int pageNum, Model model,
-            @Param("keyword") String keyword
+            @Param("keyword") String keyword,
+            @Param("categoryId") Integer categoryId
     ) {
-        Page<Product> page = productService.listByPage(pageNum , keyword);
+        Page<Product> page = productService.listByPage(pageNum, keyword, categoryId);
         List<Product> listProducts = page.getContent();
+
+        List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 
         long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
         long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
         if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
+
+        if (categoryId != null) model.addAttribute("categoryId", categoryId);
 
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
@@ -70,6 +101,7 @@ public class ProductController {
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("keyword", keyword);
         model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listCategories", listCategories);
 
         return "products/products";
     }

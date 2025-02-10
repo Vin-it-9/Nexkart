@@ -29,6 +29,7 @@ public class CategoryService {
 
     public Category save(Category category) {
         Category parent = category.getParent();
+
         if (parent != null) {
             String allParentIds = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
             allParentIds += String.valueOf(parent.getId()) + "-";
