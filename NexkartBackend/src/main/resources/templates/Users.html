@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +10,8 @@
 	<link th:href="@{https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css}" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	
 	<script th:src="@{/nav.js}" type="text/javascript"></script>
-
 	<link rel="stylesheet" type="text/css" th:href="@{/animation.css}">
-
 	<link rel="apple-touch-icon" th:href="@{/apple-touch-icon.png}" sizes="180x180">
 	<!-- <link rel="icon" type="image/x-icon" th:href="@{/nexkart_fav.png}"> -->
 	<link rel="icon" type="image/x-icon" th:href="@{/nexfav.ico}">
@@ -100,50 +96,51 @@
 	</style>
 </head>
 <body class="" >
-	
-	<form  th:action="@{/logout}" method="post" th:hidden="true"
-	name="logoutForm" >
-		<input type="submit">
-	</form>
 
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
-	<!-- content part from here  -->
-	<div class="flex justify-between items-center manage-users  p-8 rounded-lg ">
-	    <div class="flex items-center">
-	        <h2 class="text-2xl font-bold mr-8">Manage Users</h2> 
-	        <a th:href="@{/users/export/csv}" class="text-white   rounded transition duration-400 ease-in-out mr-2">
-	           <img class="h-9"  th:src="@{/images/csv.png}" alt="">
-	        </a>
-			<a th:href="@{/users/export/excel}" class="text-white   rounded transition duration-400 ease-in-out mr-2">
-			           <img class="h-9"  th:src="@{/images/excel.png}" alt="">
-			</a>
-			<a th:href="@{/users/export/pdf}" class="text-white   rounded transition duration-400 ease-in-out mr-2">
-				<img class="h-9"  th:src="@{/images/pdf.png}" alt="">
-			</a>  
-	</div>
 
-	    <a th:href="@{/users/new}" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-400 ease-in-out">
-	        Create New User
-	    </a>
-	</div>
-
-	<div th:if="${message != null}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative center" role="alert">
-		    <span class="block sm:inline">[[${message}]]</span>
-	</div>
-
-	<div class=" ml-10">
-		<form th:action="@{/users/page/1}" class=" p-6 w-full max-w-md">
-			<h2 class="text-lg font-semibold text-gray-700 mb-4">Filter Users</h2>
-			<div class="flex items-center space-x-2">
-				<input type="search" name="keyword" th:value="${keyword }" required class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Search..." >
-				<button 	type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md  transition">
-					Search
-				</button>
-				<button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md  transition" onclick="clearFilter()" >
-					Clear
-				</button>
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<!-- Header Section -->
+		<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
+			<div>
+				<h1 class="text-3xl font-bold text-gray-900">Manage Users</h1>
+				<p class="mt-1 text-sm text-gray-500">Manage your user accounts and details</p>
 			</div>
-		</form>
+			<div class="flex space-x-3">
+				<a th:href="@{/users/export/csv}" class="inline-flex items-center px-3 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
+					<img class="h-6" th:src="@{/images/csv.png}" alt="Export CSV">
+				</a>
+				<a th:href="@{/users/export/excel}" class="inline-flex items-center px-3 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
+					<img class="h-6" th:src="@{/images/excel.png}" alt="Export Excel">
+				</a>
+				<a th:href="@{/users/export/pdf}" class="inline-flex items-center px-3 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
+					<img class="h-6" th:src="@{/images/pdf.png}" alt="Export PDF">
+				</a>
+				<a th:href="@{/users/new}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
+					Create New User
+				</a>
+			</div>
+		</div>
+		<!-- Alert Message -->
+		<div th:if="${message != null}" class="bg-green-100 border mb-5 border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+			<span class="block sm:inline">[[${message}]]</span>
+		</div>
+		<!-- Filter/Search Form -->
+		<div class="mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+			<form th:action="@{/users/page/1}" class="flex-1 w-full">
+				<div class="relative w-full flex items-center gap-2 bg-white border border-gray-300 rounded-xl hover:border-gray-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+					<input type="search"	name="keyword"	th:value="${keyword}" required class="w-full px-4 py-2.5 border-none outline-none bg-transparent placeholder-gray-400 focus:ring-0" 	placeholder="Search users...">
+					<div class="flex items-center gap-2 pr-2">
+						<button type="submit" class="px-3 py-1 bg-blue-600 text-white rounded-md transition hover:bg-blue-700">
+							<i class="fas fa-search"></i>
+						</button>
+						<button type="button" class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md transition hover:bg-gray-400" onclick="clearFilter()">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 
 	<div class="pl-8 pr-8 mb-16">
@@ -160,11 +157,9 @@
 					<th class="px-4 py-2 text-left border"></th>
 				</tr>
 			</thead>
-
 			<tbody>
 				<tr th:each="user : ${listUsers}" class="border-b mb-16 text-center border-gray-300 hover:bg-gray-100">
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.id}"></td>
-
 					<td class="px-4 py-2 border hover:bg-gray-200 flex mobile-hidden items-center justify-center" style="height: 100px;">
 						<div class="w-24 h-24 rounded-full  overflow-hidden inline-flex items-center justify-center">
 							<img th:if="${user.photos != null}" th:src="@{${user.photoImagePath}}"
@@ -173,12 +168,10 @@
 							   style="color: rgb(40, 40, 255);"></i>
 						</div>
 					</td>
-
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.email}"></td>
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.firstName}"></td>
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.lastName}"></td>
 					<td class="px-4 py-2 text-left border hover:bg-gray-200" th:text="${user.roles}"></td>
-
 					<td class="px-4 py-2 text-center border hover:bg-gray-200">
 						<span th:if="${user.enabled}" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
              			   Enabled
@@ -187,13 +180,10 @@
 							Disabled
 						</span>
 					</td>
-
 					<td class="px-4 py-2 text-center border hover:bg-gray-200 space-x-3">
-						<!-- Edit Button -->
 						<a th:href="@{'/users/edit/' + ${user.id}}" title="Edit User" class="text-blue-600 hover:text-blue-800">
 							<i class="fas fa-edit "></i>
 						</a>
-						<!-- Delete Button -->
 						<a th:href="@{'/users/delete/' + ${user.id}}" title="Delete User" class="text-red-600 hover:text-red-800 link-delete">
 							<i class="fas fa-trash"></i>
 						</a>
@@ -230,7 +220,6 @@
 				<li th:each="i : ${#numbers.sequence(1, totalPages)}"
 					th:classappend="${currentpage == i} ? 'bg-blue-500 text-white border-blue-500' : 'bg-white text-blue-600 border-gray-300'"
 					class="px-3 h-8  border  hover:bg-blue-100 hover:text-blue-700 transition-all duration-200">
-
 					<a th:href="@{'/users/page/' + ${i} + ${keyword != null ? '?keyword=' + keyword : ''} }"
 					   class="flex items-center justify-center  h-8  w-full h-full">
 						[[${i}]]
@@ -250,15 +239,13 @@
 				</a>
 			</li>
 		</ul>
-	</nav>
+	 </nav>
 	</div>
 
 <script type="text/javascript" >
-
 	function clearFilter() {
 		window.location = "[[@{/users}]]";
 	}
-
 </script>
 </body>
 </html>
