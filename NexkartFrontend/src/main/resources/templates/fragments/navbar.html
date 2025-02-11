@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Navbar Fragment</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:fragment="navbar">
+
+    <nav class="sticky top-0 left-0 right-0 z-10 px-4 py-4 flex justify-between items-center bg-white shadow-md">
+
+        <style>
+            @media only screen and (max-width: 768px) {
+                .logo{
+                    height: 1.8em;
+                }
+            }
+        </style>
+
+        <div class="flex items-center">
+            <a class="flex items-center" th:href="@{/}">
+                <img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="">
+            </a>
+        </div>
+
+        <div class="lg:hidden flex items-center">
+            <button class="navbar-burger flex items-center pr-3">
+                <svg class="block w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <ul class="hidden flex mr-8 items-center space-x-6 lg:static lg:flex lg:items-center lg:space-x-6">
+            <li><a th:href="@{/careers}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Careers</a></li>
+            <li><a th:href="@{/payments}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Payments</a></li>
+            <li><a th:href="@{/shipping-delivery}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping & Delivery</a></li>
+            <li><a th:href="@{/contact}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Contact</a></li>
+
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Login</a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/register}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Register</a>
+            </li>
+
+            <li sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="border border-blue-500 p-2 text-bold text-blue-500 font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Side Navbar for Mobile View -->
+    <div id="Nav" class="navbar-menu relative z-50 hidden">
+        <div class="navbar-backdrop fixed inset-0 bg-gray-900 opacity-30"></div>
+        <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
+            <div class="flex items-center mb-4">
+                <a class="flex items-center" th:href="@{/}">
+                    <img id="logo" class="logo h-9" th:src="@{/images/Nexkart_T.png}" alt="">
+                </a>
+                <button class="navbar-close">
+                    <svg class="h-6 w-12 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div>
+                <ul>
+                    <li class="mb-1 border-b"><a th:href="@{/careers}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Careers</a></li>
+                    <li class="mb-1 border-b"><a th:href="@{/payments}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Payments</a></li>
+                    <li class="mb-1 border-b"><a th:href="@{/shipping-delivery}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping & Delivery</a></li>
+                    <li class="mb-1 border-b"><a th:href="@{/contact}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Contact</a></li>
+
+                    <li sec:authorize="isAnonymous()" class="mb-1 border-b">
+                        <a th:href="@{/login}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Login</a>
+                    </li>
+                    <li sec:authorize="isAnonymous()" class="mb-1 border-b">
+                        <a th:href="@{/register}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Register</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="bg-blue-500 block mt-3 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <p class="my-4 text-xs text-center text-gray-400">
+                <span> NexKart 2024</span>
+            </p>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
