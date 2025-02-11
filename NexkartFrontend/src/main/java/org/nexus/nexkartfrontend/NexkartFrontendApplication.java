@@ -12,6 +12,8 @@ public class NexkartFrontendApplication {
         System.out.println("NexkartBackendApplication started");
         System.out.println("http://localhost:8081/");
 
+        System.out.println("test");
+
 
     }
 
