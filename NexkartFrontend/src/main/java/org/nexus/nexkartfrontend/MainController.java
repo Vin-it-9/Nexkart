@@ -24,6 +24,14 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/categories")
+    public String viewCategories(Model model) {
+        List<Category> listCategories = categoryService.listNoChildrenCategories();
+        model.addAttribute("listCategories", listCategories);
+        return "categories";
+    }
+
+
 
     @GetMapping("/login")
     public String login() {
