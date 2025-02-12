@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class testCategoryRepository {
@@ -27,5 +29,13 @@ public class testCategoryRepository {
 
         });
     }
+
+    @Test
+    public void testFindCategoryByAlias() {
+        String alias = "smartwatches";
+        Category category = categoryRepository.findByAliasEnabled(alias);
+        assertThat(category).isNotNull();
+    }
+
 
 }
