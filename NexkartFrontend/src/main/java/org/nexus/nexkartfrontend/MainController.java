@@ -28,7 +28,7 @@ public class MainController {
     public String viewCategories(Model model) {
         List<Category> listCategories = categoryService.listNoChildrenCategories();
         model.addAttribute("listCategories", listCategories);
-        return "categories";
+        return "product/categories";
     }
 
 
