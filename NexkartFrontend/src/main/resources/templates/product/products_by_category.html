@@ -15,7 +15,7 @@
     <nav class="flex" aria-label="Breadcrumb">
       <ol class="inline-flex items-center space-x-1 md:space-x-3">
         <li class="inline-flex items-center">
-          <a th:href="@{/}" class="text-gray-700 hover:text-blue-600">
+          <a th:href="@{/static}" class="text-gray-700 hover:text-blue-600">
             Home
           </a>
         </li>
@@ -59,7 +59,7 @@
       <th:block th:each="product : ${listProducts}">
         <div class="hover:bg-gray-100  hover:shadow-lg   p-4">
           <!-- Responsive product card: horizontal (row) on mobile; vertical (col) on md+ -->
-          <a th:href="@{'/p/' + ${product.id}}" class="flex flex-row md:flex-col group">
+          <a th:href="@{'/p/' + ${#strings.replace(product.name, ' ', '-')}}" class="flex flex-row md:flex-col group">
             <!-- Image Container -->
             <div class="flex-shrink-0 w-24 h-24 md:w-full md:h-48 flex items-center justify-center overflow-hidden rounded-md transition-transform duration-300 group-hover:scale-105">
               <img th:src="@{${product.mainImagePath}}"
