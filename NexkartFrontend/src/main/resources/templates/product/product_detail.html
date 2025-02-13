@@ -36,7 +36,6 @@
                         </th:block>
                     </div>
 
-
                     <!-- Main Image -->
                     <div class="flex-1 ">
                         <img id="bigImage"
@@ -44,7 +43,6 @@
                              class="w-full h-96 object-contain p-4  cursor-pointer"
                              index="0" alt="Product Image" />
                     </div>
-
 
                 </div>
             </div>
@@ -112,7 +110,6 @@
                     </th:block>
                 </div>
               </div>
-
             </div>
         </div>
     </div>
@@ -123,11 +120,11 @@
 
 <!-- JavaScript for Image Handling -->
 <script type="text/javascript">
+
     $(document).ready(function() {
         const bigImage = $("#bigImage");
 
         $(".image-thumbnail").on('mouseover click', function() {
-            // Update thumbnail border highlight
             $(".image-thumbnail").removeClass('border-blue-500').addClass('border-gray-200');
             $(this).removeClass('border-gray-200').addClass('border-blue-500');
 
@@ -137,7 +134,6 @@
             bigImage.attr("src", currentImageSource).attr("index", currentImageIndex);
         });
     });
-
 </script>
 </body>
 </html>

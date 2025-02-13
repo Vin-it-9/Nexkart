@@ -1,7 +1,5 @@
-package org.nexus.nexkartbackend.Repository;
+package org.nexus.nexkartfrontend.setting;
 
-import org.nexus.nexkartbackend.setting.Setting;
-import org.nexus.nexkartbackend.setting.SettingCategory;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -15,7 +13,6 @@ public interface SettingRepository extends CrudRepository<Setting, String> {
 
     @Query("SELECT s FROM Setting s WHERE s.category = ?1 OR s.category = ?2")
     public List<Setting> findByTwoCategories(SettingCategory catOne, SettingCategory catTwo);
-
 
 
 }
