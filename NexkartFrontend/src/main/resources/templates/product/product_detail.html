@@ -1,104 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head></head>
+<head th:replace="~{fragments/common-header :: common-head}"></head>
+<body class="bg-gray-50">
+<div class="container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Two-Column Layout for Main Section -->
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Left Column: Image Gallery (Sticky) -->
+        <div class="lg:w-1/3">
+            <div class="sticky top-8">
+                <img id="bigImage"
+                     th:src="@{${product.mainImagePath}}"
+                     class="w-full h-96 object-contain bg-white p-4 rounded-lg shadow-md cursor-pointer"
+                     index="0" alt="Product Image" />
 
-<body>
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-sm">
-            <div>
-                <img id="bigImage" th:src="@{${product.mainImagePath}}" class="img-fluid" index="0" />
-            </div>
-            <div class="row justify-content-center">
-                <div class="m-2 border border-secondary p-1">
-                    <img class="image-thumbnail" th:src="@{${product.mainImagePath}}" height="50" index="0" />
-                </div>
-                <th:block th:each="extraImage, status : ${product.images}">
-                    <div class="m-2 border border-secondary p-1">
-                        <img class="image-thumbnail" th:src="@{${extraImage.imagePath}}" height="50"
-                             th:index="${status.count}" />
+                <!-- Vertical Thumbnails -->
+                <div class="mt-4 space-y-2">
+                    <div>
+                        <img class="w-20 h-20 object-cover border-2 border-blue-500 rounded-lg cursor-pointer image-thumbnail"
+                             th:src="@{${product.mainImagePath}}"
+                             index="0" alt="Thumbnail" />
                     </div>
-                </th:block>
+                    <th:block th:each="extraImage, status : ${product.images}">
+                        <div>
+                            <img class="w-20 h-20 object-cover border border-gray-200 rounded-lg hover:border-blue-300 cursor-pointer image-thumbnail"
+                                 th:src="@{${extraImage.imagePath}}"
+                                 th:attr="index=${status.count}"
+                                 alt="Thumbnail" />
+                        </div>
+                    </th:block>
+                </div>
             </div>
         </div>
-        <div class="col-sm">
-            <div>
-                <h2>[[${product.name}]]</h2>
-            </div>
-            <div>
-                <span>Brand: [[${product.brand.name}]]</span>
-            </div>
-            <div>
-                List Price:
-                <span th:if="${product.discountPercent <= 0}">$ [[${product.price}]]</span>
-                <del th:if="${product.discountPercent > 0}"><span>$ [[${product.price}]]</span></del>
-            </div>
-            <div th:if="${product.discountPercent > 0}">
-                Price:
-                <span style="font-size: larger; color: darkred">$ [[${product.discountPrice}]]</span>
-                ([[${product.discountPercent}]] % off)
-            </div>
-            <div>&nbsp;</div>
-            <div th:utext="${product.shortDescription}"></div>
-        </div>
-        <div class="col-sm-2">
-            <div>
-                <span th:if="${product.inStock}" class="text-success"><b>In Stock</b></span>
-                <span th:unless="${product.inStock}" class="text-danger"><b>Out of Stock</b></span>
-            </div>
-            <div class="mt-2">
-                <input type="text" size="5" value="1" />
-            </div>
-            <div class="mt-3">
-                <input type="button" value="Add to Cart" class="btn btn-primary" />
+
+        <!-- Right Column: Product Details -->
+        <div class="lg:w-2/3">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">[[${product.name}]]</h1>
+                <div class="text-sm text-gray-500 mb-4">Brand: [[${product.brand.name}]]</div>
+
+                <!-- Pricing -->
+                <div class="mb-4">
+                    <div th:if="${product.discountPercent > 0}" class="flex items-center space-x-3">
+              <span class="text-xl font-bold text-red-600">
+                [[${product.discountPrice}]] Rs
+              </span>
+                        <del class="text-gray-400">[[${product.price}]] Rs</del>
+                        <span class="text-green-600 font-medium">
+                [[${product.discountPercent}]]% off
+              </span>
+                    </div>
+                    <div th:unless="${product.discountPercent > 0}" class="text-xl font-bold text-gray-900">
+                        [[${product.price}]] Rs
+                    </div>
+                </div>
+
+                <!-- Stock Status -->
+                <div class="mb-4">
+            <span th:if="${product.inStock}" class="text-green-600 font-medium">
+              ✓ In Stock
+            </span>
+                    <span th:unless="${product.inStock}" class="text-red-600 font-medium">
+              ✗ Out of Stock
+            </span>
+                </div>
+
+                <!-- Quantity & Add to Cart -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <label class="text-gray-700">Quantity:</label>
+                        <input type="number" value="1" min="1"
+                               class="w-20 px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                    </div>
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-md transition-colors duration-200 font-medium">
+                        Add to Cart
+                    </button>
+                </div>
+
+                <!-- Short Description -->
+                <div class="mt-6 text-gray-700 text-sm" th:utext="${product.shortDescription}"></div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div><hr/></div>
-            <div>
-                <h3>Product Description:</h3>
-            </div>
-            <div th:utext="${product.fullDescription}"></div>
-        </div>
+    <!-- Additional Product Information (Scrolls Normally) -->
+    <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Product Description</h2>
+        <div class="prose max-w-none" th:utext="${product.fullDescription}"></div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div><hr/></div>
-            <div>
-                <h3>Product Details:</h3>
-            </div>
+    <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Product Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <th:block th:each="detail : ${product.details}">
-                <div>
-                    <b>[[${detail.name}]]</b>:
-                    <span>[[${detail.value}]]</span>
+                <div class="flex justify-between py-2 border-b">
+                    <span class="text-gray-600">[[${detail.name}]]</span>
+                    <span class="text-gray-900">[[${detail.value}]]</span>
                 </div>
             </th:block>
         </div>
     </div>
-<!--     <div th:replace="product/images_carousel :: content"></div> -->
-
 </div>
+
+<!-- JavaScript for Image & Modal Handling -->
 <script type="text/javascript">
     $(document).ready(function() {
-        bigImage = $("#bigImage");
+        const bigImage = $("#bigImage");
 
-        $(".image-thumbnail").mouseover(function() {
-            currentImageSource = $(this).attr("src");
-            currentImageIndex = $(this).attr("index");
+        // Handle thumbnail hover & click events
+        $(".image-thumbnail").on('mouseover click', function() {
+            // Update thumbnail border highlight
+            $(".image-thumbnail").removeClass('border-blue-500').addClass('border-gray-200');
+            $(this).removeClass('border-gray-200').addClass('border-blue-500');
 
-            bigImage.attr("src", currentImageSource);
-            bigImage.attr("index", currentImageIndex);
-        });
+            const currentImageSource = $(this).attr("src");
+            const currentImageIndex = $(this).attr("index");
 
-        bigImage.on("click", function() {
-            $("#carouselModal").modal("show");
-            imageIndex = parseInt(bigImage.attr("index"));
-            $("#carouselExampleIndicators").carousel(imageIndex);
+            bigImage.attr("src", currentImageSource).attr("index", currentImageIndex);
         });
     });
 </script>
