@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/common-header :: common-head}"></head>
-<body class="bg-gray-50 ">
+
+
+<body class="bg-gray-50">
 <!-- Main container centered with a maximum width -->
 <header th:replace="~{fragments/navbar :: navbar}"></header>
-
 
 <main class="container mx-auto px-4 py-6">
 <div class="max-w-7xl mx-auto px-4 py-8  ">
@@ -51,13 +53,13 @@
                 <!-- Pricing Section -->
                 <div class="mb-4">
                     <div th:if="${product.discountPercent > 0}" class="flex items-center space-x-3">
-              <span class="text-xl font-bold text-red-600">
-                [[${product.discountPrice}]] Rs
-              </span>
+                       <span class="text-xl font-bold text-red-600">
+                         [[${product.discountPrice}]] Rs
+                       </span>
                         <del class="text-gray-400">[[${product.price}]] Rs</del>
                         <span class="text-green-600 font-medium">
-                [[${product.discountPercent}]]% off
-              </span>
+                         [[${product.discountPercent}]]% off
+                        </span>
                     </div>
                     <div th:unless="${product.discountPercent > 0}" class="text-xl font-bold text-gray-900">
                         [[${product.price}]] Rs
@@ -66,12 +68,12 @@
 
                 <!-- Stock Status -->
                 <div class="mb-4">
-            <span th:if="${product.inStock}" class="text-green-600 font-medium">
-              ✓ In Stock
-            </span>
+                    <span th:if="${product.inStock}" class="text-green-600 font-medium">
+                        ✓ In Stock
+                    </span>
                     <span th:unless="${product.inStock}" class="text-red-600 font-medium">
-              ✗ Out of Stock
-            </span>
+                        ✗ Out of Stock
+                   </span>
                 </div>
 
                 <!-- Quantity & Add to Cart -->
