@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/common-header :: common-head}"></head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 ">
 <!-- Main container centered with a maximum width -->
-<div class="max-w-7xl mx-auto px-4 py-8">
+<header th:replace="~{fragments/navbar :: navbar}"></header>
+
+
+<main class="container mx-auto px-4 py-6">
+<div class="max-w-7xl mx-auto px-4 py-8  ">
     <!-- Two-Column Layout for Product Section -->
     <div class="flex flex-col lg:flex-row gap-8">
         <!-- Left Partition: Image Gallery -->
@@ -98,12 +102,14 @@
                         </div>
                     </th:block>
                 </div>
-
-
-
+              </div>
+            </div>
         </div>
     </div>
-</div>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}" class="mt-auto"></footer>
 
 <!-- JavaScript for Image Handling -->
 <script type="text/javascript">
