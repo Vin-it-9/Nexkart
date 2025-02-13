@@ -9,8 +9,9 @@
 <header th:replace="~{fragments/navbar :: navbar}"></header>
 
 <main class="container mx-auto px-4 py-6">
-<div class="max-w-7xl mx-auto px-4 py-8 border rounded-lg bg-white  ">
+<div class="max-w-7xl mx-auto px-4 py-8 border shadow-md rounded-lg bg-white  ">
     <!-- Two-Column Layout for Product Section -->
+
     <div class="flex flex-col lg:flex-row gap-8">
         <!-- Left Partition: Image Gallery -->
         <div class="lg:w-2/5">
@@ -20,16 +21,15 @@
                     <!-- Vertical Thumbnails -->
 
 
-
                     <div class="order-last lg:order-first flex lg:flex-col space-x-2 lg:space-x-0 lg:space-y-2 overflow-x-auto lg:overflow-y-auto lg:w-20 py-4 lg:py-0">
                         <div class="flex-shrink-0">
-                            <img class="w-20 h-20 p-2 object-contain border-2 border-blue-500 rounded-lg cursor-pointer image-thumbnail"
+                            <img class="w-20 h-20 p-2 object-contain shadow-lg  border-2 border-blue-500 rounded-lg cursor-pointer image-thumbnail"
                                  th:src="@{${product.mainImagePath}}"
                                  index="0" alt="Thumbnail" />
                         </div>
                         <th:block th:each="extraImage, status : ${product.images}">
                             <div class="flex-shrink-0">
-                                <img class="w-20 h-20 p-2 object-contain border border-gray-200 rounded-lg hover:border-blue-300 cursor-pointer image-thumbnail"
+                                <img class="w-20 h-20 p-2 object-contain  border border-gray-200 rounded-lg hover:border-blue-300 cursor-pointer image-thumbnail"
                                      th:src="@{${extraImage.imagePath}}"
                                      th:index="${status.count}" alt="Thumbnail" />
                             </div>
@@ -38,10 +38,10 @@
 
 
                     <!-- Main Image -->
-                    <div class="flex-1">
+                    <div class="flex-1 ">
                         <img id="bigImage"
                              th:src="@{${product.mainImagePath}}"
-                             class="w-full h-96 object-contain bg-white p-4 rounded-lg shadow-md cursor-pointer"
+                             class="w-full h-96 object-contain p-4  cursor-pointer"
                              index="0" alt="Product Image" />
                     </div>
 
@@ -53,7 +53,7 @@
         <!-- Right Partition: Product Details -->
         <div class="lg:w-3/5">
             <!-- Product Information -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class=" p-6  ">
                 <h1 class="text-2xl font-bold text-gray-900 mb-2">[[${product.name}]]</h1>
                 <div class="text-sm text-gray-500 mb-4">Brand: [[${product.brand.name}]]</div>
 
@@ -90,7 +90,7 @@
                         <input type="number" value="1" min="1"
                                class="w-20 px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                     </div>
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-md transition-colors duration-200 font-medium">
+                    <button class=" bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 font-medium">
                         Add to Cart
                     </button>
                 </div>
@@ -112,6 +112,7 @@
                     </th:block>
                 </div>
               </div>
+
             </div>
         </div>
     </div>
