@@ -57,8 +57,11 @@ public class CustomerController {
         JavaMailSenderImpl mailSender = Utility.prepareMailSender(emailSettings);
 
         String toAddress = customer.getEmail();
-        String subject = emailSettings.getCustomerVerifySubject();
-        String content = emailSettings.getCustomerVerifyContent();
+//        String subject = emailSettings.getCustomerVerifySubject();
+//        String content = emailSettings.getCustomerVerifyContent();
+
+        String subject = "test";
+        String content = "test";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
