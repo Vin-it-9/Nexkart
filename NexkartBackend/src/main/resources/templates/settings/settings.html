@@ -4,132 +4,126 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Site Settings</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <!-- Minimal Rich Text Editor CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/richtext.min.css" />
 </head>
 <body class="bg-gray-100">
-<div class="container mx-auto py-8">
-    <h2 class="text-3xl font-semibold mb-6">Site Settings</h2>
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <!-- Success Message -->
-    <div th:if="${message != null}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 text-center" role="alert">
-        <span th:text="${message}"></span>
-    </div>
+<div class="container mx-auto w-4/5 p-6">
+    <h2 class="text-2xl font-semibold text-start mb-8">Site Settings</h2>
 
-    <!-- Tab Navigation -->
-    <ul class="flex border-b mb-4" id="settingTab" role="tablist">
-        <li class="-mb-px mr-1">
-            <a href="#general" data-toggle="tab" role="tab" class="tab-link bg-white inline-block py-2 px-4 text-blue-500 font-semibold border-l border-t border-r rounded-t">
-                General
-            </a>
-        </li>
-        <li class="mr-1">
-            <a href="#countries" data-toggle="tab" role="tab" class="tab-link bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold">
-                Countries
-            </a>
-        </li>
-        <li class="mr-1">
-            <a href="#states" data-toggle="tab" role="tab" class="tab-link bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold">
-                States
-            </a>
-        </li>
-        <li class="mr-1">
-            <a href="#mailServer" data-toggle="tab" role="tab" class="tab-link bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold">
-                Mail Server
-            </a>
-        </li>
-        <li class="mr-1">
-            <a href="#mailTemplate" data-toggle="tab" role="tab" class="tab-link bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold">
-                Mail Templates
-            </a>
-        </li>
-    </ul>
+    <!-- Settings Container with Alpine.js for Tab Navigation -->
+    <div x-data="{ tab: 'general' }" class="bg-white p-6 rounded shadow">
+        <!-- Tab Navigation -->
+        <nav class="border-b border-gray-200 mb-4">
+            <ul class="flex space-x-4">
+                <li>
+                    <button
+                            type="button"
+                            class="py-2 px-4 font-medium"
+                            :class="tab === 'general' ? 'border-b-2 border-indigo-500 text-indigo-600' : 'text-gray-500 hover:text-gray-700'"
+                            @click="tab = 'general'"
+                    >
+                        General
+                    </button>
+                </li>
+                <li>
+                    <button
+                            type="button"
+                            class="py-2 px-4 font-medium"
+                            :class="tab === 'countries' ? 'border-b-2 border-indigo-500 text-indigo-600' : 'text-gray-500 hover:text-gray-700'"
+                            @click="tab = 'countries'"
+                    >
+                        Countries
+                    </button>
+                </li>
+                <li>
+                    <button
+                            type="button"
+                            class="py-2 px-4 font-medium"
+                            :class="tab === 'states' ? 'border-b-2 border-indigo-500 text-indigo-600' : 'text-gray-500 hover:text-gray-700'"
+                            @click="tab = 'states'"
+                    >
+                        States
+                    </button>
+                </li>
+                <li>
+                    <button
+                            type="button"
+                            class="py-2 px-4 font-medium"
+                            :class="tab === 'mailServer' ? 'border-b-2 border-indigo-500 text-indigo-600' : 'text-gray-500 hover:text-gray-700'"
+                            @click="tab = 'mailServer'"
+                    >
+                        Mail Server
+                    </button>
+                </li>
+                <li>
+                    <button
+                            type="button"
+                            class="py-2 px-4 font-medium"
+                            :class="tab === 'mailTemplates' ? 'border-b-2 border-indigo-500 text-indigo-600' : 'text-gray-500 hover:text-gray-700'"
+                            @click="tab = 'mailTemplates'"
+                    >
+                        Mail Templates
+                    </button>
+                </li>
+            </ul>
+        </nav>
 
-    <!-- Tab Content -->
-    <div class="bg-white p-6 border border-t-0 rounded-b">
-        <!-- General Settings -->
-        <div id="general" class="tab-pane active" role="tabpanel">
-            <div th:insert="~{settings/general :: content}"></div>
-        </div>
-        <!-- Countries Settings -->
-        <div id="countries" class="tab-pane hidden" role="tabpanel">
-            <div th:insert="~{settings/countries :: content}"></div>
-
-        </div>
-        <!-- States Settings -->
-        <div id="states" class="tab-pane hidden" role="tabpanel">
-            <div th:insert="~{settings/states :: content}"></div>
-        </div>
-        <!-- Mail Server -->
-        <div id="mailServer" class="tab-pane hidden p-3" role="tabpanel">
-            <div th:insert="~{settings/mail_server :: content}"></div>
-            <!-- Mail server settings can go here -->
-        </div>
-        <!-- Mail Templates -->
-        <div id="mailTemplate" class="tab-pane hidden p-3" role="tabpanel">
-            <div th:insert="~{settings/mail_templates/mail_templates:: content}"></div>
-            <!-- Mail templates settings can go here -->
+        <!-- Tab Contents -->
+        <div>
+            <!-- General Settings -->
+            <div x-show="tab === 'general'" class="space-y-4">
+                <div th:insert="~{settings/general :: content}"></div>
+            </div>
+            <!-- Countries Settings -->
+            <div x-show="tab === 'countries'" class="space-y-4">
+                <div th:insert="~{settings/countries :: content}"></div>
+            </div>
+            <!-- States Settings -->
+            <div x-show="tab === 'states'" class="space-y-4">
+                <div th:insert="~{settings/states :: content}"></div>
+            </div>
+            <!-- Mail Server Settings -->
+            <div x-show="tab === 'mailServer'" class="space-y-4">
+                <div th:insert="~{settings/mail_server :: content}"></div>
+            </div>
+            <!-- Mail Templates Settings -->
+            <div x-show="tab === 'mailTemplates'" class="space-y-4">
+                <div th:insert="~{settings/mail_templates/mail_templates :: content}"></div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="toast justify-content-center d-flex" role="alert" aria-live="polite" aria-atomic="true" data-delay="3000">
-    <div role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-body">
-            <span id="toastMessage"></span>
+<!-- Toast Message -->
+<div class="fixed bottom-4 right-4">
+    <div class="toast justify-center d-flex" role="alert" aria-live="polite" aria-atomic="true" data-delay="3000">
+        <div role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body bg-gray-800 text-white px-4 py-2 rounded shadow">
+                <span id="toastMessage"></span>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Global JS Variables -->
 <script>
-    // Base URL for your app (adjust if necessary)
     var contextPath = "[[@{/}]]";
-    // CSRF Token values
     var csrfHeaderName = "[[${_csrf.headerName}]]";
     var csrfValue = "[[${_csrf.token}]]";
-</script>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Tab Switching Script -->
-<script>
-
-    $(document).ready(function(){
-        $('a[data-toggle="tab"]').click(function(e){
-            e.preventDefault();
-            var target = $(this).attr('href');
-            $('.tab-pane').addClass('hidden');
-            $(target).removeClass('hidden');
-            $('.tab-link').removeClass('border-l border-t border-r rounded-t text-blue-500');
-            $(this).addClass('border-l border-t border-r rounded-t text-blue-500');
-        });
-    });
-
-    MAX_FILE_SIZE = 102400; // 100KB
-    contextPath = "[[@{/}]]";
-    var csrfHeaderName = "[[${_csrf.headerName}]]";
-    var csrfValue = "[[${_csrf.token}]]";
-
-    $(document).ready(function() {
-        $("#customerVerificationContent").richText();
-    });
-
-
 </script>
 
 <!-- Custom JS for Countries and States -->
 <script th:src="@{/js/common_form.js}"></script>
 <script th:src="@{/js/countries_setting.js}"></script>
 <script th:src="@{/js/states_setting.js}"></script>
-
-
 </body>
 </html>

@@ -15,7 +15,7 @@
 
             <div class="tab-content">
                 <div class="tab-pane active p-3" id="customerVerification" role="tabpanel">
-                    <div th:replace="settings/mail_templates/customer_verification:: content"></div>
+                    <div th:replace="~{settings/mail_templates/customer_verification:: content}"></div>
                 </div>
                 <div class="tab-pane p-3" id="orderConfirmation" role="tabpanel">
                     <h2>Order Confirmation Email Template</h2>
