@@ -15,13 +15,8 @@ public class Setting {
     @Enumerated(EnumType.STRING)
     @Column(length = 45, nullable = false)
     private SettingCategory category;
-
     public Setting() {
 
-    }
-
-    public Setting(String key) {
-        this.key = key;
     }
 
     public Setting(String key, String value, SettingCategory category) {
@@ -29,29 +24,26 @@ public class Setting {
         this.value = value;
         this.category = category;
     }
-
     public String getKey() {
         return key;
     }
-
     public void setKey(String key) {
         this.key = key;
     }
-
     public String getValue() {
         return value;
     }
-
     public void setValue(String value) {
         this.value = value;
     }
-
     public SettingCategory getCategory() {
         return category;
     }
-
     public void setCategory(SettingCategory category) {
         this.category = category;
+    }
+    public Setting(String key) {
+        this.key = key;
     }
 
     @Override
@@ -78,11 +70,11 @@ public class Setting {
             return false;
         return true;
     }
-
     @Override
     public String toString() {
         return "Setting [key=" + key + ", value=" + value + "]";
     }
+
 
 
 }

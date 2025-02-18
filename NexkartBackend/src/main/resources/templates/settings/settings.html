@@ -1,98 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Site Settings</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/jquery.richtext.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/richtext.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/jquery.richtext.min.js"></script>
 
 </head>
-<body class="bg-gray-100">
-<div th:replace="~{fragments/navbar :: navbar}"></div>
-<div class="container mx-auto p-6">
+<body>
+<div class="container-fluid">
 
-    <div class="mt-2">
-        <h2 class="text-2xl font-bold text-gray-800">Site Settings</h2>
+
+    <div>
+        <h2>Site Settings</h2>
     </div>
 
-    <div th:if="${message != null}" class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded text-center">
+    <div th:if="${message != null}" class="alert alert-success text-center">
         [[${message}]]
     </div>
 
-    <div class="mt-6">
-        <!-- Tabs Navigation -->
-        <ul id="settingTab" role="tablist" class="flex border-b">
-            <li class="mr-4">
-                <a class="py-2 px-4 text-blue-600 border-b-2 border-blue-600 font-medium" data-toggle="tab" href="#general" role="tab">General</a>
+    <div>
+        <ul class="nav nav-tabs" id="settingTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#general" role="tab">General</a>
             </li>
-            <li class="mr-4">
-                <a class="py-2 px-4 text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 font-medium" data-toggle="tab" href="#countries" role="tab">Countries</a>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#countries" role="tab">Countries</a>
             </li>
-            <li class="mr-4">
-                <a class="py-2 px-4 text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 font-medium" data-toggle="tab" href="#states" role="tab">States</a>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#states" role="tab">States</a>
             </li>
-            <li class="mr-4">
-                <a class="py-2 px-4 text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 font-medium" data-toggle="tab" href="#mailServer" role="tab">Mail Server</a>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#mailServer" role="tab">Mail Server</a>
             </li>
-            <li>
-                <a class="py-2 px-4 text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 font-medium" data-toggle="tab" href="#mailTemplate" role="tab">Mail Templates</a>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#mailTemplate" role="tab">Mail Templates</a>
             </li>
         </ul>
 
-        <!-- Tabs Content -->
-        <div class="mt-4">
-            <div class="tab-content">
-                <div id="general" role="tabpanel" class="tab-pane active p-4 bg-white rounded shadow">
-                    <div th:replace="settings/general :: content"></div>
-                </div>
-                <div id="countries" role="tabpanel" class="tab-pane hidden p-4 bg-white rounded shadow">
-                    <h2 class="text-xl font-semibold">Countries</h2>
-                </div>
-                <div id="states" role="tabpanel" class="tab-pane hidden p-4 bg-white rounded shadow">
-                    <h2 class="text-xl font-semibold">States</h2>
-                </div>
-                <div id="mailServer" role="tabpanel" class="tab-pane hidden p-4 bg-white rounded shadow">
-                    <h2 class="text-xl font-semibold">Mail Server</h2>
-                </div>
-                <div id="mailTemplate" role="tabpanel" class="tab-pane hidden p-4 bg-white rounded shadow">
-                    <h2 class="text-xl font-semibold">Mail Templates</h2>
-                </div>
+        <div class="tab-content">
+            <div class="tab-pane active p-3" id="general" role="tabpanel">
+                <div th:replace="settings/general :: content" />
+            </div>
+            <div class="tab-pane" id="countries" role="tabpanel">
+                <h2>Countries</h2>
+            </div>
+            <div class="tab-pane" id="states" role="tabpanel">
+                <h2>States</h2>
+            </div>
+            <div class="tab-pane p-3" id="mailServer" role="tabpanel">
+                <h2>Mail Server</h2>
+            </div>
+            <div class="tab-pane p-3" id="mailTemplates" role="tabpanel">
+                <h2>Mail Templates</h2>
             </div>
         </div>
     </div>
 
 
+
 </div>
-
 <script type="text/javascript">
-
     MAX_FILE_SIZE = 102400; // 100KB
-
-    $(document).ready(function () {
-        $('#settingTab a').click(function (event) {
-            event.preventDefault();
-            $('#settingTab a')
-                .removeClass('text-blue-600 border-blue-600')
-                .addClass('text-gray-600 border-transparent');
-            // Hide all tab content
-            $('.tab-pane').addClass('hidden');
-            // Activate the clicked tab
-            $(this)
-                .removeClass('text-gray-600 border-transparent')
-                .addClass('text-blue-600 border-blue-600');
-            $($(this).attr('href')).removeClass('hidden');
-        });
-    });
 </script>
-
 <script th:src="@{/js/common_form.js}"></script>
-
-
 </body>
 </html>

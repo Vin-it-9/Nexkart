@@ -14,13 +14,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.*;
 
+
 @Controller
 public class SettingController {
 
     @Autowired
     private SettingService service;
 
-    @Autowired private CurrencyRepository currencyRepo;
+    @Autowired
+    private CurrencyRepository currencyRepo;
 
     @GetMapping("/settings")
     public String listAll(Model model) {
@@ -39,7 +41,6 @@ public class SettingController {
     @PostMapping("/settings/save_general")
     public String saveGeneralSettings(@RequestParam("fileImage") MultipartFile multipartFile,
                                       HttpServletRequest request, RedirectAttributes ra) throws IOException {
-
         GeneralSettingBag settingBag = service.getGeneralSettings();
 
         saveSiteLogo(multipartFile, settingBag);
@@ -51,16 +52,16 @@ public class SettingController {
 
         return "redirect:/settings";
     }
+
     private void saveSiteLogo(MultipartFile multipartFile, GeneralSettingBag settingBag) throws IOException {
         if (!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             String value = "/site-logo/" + fileName;
             settingBag.updateSiteLogo(value);
 
-            String uploadDir = "./site-logo/";
+            String uploadDir = "../site-logo/";
             FileUploadUtil.cleanDir(uploadDir);
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
         }
     }
 

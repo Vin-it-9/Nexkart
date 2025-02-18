@@ -17,5 +17,4 @@ public interface SettingRepository extends CrudRepository<Setting, String> {
     public List<Setting> findByTwoCategories(SettingCategory catOne, SettingCategory catTwo);
 
 
-
 }

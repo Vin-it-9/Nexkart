@@ -1,5 +1,6 @@
 package org.nexus.nexkartfrontend.customer;
 
+import jakarta.transaction.Transactional;
 import org.nexus.nexkartfrontend.Repository.CountryRepository;
 import org.nexus.nexkartfrontend.entity.Country;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.util.List;
 import net.bytebuddy.utility.RandomString;
 
 @Service
+@Transactional
 public class CustomerService {
 
     @Autowired
@@ -32,6 +34,8 @@ public class CustomerService {
     }
 
 
+
+
     public void registerCustomer(Customer customer) {
         encodePassword(customer);
         customer.setEnabled(false);
@@ -47,6 +51,20 @@ public class CustomerService {
         String encodedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encodedPassword);
     }
+
+
+    public boolean verify(String verificationCode) {
+        Customer customer = customerRepo.findByVerificationCode(verificationCode);
+
+        if (customer == null || customer.isEnabled()) {
+            return false;
+        } else {
+            customerRepo.enable(customer.getId());
+            return true;
+        }
+    }
+
+
 
 
 }
