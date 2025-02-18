@@ -1,32 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-<div th:fragment="content" th:remove="tag">
-    <form th:action="@{/settings/save_mail_templates}" method="post">
-        <div>
-            <ul class="nav nav-tabs" id="mailTemplatesTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#customerVerification" role="tab">Customer Verification</a>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mail Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js for tab functionality -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-100">
+<div th:fragment="content" th:remove="tag" class="container mx-auto p-6">
+    <form th:action="@{/settings/save_mail_templates}" method="post" class="bg-white p-6 rounded-lg shadow">
+        <div x-data="{ tab: 'customerVerification' }">
+            <!-- Tab Headers -->
+            <ul class="flex border-b mb-4">
+                <li class="mr-4">
+                    <button type="button" @click="tab = 'customerVerification'"
+                            :class="tab === 'customerVerification' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500 hover:text-gray-700'"
+                            class="pb-2 font-medium focus:outline-none">
+                        Customer Verification
+                    </button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#orderConfirmation" role="tab">Order Confirmation</a>
+                <li>
+                    <button type="button" @click="tab = 'orderConfirmation'"
+                            :class="tab === 'orderConfirmation' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500 hover:text-gray-700'"
+                            class="pb-2 font-medium focus:outline-none">
+                        Order Confirmation
+                    </button>
                 </li>
             </ul>
 
-            <div class="tab-content">
-                <div class="tab-pane active p-3" id="customerVerification" role="tabpanel">
+            <!-- Tab Content -->
+            <div>
+                <!-- Customer Verification Tab -->
+                <div x-show="tab === 'customerVerification'" x-cloak>
+                    <!-- Include the Customer Verification Email Template Fragment -->
                     <div th:replace="~{settings/mail_templates/customer_verification:: content}"></div>
                 </div>
-                <div class="tab-pane p-3" id="orderConfirmation" role="tabpanel">
-                    <h2>Order Confirmation Email Template</h2>
-                </div>
+                <!-- Order Confirmation Tab -->
+<!--                 <div x-show="tab === 'orderConfirmation'" x-cloak> -->
+<!--                     <h2 class="text-xl font-bold mb-4">Order Confirmation Email Template</h2> -->
+<!--                     <div class="mb-6"> -->
+<!--                         <label for="orderSubject" class="block text-sm font-medium text-gray-700 mb-1"> -->
+<!--                             E-mail Subject: -->
+<!--                         </label> -->
+<!--                         <input type="text" id="orderSubject" name="ORDER_CONFIRMATION_SUBJECT" -->
+<!--                                th:value="${ORDER_CONFIRMATION_SUBJECT}" -->
+<!--                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition" -->
+<!--                                required /> -->
+<!--                     </div> -->
+<!--                     <div class="mb-6"> -->
+<!--                         <label for="orderContent" class="block text-sm font-medium text-gray-700 mb-1"> -->
+<!--                             E-mail Content: -->
+<!--                         </label> -->
+<!--                         <textarea id="orderContent" rows="5" name="ORDER_CONFIRMATION_CONTENT" -->
+<!--                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition">[[${ORDER_CONFIRMATION_CONTENT}]]</textarea> -->
+<!--                     </div> -->
+<!--                 </div> -->
             </div>
         </div>
-
-        <div class="text-center">
-            <input type="submit" value="Save" class="btn btn-primary m-3" />
+        <!-- Save Button -->
+        <div class="mt-6 text-right">
+            <input type="submit" value="Save"
+                   class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300" />
         </div>
     </form>
+
 </div>
+
 </body>
 </html>

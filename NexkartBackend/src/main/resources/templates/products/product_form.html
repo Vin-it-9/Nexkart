@@ -28,6 +28,9 @@
 	<h2 class="text-2xl font-semibold mb-4">
 		Manage Products | <span th:text="${pageTitle}"></span>
 	</h2>
+	<div th:if="${message != null}" class="bg-green-100 border mb-5 border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+		<span class="block sm:inline">[[${message}]]</span>
+	</div>
 	<form th:action="@{/products/save}" method="post"
 		  onsubmit="return checkUnique(this)"
 		  enctype="multipart/form-data"

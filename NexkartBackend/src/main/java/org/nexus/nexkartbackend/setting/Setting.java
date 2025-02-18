@@ -10,7 +10,7 @@ public class Setting {
     @Column(name = "`key`", nullable = false, length = 128)
     private String key;
 
-    @Column(nullable = false, length = 1024)
+    @Column(nullable = false, length = 2124)
     private String value;
 
     @Enumerated(EnumType.STRING)

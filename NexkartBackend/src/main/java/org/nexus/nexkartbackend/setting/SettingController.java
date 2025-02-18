@@ -148,9 +148,32 @@ public class SettingController {
     @PostMapping("/settings/save_mail_templates")
     public String saveMailTemplateSettings(HttpServletRequest request, RedirectAttributes ra) {
         List<Setting> mailTemplateSettings = service.getMailTemplateSettings();
-        updateSettingValuesFromForm(request, mailTemplateSettings);
+        updateMailTemplateSettingValuesFromForm(request, mailTemplateSettings);
         ra.addFlashAttribute("message", "Mail template settings have been saved");
         return "redirect:/settings#mailTemplates";
+    }
+
+    private void updateMailTemplateSettingValuesFromForm(HttpServletRequest request, List<Setting> listSettings) {
+        Map<String, SettingCategory> mailTemplateMap = new HashMap<>();
+       
+        mailTemplateMap.put("CUSTOMER_VERIFY_SUBJECT", SettingCategory.MAIL_TEMPLATES);
+        mailTemplateMap.put("CUSTOMER_VERIFY_CONTENT", SettingCategory.MAIL_TEMPLATES);
+
+        for (Map.Entry<String, SettingCategory> entry : mailTemplateMap.entrySet()) {
+            String key = entry.getKey();
+            String value = request.getParameter(key);
+            if (value != null) {
+                Optional<Setting> existingSetting = listSettings.stream()
+                        .filter(s -> s.getKey().equals(key))
+                        .findFirst();
+                if (existingSetting.isPresent()) {
+                    existingSetting.get().setValue(value);
+                } else {
+                    listSettings.add(new Setting(key, value, entry.getValue()));
+                }
+            }
+        }
+        service.saveAll(listSettings);
     }
 
 

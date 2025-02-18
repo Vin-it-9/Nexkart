@@ -14,6 +14,7 @@ $(document).ready(function() {
 	});
 });
 
+
 function showImageThumbnail(fileInput) {
 	var file = fileInput.files[0];
 	var reader = new FileReader();
