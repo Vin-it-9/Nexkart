@@ -2,8 +2,6 @@ package org.nexus.nexkartbackend.setting;
 
 import java.util.List;
 
-
-
 public class EmailSettingBag extends SettingBag {
 
     public EmailSettingBag(List<Setting> listSettings) {
@@ -49,4 +47,5 @@ public class EmailSettingBag extends SettingBag {
     public String getCustomerVerifyContent() {
         return super.getValue("CUSTOMER_VERIFY_CONTENT");
     }
+
 }

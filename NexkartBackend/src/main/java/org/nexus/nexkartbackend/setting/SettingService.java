@@ -1,5 +1,6 @@
 package org.nexus.nexkartbackend.setting;
 
+import jakarta.transaction.Transactional;
 import org.nexus.nexkartbackend.Repository.SettingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class SettingService {
 
 
@@ -26,6 +28,14 @@ public class SettingService {
 
         List<Setting> generalSettings = repo.findByCategory(SettingCategory.GENERAL);
         List<Setting> currencySettings = repo.findByCategory(SettingCategory.CURRENCY);
+
+        boolean siteLogoFound = generalSettings.stream()
+                .anyMatch(s -> s.getKey().equals("SITE_LOGO"));
+        if (!siteLogoFound) {
+            Setting siteLogo = new Setting("SITE_LOGO", "Nexkart.png", SettingCategory.GENERAL);
+            generalSettings.add(siteLogo);
+            repo.save(siteLogo);
+        }
 
         settings.addAll(generalSettings);
         settings.addAll(currencySettings);

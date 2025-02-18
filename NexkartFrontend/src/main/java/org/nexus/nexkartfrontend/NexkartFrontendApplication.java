@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NexkartFrontendApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(NexkartFrontendApplication.class, args);
 
         System.out.println("NexkartFrontendApplication started");

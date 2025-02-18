@@ -1,6 +1,7 @@
 package org.nexus.nexkartbackend;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 import org.nexus.nexkartbackend.Repository.SettingRepository;
 import org.nexus.nexkartbackend.setting.Setting;
 import org.nexus.nexkartbackend.setting.SettingCategory;
@@ -50,4 +51,22 @@ public class SettingRepositoryTests {
                 decimalDigits, thousandsPointType));
 
     }
+
+    @Test
+    public void testCreateMailSettings() {
+        // Create mail settings based on your application.properties values
+        Setting mailHost = new Setting("MAIL_HOST", "smtp.gmail.com", SettingCategory.MAIL_SERVER);
+        Setting mailPort = new Setting("MAIL_PORT", "587", SettingCategory.MAIL_SERVER);
+        Setting mailUsername = new Setting("MAIL_USERNAME", "springboot2559@gmail.com", SettingCategory.MAIL_SERVER);
+        Setting mailPassword = new Setting("MAIL_PASSWORD", "reds ccxo nfnb phgm", SettingCategory.MAIL_SERVER);
+        Setting mailSmtpAuth = new Setting("MAIL_SMTP_AUTH", "true", SettingCategory.MAIL_SERVER);
+        Setting mailSmtpStarttls = new Setting("MAIL_SMTP_STARTTLS_ENABLE", "true", SettingCategory.MAIL_SERVER);
+
+        // Save all settings in one go
+        repo.saveAll(List.of(mailHost, mailPort, mailUsername, mailPassword, mailSmtpAuth, mailSmtpStarttls));
+
+    }
+
+
+
 }

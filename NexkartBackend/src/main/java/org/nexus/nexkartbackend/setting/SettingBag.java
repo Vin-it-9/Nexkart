@@ -3,7 +3,9 @@ package org.nexus.nexkartbackend.setting;
 import java.util.List;
 
 public class SettingBag {
+
     private List<Setting> listSettings;
+
     public SettingBag(List<Setting> listSettings) {
         this.listSettings = listSettings;
     }
@@ -18,6 +20,7 @@ public class SettingBag {
     }
 
     public String getValue(String key) {
+
         Setting setting = get(key);
         if (setting != null) {
             return setting.getValue();

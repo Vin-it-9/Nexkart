@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "settings")
 public class Setting {
+
     @Id
     @Column(name = "`key`", nullable = false, length = 128)
     private String key;
@@ -15,6 +16,7 @@ public class Setting {
     @Enumerated(EnumType.STRING)
     @Column(length = 45, nullable = false)
     private SettingCategory category;
+
     public Setting() {
 
     }

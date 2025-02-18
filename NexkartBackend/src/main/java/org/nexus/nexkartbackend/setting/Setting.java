@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "settings")
 public class Setting {
+
     @Id
     @Column(name = "`key`", nullable = false, length = 128)
     private String key;
@@ -71,6 +72,7 @@ public class Setting {
             return false;
         return true;
     }
+
     @Override
     public String toString() {
         return "Setting [key=" + key + ", value=" + value + "]";

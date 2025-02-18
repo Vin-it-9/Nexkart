@@ -1,5 +1,5 @@
 package org.nexus.nexkartbackend.setting;
 
 public enum SettingCategory {
-    GENERAL, MAIL_SERVER, MAIL_TEMPLATES, CURRENCY, PAYMENT
+    CURRENCY,GENERAL,MAIL_SERVER,MAIL_TEMPLATES,PAYMENT
 }
