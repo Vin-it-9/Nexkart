@@ -1,6 +1,7 @@
 package org.nexus.nexkartbackend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -18,7 +19,8 @@ public class Country {
     @Column(nullable = false, length = 5)
     private String code;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country" , fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<State> states;
 
     public Country() {
@@ -82,6 +84,7 @@ public class Country {
     public String toString() {
         return "Country [id=" + id + ", name=" + name + ", code=" + code + "]";
     }
+
 
 
 }

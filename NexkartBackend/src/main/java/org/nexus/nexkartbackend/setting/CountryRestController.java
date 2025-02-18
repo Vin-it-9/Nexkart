@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CountryRestController {
 
-    @Autowired private CountryRepository repo;
+    @Autowired
+    private CountryRepository repo;
 
     @GetMapping("/countries/list")
     public List<Country> listAll() {
@@ -29,4 +30,6 @@ public class CountryRestController {
     public void delete(@PathVariable("id") Integer id) {
         repo.deleteById(id);
     }
+
+
 }

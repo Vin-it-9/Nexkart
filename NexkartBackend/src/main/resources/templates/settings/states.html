@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag" class="p-4">
+    <p class="mb-4 text-gray-700">
+        Use this page to manage states/provinces which will be chosen by visitors in the customer registration form. Click "Load Country List" first.
+    </p>
+    <button id="buttonLoadCountriesForStates" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mb-4">
+        Load Country List
+    </button>
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-1">Selected Country:</label>
+        <select id="dropDownCountriesForStates" class="w-full border rounded p-2">
+            <!-- Options for countries -->
+        </select>
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-1">All States/Provinces:</label>
+        <select id="dropDownStates" size="3" class="w-full border rounded p-2 h-64">
+            <!-- Options for states -->
+        </select>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+        <div>
+            <label id="labelStateName" class="block text-gray-700 mb-1">State/Province Name:</label>
+            <input type="text" id="fieldStateName" class="w-full border rounded p-2" />
+        </div>
+        <div class="flex space-x-4">
+            <button id="buttonAddState" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                Add
+            </button>
+            <button id="buttonUpdateState" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded" disabled>
+                Update
+            </button>
+            <button id="buttonDeleteState" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded" disabled>
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

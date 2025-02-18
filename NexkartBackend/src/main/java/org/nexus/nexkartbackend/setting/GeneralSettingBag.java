@@ -1,7 +1,7 @@
 package org.nexus.nexkartbackend.setting;
 
 
-import java.util.List;
+import java.util.*;
 
 public class GeneralSettingBag extends SettingBag {
 

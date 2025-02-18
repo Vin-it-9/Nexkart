@@ -23,19 +23,14 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private CustomerService service;
-
-    @Autowired
-    private JavaMailSenderImpl mailSender;
-
+    private CustomerService customerService;
 
     @Autowired
     private SettingService settingService;
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-
-        List<Country> listCountries = service.listAllCountries();
+        List<Country> listCountries = customerService.listAllCountries();
 
         model.addAttribute("listCountries", listCountries);
         model.addAttribute("pageTitle", "Customer Registration");
@@ -47,13 +42,15 @@ public class CustomerController {
     @PostMapping("/create_customer")
     public String createCustomer(Customer customer, Model model,
                                  HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
-        service.registerCustomer(customer);
+
+        customerService.registerCustomer(customer);
         sendVerificationEmail(request, customer);
 
         model.addAttribute("pageTitle", "Registration Succeeded!");
 
         return "/register/register_success";
     }
+
     private void sendVerificationEmail(HttpServletRequest request, Customer customer)
             throws UnsupportedEncodingException, MessagingException {
         EmailSettingBag emailSettings = settingService.getEmailSettings();
@@ -86,11 +83,9 @@ public class CustomerController {
 
     @GetMapping("/verify")
     public String verifyAccount(@Param("code") String code, Model model) {
-        boolean verified = service.verify(code);
+        boolean verified = customerService.verify(code);
 
         return "register/" + (verified ? "verify_success" : "verify_fail");
     }
-
-
 
 }

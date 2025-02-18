@@ -33,9 +33,6 @@ public class CustomerService {
         return customer == null;
     }
 
-
-
-
     public void registerCustomer(Customer customer) {
         encodePassword(customer);
         customer.setEnabled(false);
@@ -47,11 +44,11 @@ public class CustomerService {
         customerRepo.save(customer);
 
     }
+
     private void encodePassword(Customer customer) {
         String encodedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encodedPassword);
     }
-
 
     public boolean verify(String verificationCode) {
         Customer customer = customerRepo.findByVerificationCode(verificationCode);
@@ -63,7 +60,6 @@ public class CustomerService {
             return true;
         }
     }
-
 
 
 

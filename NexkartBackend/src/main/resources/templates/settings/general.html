@@ -1,70 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="content" th:remove="tag">
-  <form th:action="@{/settings/save_general}" method="post" enctype="multipart/form-data">
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Site Name:</label>
-      <div class="col-sm-8">
-        <input type="text" class="form-control" name="SITE_NAME"
-               th:value="${SITE_NAME}" required  />
+<div th:fragment="content" th:remove="tag" class="p-4">
+  <form th:action="@{/settings/save_general}" method="post" enctype="multipart/form-data" class="space-y-6">
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Site Name:</label>
+      <div class="w-full md:w-2/3">
+        <input type="text" name="SITE_NAME" th:value="${SITE_NAME}" required class="w-full border rounded p-2" />
       </div>
     </div>
-
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Copyright:</label>
-      <div class="col-sm-8">
-        <input type="text" class="form-control" name="COPYRIGHT"
-               th:value="${COPYRIGHT}" required  />
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Copyright:</label>
+      <div class="w-full md:w-2/3">
+        <input type="text" name="COPYRIGHT" th:value="${COPYRIGHT}" required class="w-full border rounded p-2" />
       </div>
     </div>
-
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Site Logo:</label>
-      <div class="col-sm-8">
-        <img id="thumbnail" alt="Site Logo thumbnail" th:src="@{${SITE_LOGO}}"
-             width="150" height="70"/>
-        <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg" />
-
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Site Logo:</label>
+      <div class="w-full md:w-2/3 flex items-center space-x-4">
+        <img id="thumbnail" th:src="@{${SITE_LOGO}}" alt="Site Logo" class="w-32 h-20 object-contain rounded border" />
+        <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg" class="border rounded p-2" />
       </div>
     </div>
-
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Currency Type:</label>
-      <div class="col-sm-8">
-        <select name="CURRENCY_ID" class="form-control">
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Currency Type:</label>
+      <div class="w-full md:w-2/3">
+        <select name="CURRENCY_ID" class="w-full border rounded p-2">
           <th:block th:each="currency : ${listCurrencies}">
-            <option th:value="${currency.id}"
-                    th:selected="(${currency.id} == ${CURRENCY_ID})">[[${currency}]]</option>
+            <option th:value="${currency.id}" th:selected="(${currency.id} == ${CURRENCY_ID})" th:text="${currency}"></option>
           </th:block>
         </select>
       </div>
     </div>
-
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Currency Symbol Position:</label>
-      <div class="col-sm-8">
-        <select name="CURRENCY_SYMBOL_POSITION" class="form-control">
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Currency Symbol Position:</label>
+      <div class="w-full md:w-2/3">
+        <select name="CURRENCY_SYMBOL_POSITION" class="w-full border rounded p-2">
           <option value="Before price" th:selected="(${CURRENCY_SYMBOL_POSITION} == 'Before price')">Before price</option>
           <option value="After price" th:selected="(${CURRENCY_SYMBOL_POSITION} == 'After price')">After price</option>
         </select>
       </div>
     </div>
-
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Decimal Point Type:</label>
-      <div class="col-sm-8">
-        <select name="DECIMAL_POINT_TYPE" class="form-control">
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Decimal Point Type:</label>
+      <div class="w-full md:w-2/3">
+        <select name="DECIMAL_POINT_TYPE" class="w-full border rounded p-2">
           <option value="POINT" th:selected="(${DECIMAL_POINT_TYPE} == 'POINT')">Point (.)</option>
           <option value="COMMA" th:selected="(${DECIMAL_POINT_TYPE} == 'COMMA')">Comma (,)</option>
         </select>
       </div>
     </div>
-
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Decimal Digits:</label>
-      <div class="col-sm-8">
-        <select name="DECIMAL_DIGITS" class="form-control">
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Decimal Digits:</label>
+      <div class="w-full md:w-2/3">
+        <select name="DECIMAL_DIGITS" class="w-full border rounded p-2">
+          <option value="0" th:selected="(${DECIMAL_DIGITS} == 0)">0</option>
           <option value="1" th:selected="(${DECIMAL_DIGITS} == 1)">1</option>
           <option value="2" th:selected="(${DECIMAL_DIGITS} == 2)">2</option>
           <option value="3" th:selected="(${DECIMAL_DIGITS} == 3)">3</option>
@@ -72,19 +62,19 @@
         </select>
       </div>
     </div>
-
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">Thousands Point Type:</label>
-      <div class="col-sm-8">
-        <select name="THOUSANDS_POINT_TYPE" class="form-control">
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="w-full md:w-1/3 text-gray-700">Thousands Point Type:</label>
+      <div class="w-full md:w-2/3">
+        <select name="THOUSANDS_POINT_TYPE" class="w-full border rounded p-2">
           <option value="POINT" th:selected="(${THOUSANDS_POINT_TYPE} == 'POINT')">Point (.)</option>
           <option value="COMMA" th:selected="(${THOUSANDS_POINT_TYPE} == 'COMMA')">Comma (,)</option>
         </select>
       </div>
     </div>
-
     <div class="text-center">
-      <input type="submit" value="Save" class="btn btn-primary m-3" />
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded">
+        Save
+      </button>
     </div>
   </form>
 </div>

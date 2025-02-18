@@ -15,6 +15,7 @@ public class Setting {
     @Enumerated(EnumType.STRING)
     @Column(length = 45, nullable = false)
     private SettingCategory category;
+
     public Setting() {
 
     }

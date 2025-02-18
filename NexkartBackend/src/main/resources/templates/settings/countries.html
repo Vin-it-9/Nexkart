@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="content" th:remove="tag">
-    <div>
-        <p>
-            Use this page to manage countries which will be displayed in the customer registration form.
-            Click Load Country List first.
-        </p>
-    </div>
-    <div>
-        <input type="button" value="Load Country List" id="buttonLoadCountries" class="btn btn-primary m-2" />
-    </div>
-    <div>
-        <select class="form-control m-2" style="height: 300px" size="3" id="dropDownCountries">
-        </select>
-    </div>
-    <div class="form-group row ml-2">
-        <label class="col-form-label mt-2" id="labelCountryName">Country Name:</label>
-        <div class="col-md">
-            <input type="text" class="form-control mt-2" id="fieldCountryName" />
+<div th:fragment="content" th:remove="tag" class="p-4">
+    <p class="mb-4 text-gray-700">
+        Use this page to manage countries which will be displayed in the customer registration form. Click "Load Country List" first.
+    </p>
+    <button id="buttonLoadCountries" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mb-4">
+        Load Country List
+    </button>
+    <select id="dropDownCountries" size="3" class="w-full border rounded p-2 mb-4 h-64">
+        <!-- Country options will be loaded here -->
+    </select>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label id="labelCountryName" class="block text-gray-600 mb-1">Country Name:</label>
+            <input type="text" id="fieldCountryName" class="w-full border rounded p-2" />
         </div>
-        <label class="col-form-label mt-2">Code:</label>
-        <div class="col-md">
-            <input type="text" class="form-control mt-2" id="fieldCountryCode" />
+        <div>
+            <label class="block text-gray-600 mb-1">Code:</label>
+            <input type="text" id="fieldCountryCode" class="w-full border rounded p-2" />
         </div>
-        <div class="col-lg-4 mt-2">
-            <input type="button" id="buttonAddCountry" value="New" class="btn btn-secondary mr-2" />
-            <input type="button" id="buttonUpdateCountry" value="Update" class="btn btn-secondary mr-2" disabled="disabled" />
-            <input type="button" id="buttonDeleteCountry" value="Delete" class="btn btn-secondary" disabled="disabled" />
-        </div>
+    </div>
+    <div class="mt-4 flex space-x-4">
+        <button id="buttonAddCountry" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+            Add
+        </button>
+        <button id="buttonUpdateCountry" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded" disabled>
+            Update
+        </button>
+        <button id="buttonDeleteCountry" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded" disabled>
+            Delete
+        </button>
     </div>
 </div>
 </body>

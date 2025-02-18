@@ -77,6 +77,33 @@ public class CustomerRepositoryTests {
     }
 
     @Test
+    public void testCreateCustomer3() {
+
+        Integer countryId = 2; // India
+        Country country = entityManager.find(Country.class, countryId);
+
+        Customer customer = new Customer();
+        customer.setCountry(country);
+        customer.setFirstName("Sanyab");
+        customer.setLastName("Ladb");
+        customer.setPassword("password456b");
+        customer.setEmail("sanya.lad2020@gmailb.com");
+        customer.setPhoneNumber("0222492852");
+        customer.setAddressLine1("173 , A-, Shah & Nahar Indl.estate, Sunmill Road");
+        customer.setAddressLine2("Dhanraj Mill Compound, Lower Parel (west)");
+        customer.setCity("Mumbai");
+        customer.setState("Maharashtra");
+        customer.setPostalCode("400013");
+        customer.setVerificationCode("1234");
+        customer.setCreatedTime(new Date());
+
+        Customer savedCustomer = customerRepository.save(customer);
+
+        assertThat(savedCustomer).isNotNull();
+        assertThat(savedCustomer.getId()).isGreaterThan(0);
+    }
+
+    @Test
     public void testListCustomers() {
         Iterable<Customer> customers = customerRepository.findAll();
         customers.forEach(System.out::println);
@@ -127,7 +154,7 @@ public class CustomerRepositoryTests {
 
     @Test
     public void testFindByVerificationCode() {
-        String code = "code_123";
+        String code = "1234";
         Customer customer = customerRepository.findByVerificationCode(code);
 
         assertThat(customer).isNotNull();
@@ -141,6 +168,7 @@ public class CustomerRepositoryTests {
 
         Customer customer = customerRepository.findById(customerId).get();
         assertThat(customer.isEnabled()).isTrue();
+
     }
 
 

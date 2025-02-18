@@ -21,6 +21,7 @@ public class SettingService {
     }
 
     public GeneralSettingBag getGeneralSettings() {
+
         List<Setting> settings = new ArrayList<>();
 
         List<Setting> generalSettings = repo.findByCategory(SettingCategory.GENERAL);
@@ -34,6 +35,14 @@ public class SettingService {
 
     public void saveAll(Iterable<Setting> settings) {
         repo.saveAll(settings);
+    }
+
+    public List<Setting> getMailServerSettings() {
+        return repo.findByCategory(SettingCategory.MAIL_SERVER);
+    }
+
+    public List<Setting> getMailTemplateSettings() {
+        return repo.findByCategory(SettingCategory.MAIL_TEMPLATES);
     }
 
 
