@@ -12,7 +12,7 @@ public class NexkartBackendApplication {
 		SpringApplication.run(NexkartBackendApplication.class, args);
 
 		System.out.println("NexkartBackendApplication started");
-		System.out.println("http://localhost:8080/");
+		System.out.println("http://localhost:8080/NexkartAdmin");
 
 	}
 
