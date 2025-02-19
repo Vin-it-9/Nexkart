@@ -1,5 +1,8 @@
 package org.nexus.nexkartfrontend.security;
 
+import org.nexus.nexkartfrontend.security.oauth.CustomerOAuth2UserService;
+import org.nexus.nexkartfrontend.security.oauth.OAuth2LoginSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,6 +16,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Autowired
+    private CustomerOAuth2UserService oAuth2UserService;
+
+    @Autowired
+    private OAuth2LoginSuccessHandler oauth2LoginHandler;
+
+    @Autowired
+    private DatabaseLoginSuccessHandler databaseLoginHandler;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,18 +48,23 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/customer").authenticated()
                         .anyRequest().permitAll()
                 )
-
                 .formLogin(form -> form
                         .loginPage("/login")
                         .usernameParameter("email")
+                        .successHandler(databaseLoginHandler)
                         .permitAll()
                 )
-
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(oAuth2UserService)
+                        )
+                        .successHandler(oauth2LoginHandler)
+                )
                 .logout(logout -> logout.permitAll());
 
         return http.build();

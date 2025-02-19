@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.nexus.nexkartfrontend.customer.Customer;
 import org.nexus.nexkartfrontend.customer.CustomerRepository;
+import org.nexus.nexkartfrontend.entity.AuthenticationType;
 import org.nexus.nexkartfrontend.entity.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -169,6 +170,16 @@ public class CustomerRepositoryTests {
         Customer customer = customerRepository.findById(customerId).get();
         assertThat(customer.isEnabled()).isTrue();
 
+    }
+
+    @Test
+    public void testUpdateAuthenticationType() {
+        Integer id = 1;
+        customerRepository.updateAuthenticationType(id, AuthenticationType.DATABASE);
+
+        Customer customer = customerRepository.findById(id).get();
+
+        assertThat(customer.getAuthenticationType()).isEqualTo(AuthenticationType.DATABASE);
     }
 
 

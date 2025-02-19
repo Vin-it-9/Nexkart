@@ -2,6 +2,7 @@ package org.nexus.nexkartfrontend.customer;
 
 
 import jakarta.persistence.*;
+import org.nexus.nexkartfrontend.entity.AuthenticationType;
 import org.nexus.nexkartfrontend.entity.Country;
 
 import java.util.Date;
@@ -20,6 +21,18 @@ public class Customer {
 
     @Column(nullable = false, length = 64)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "authentication_type", length = 10)
+    private AuthenticationType authenticationType;
+
+    public AuthenticationType getAuthenticationType() {
+        return authenticationType;
+    }
+    public void setAuthenticationType(AuthenticationType authenticationType) {
+        this.authenticationType = authenticationType;
+    }
+
 
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
