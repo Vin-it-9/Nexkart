@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Modern Search Navigation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="search_nav">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+            const searchButton = document.getElementById('search-button');
+            const searchInput = document.getElementById('search-input');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenuPanel.classList.toggle('translate-x-full');
+                mobileMenuPanel.classList.toggle('translate-x-0');
+            });
+
+            searchButton.addEventListener('click', () => {
+                setTimeout(() => searchInput.focus(), 100);
+            });
+        });
+    </script>
+    <nav class="sticky top-0  bg-white/80 backdrop-blur-md border-b mt-3 border-gray-300">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-1 max-w-xl mx-8 hidden md:block">
+                    <form th:action="@{/search}" method="get" class="relative">
+                        <input type="search" name="keyword" th:value="${keyword}"
+                               class="w-3/5 pl-4 pr-12 py-3 rounded-lg border-0 ring-1 ring-gray-200  transition-all"
+                               placeholder="Search products...">
+                        <button type="submit" class="absolute right-64 top-3 text-gray-400 hover:text-blue-500">
+                            <span class="material-icons-round text-xl">search</span>
+                        </button>
+                    </form>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <th:block sec:authorize="isAuthenticated()">
+                        <div class="hidden md:flex items-center space-x-4">
+                            <a th:href="@{/customer}" class="flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors">
+                                <span class="material-icons-round">person_outline</span>
+                                <span class="font-medium" sec:authentication="principal.fullName"></span>
+                            </a>
+                            <a href="#" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
+                                <span class="material-icons-round">location_on</span>
+                            </a>
+                            <a href="#" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
+                                <span class="material-icons-round">receipt</span>
+                            </a>
+                        </div>
+                    </th:block>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-50">
+                        <span class="material-icons-round text-2xl">menu</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-panel" class="fixed inset-y-0 right-0 w-80 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 md:hidden">
+        <div class="p-6">
+            <form th:action="@{/search}" method="get" class="mb-8">
+                <div class="relative">
+                    <input id="search-input" type="search" name="keyword" th:value="${keyword}"
+                           class="w-full pl-4 pr-12 py-3 rounded-lg border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="absolute right-3 top-3 text-gray-400 hover:text-blue-500">
+                        <span class="material-icons-round text-xl">search</span>
+                    </button>
+                </div>
+            </form>
+            <th:block sec:authorize="isAuthenticated()">
+                <div class="space-y-4">
+                    <a th:href="@{/customer}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                        <span class="material-icons-round text-gray-500">person</span>
+                        <span class="font-medium" sec:authentication="principal.fullName"></span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                        <span class="material-icons-round text-gray-500">location_on</span>
+                        <span class="font-medium">Addresses</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                        <span class="material-icons-round text-gray-500">receipt</span>
+                        <span class="font-medium">Orders</span>
+                    </a>
+                </div>
+            </th:block>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
