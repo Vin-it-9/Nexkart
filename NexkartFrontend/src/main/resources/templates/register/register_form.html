@@ -160,18 +160,33 @@
         $("#modalDialog").removeClass("hidden");
     }
 
-    // Dummy function for demonstration; replace with your AJAX/email uniqueness check
     function checkEmailUnique(form) {
-        // Implement your email uniqueness check here if needed
-        return true;
+        url = contextPath + "customers/check_unique_email";
+        customerEmail = $("#email").val();
+        csrfValue = $("input[name='_csrf']").val();
+
+        params = {email: customerEmail, _csrf: csrfValue};
+
+        $.post(url, params, function(response) {
+            if (response == "OK") {
+                form.submit();
+            } else if (response == "Duplicated") {
+                showWarningModal("There is another cusotmer having the email " + customerEmail);
+            } else {
+                showErrorModal("Unknown response from server");
+            }
+        }).fail(function() {
+            showErrorModal("Could not connect to the server");
+        });
+
+        return false;
     }
 
-    // Dummy loadStatesForCountry function; replace with your dynamic state loading logic
     function loadStatesForCountry() {
-        // You can use AJAX to populate the datalist for states based on selected country
         dataListState.html('<option value="State 1"><option value="State 2">');
     }
 
 </script>
+<script type="text/javascript" th:src="@{/js/common_customer_form.js}"></script>
 </body>
 </html>

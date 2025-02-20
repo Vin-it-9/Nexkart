@@ -41,7 +41,7 @@
                 <div class="flex items-center space-x-4">
                     <th:block sec:authorize="isAuthenticated()">
                         <div class="hidden md:flex items-center space-x-4">
-                            <a th:href="@{/customer}" class="flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors">
+                            <a th:href="@{/account_details}" class="flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors">
                                 <span class="material-icons-round">person_outline</span>
                                 <span class="font-medium" sec:authentication="principal.fullName"></span>
                             </a>
