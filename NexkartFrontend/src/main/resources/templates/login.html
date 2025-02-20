@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head th:replace="~{fragments/common-header :: common-head}"></head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Login Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         @keyframes fadeIn {
             0% {
@@ -57,6 +56,7 @@
 </head>
 
 <body class="bg-gray-100">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <div class="flex justify-center min-h-screen text-gray-900" id="page">
     <div class="flex flex-col lg:flex-row justify-center flex-1 max-w-screen-xl m-0 bg-white shadow-lg sm:m-10 sm:rounded-lg page">
 
@@ -139,6 +139,8 @@
         </div>
     </div>
 </div>
+
+<div class="test" th:replace="~{fragments/footer :: footer}"></div>
 
 <script type="text/javascript">
     if (window.history.replaceState) {

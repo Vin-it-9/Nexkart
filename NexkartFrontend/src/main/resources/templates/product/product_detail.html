@@ -83,12 +83,8 @@
 
                 <!-- Quantity & Add to Cart -->
                 <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <label class="text-gray-700">Quantity:</label>
-                        <input type="number" value="1" min="1"
-                               class="w-20 px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
-                    <button class=" bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 font-medium">
+                    <div th:replace="cart/quantity_control :: quantity_control(1, ${product.id})"></div>
+                    <button id="buttonAdd2Cart" class=" bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 font-medium">
                         Add to Cart
                     </button>
                 </div>
@@ -121,6 +117,12 @@
 <!-- JavaScript for Image Handling -->
 <script type="text/javascript">
 
+    contextPath = "[[@{/}]]";
+    productId = "[[${product.id}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+
+
     $(document).ready(function() {
         const bigImage = $("#bigImage");
 
@@ -135,5 +137,9 @@
         });
     });
 </script>
+
+<script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
+<script type="text/javascript" th:src="@{/js/add_to_cart.js}"></script>
+
 </body>
 </html>

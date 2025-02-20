@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+<head th:replace="~{fragments/common-header :: common-head}"></head>
 <body class="bg-gray-100">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
 <div class="container mx-auto px-4 py-8">
 
     <div class="text-center mb-8">
@@ -101,6 +101,8 @@
     </form>
 
 </div>
+<div class="test" th:replace="~{fragments/footer :: footer}"></div>
+
 <script type="text/javascript">
     contextPath = "[[@{/}]]";
 </script>
