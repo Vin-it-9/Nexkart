@@ -49,7 +49,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/account_details", "/update_account_details").authenticated()
+                        .requestMatchers("/account_details", "/update_account_details", "/cart").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form

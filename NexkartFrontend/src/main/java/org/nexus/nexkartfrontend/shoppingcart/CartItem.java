@@ -63,5 +63,10 @@ public class CartItem {
                 + "]";
     }
 
+    @Transient
+    public float getSubtotal() {
+        return product.getDiscountPrice() * quantity;
+    }
+
 
 }
