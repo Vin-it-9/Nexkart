@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/common-header :: common-head}">
+
+</head>
+<body class="bg-gray-50">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div th:replace="~{fragments/search_nav :: search_nav}"></div>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Cart Items Section -->
+            <div class="lg:w-3/4">
+                <th:block th:each="item, status : ${cartItems}">
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-4" th:with="product = ${item.product}">
+                        <div class="flex items-start gap-6">
+                            <!-- Product Image -->
+                            <div class="w-32 flex-shrink-0">
+                                <img th:src="@{${product.mainImagePath}}"
+                                     class="w-full h-auto object-contain"
+                                     alt="Product image"/>
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <a th:href="@{'/p/' + ${product.alias}}"
+                                           class="text-lg font-medium text-gray-900 hover:text-blue-600">
+                                            [[${product.shortName}]]
+                                        </a>
+                                        <p class="text-gray-500 text-sm mt-1">In stock</p>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-red-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="mt-4 flex items-center justify-between">
+                                    <!-- Quantity Control -->
+                                    <div th:replace="cart/quantity_control :: quantity_control(${item.quantity}, ${product.id})"></div>
+
+                                    <!-- Price -->
+                                    <div class="text-lg font-semibold text-gray-900">
+                                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}">[[${CURRENCY_SYMBOL}]]</span>
+                                        [[${#numbers.formatDecimal(item.subtotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}">[[${CURRENCY_SYMBOL}]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="lg:w-1/4" th:unless="${#lists.isEmpty(cartItems)}">
+                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-gray-600">Total</span>
+                        <span class="text-2xl font-bold text-gray-900">
+                            <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}">[[${CURRENCY_SYMBOL}]]</span>
+                            [[${#numbers.formatDecimal(estimatedTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                            <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}">[[${CURRENCY_SYMBOL}]]</span>
+                        </span>
+                    </div>
+
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                        Checkout Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty Cart State -->
+        <div class="text-center py-12" th:if="${#lists.isEmpty(cartItems)}">
+            <div class="max-w-md mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <h3 class="text-xl font-medium text-gray-900 mb-2">Your cart is empty</h3>
+                <p class="text-gray-500">Looks like you haven't added anything to your cart yet</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-xl p-6 max-w-sm w-full">
+        <p id="popupMessage" class="text-gray-800 text-center"></p>
+    </div>
+</div>
+
+<div class="test" th:replace="~{fragments/footer :: footer}"></div>
+
+
+<script type="text/javascript">
+    contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+</script>
+
+<script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/shopping_cart.js}"></script>
+
+</body>
+</html>

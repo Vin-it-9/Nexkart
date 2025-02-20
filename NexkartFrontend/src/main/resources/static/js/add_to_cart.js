@@ -21,9 +21,7 @@ function addToCart() {
         showErrorModal("Error while adding product to shopping cart.");
     });
 }
-
 function showModalDialog(title, content) {
-
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50';
 
@@ -35,7 +33,10 @@ function showModalDialog(title, content) {
       <div class="p-4">
         ${content}
       </div>
-      <div class="flex justify-end border-t px-4 py-2">
+      <div class="flex justify-end border-t px-4 py-2 space-x-2">
+        <button id="modalCartButton" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          Go to Cart
+        </button>
         <button id="modalCloseButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Close
         </button>
@@ -44,6 +45,10 @@ function showModalDialog(title, content) {
   `;
 
     document.body.appendChild(modal);
+
+    document.getElementById('modalCartButton').addEventListener('click', function () {
+        window.location.href = contextPath + "cart";
+    });
 
     document.getElementById('modalCloseButton').addEventListener('click', function () {
         document.body.removeChild(modal);

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:fragment="quantity_control(quantityValue, productId)">
     <nav class="flex items-center justify-start space-x-2">
         <!-- Minus Button -->
-        <button class="linkMinus p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none"
+        <button  id="decreaseBtn" class="linkMinus p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none"
                 th:pid="${productId}">
             <span class="text-gray-700 font-bold text-lg">−</span>
         </button>
@@ -18,7 +17,7 @@
                class="w-16 text-center border border-gray-300 rounded-lg py-2 px-3 focus:outline-none  focus:border-transparent" />
 
         <!-- Plus Button -->
-        <button class="linkPlus p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none "
+        <button id="increaseBtn" class="linkPlus p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none "
                 th:pid="${productId}">
             <span class="text-gray-700 font-bold text-lg">+</span>
         </button>
