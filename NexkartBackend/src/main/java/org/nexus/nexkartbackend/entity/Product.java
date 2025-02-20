@@ -286,6 +286,13 @@ public class Product {
         return name;
     }
 
+    public Product(Integer id) {
+        this.id = id;
+    }
+
+    public Product() {
+    }
+
 
 
 

@@ -1,12 +1,8 @@
-package org.nexus.nexkartfrontend.customer;
-
+package org.nexus.nexkartbackend.entity;
 
 import jakarta.persistence.*;
-import org.nexus.nexkartfrontend.entity.AuthenticationType;
-import org.nexus.nexkartfrontend.entity.Country;
 
 import java.util.Date;
-
 
 @Entity
 @Table(name = "customers")
