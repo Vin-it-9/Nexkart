@@ -33,7 +33,7 @@ public class CurrencyRepositoryTests {
                 new Currency("Australian Dollar", "$", "AUD"),
                 new Currency("Canadian Dollar", "$", "CAD"),
                 new Currency("Vietnamese đồng ", "₫", "VND"),
-                new Currency("Indian Rupee", "₹", "INR")
+                new Currency("Indian Rupee", "Rs", "INR")
         );
 
         repo.saveAll(listCurrencies);
