@@ -125,6 +125,17 @@ public class CustomerController {
         return customerEmail;
     }
 
+//    @PostMapping("/update_account_details")
+//    public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
+//                                       HttpServletRequest request) {
+//        customerService.update(customer);
+//        ra.addFlashAttribute("message", "Your account details have been updated.");
+//
+//        updateNameForAuthenticatedCustomer(customer, request);
+//
+//        return "redirect:/account_details";
+//    }
+
     @PostMapping("/update_account_details")
     public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
                                        HttpServletRequest request) {
@@ -133,8 +144,16 @@ public class CustomerController {
 
         updateNameForAuthenticatedCustomer(customer, request);
 
-        return "redirect:/account_details";
+        String redirectOption = request.getParameter("redirect");
+        String redirectURL = "redirect:/account_details";
+
+        if ("address_book".equals(redirectOption)) {
+            redirectURL = "redirect:/address_book";
+        }
+
+        return redirectURL;
     }
+
 
     private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {
         Object principal = request.getUserPrincipal();

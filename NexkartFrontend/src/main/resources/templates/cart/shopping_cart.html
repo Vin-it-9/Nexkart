@@ -15,7 +15,8 @@
             <div class="lg:w-3/4">
                 <th:block th:each="item, status : ${cartItems}">
                     <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-4" th:with="product = ${item.product}" th:id="'row' + ${status.count}">
-                        <div class="absolute top-4 right-4">
+
+                        <div class=" top-4 right-4 mb-4">
                             <a class="linkRemove"
                                th:rowNumber="${status.count}"
                                th:href="@{'/cart/remove/' + ${product.id}}">

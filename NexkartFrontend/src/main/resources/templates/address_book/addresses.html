@@ -1,47 +1,157 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head/>
-<body>
-<div class="container-fluid">
+<head th:replace="~{fragments/common-header :: common-head}"></head>
+<body class="bg-gray-50">
 
-    <div>
-        <h2>Your Address Book</h2>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div th:replace="~{fragments/search_nav :: search_nav}"></div>
+
+<div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+    <!-- Header Section -->
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Your Address Book</h2>
+        <a th:href="@{/address_book/new}"
+           class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Add New Address
+        </a>
     </div>
 
-    <div class="row m-1">
-        <div class="col-sm-6 mt-2">
-            <div class="card" th:classappend="${usePrimaryAddressAsDefault ? 'bg-warning' : ''}">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col">
-                            <b>Your Primary Address</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
+    <!-- Success Message -->
+    <div th:if="${message != null}"
+         class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center">
+        [[${message}]]
+    </div>
+
+    <!-- Address Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Primary Address Card -->
+        <div class="relative">
+            <div class="absolute top-2 right-2 flex space-x-2">
+                <th:block th:if="${usePrimaryAddressAsDefault}">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
+                        Default
+                    </span>
+                </th:block>
+                <th:block th:unless="${usePrimaryAddressAsDefault}">
+                    <a th:href="@{'/address_book/default/0'}"
+                       class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs font-medium transition-colors">
+                        Set as default
+                    </a>
+                </th:block>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Main Address</h3>
+                <div class="text-gray-600 space-y-1">
                     [[${customer.address}]]
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <a th:href="@{/account_details(redirect=address_book)}"
+                       class="text-blue-600 hover:text-blue-800 flex items-center text-sm">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                        </svg>
+                        Edit
+                    </a>
                 </div>
             </div>
         </div>
 
-        <th:block th:each="address, status: ${listAddresses}">
-            <div class="col-sm-6 mt-2">
-                <div class="card" th:classappend="${address.defaultForShipping ? 'bg-warning' : ''}">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col">
-                                <b>Address #[[${status.count + 1}]]</b>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
+        <!-- Additional Addresses -->
+        <th:block th:each="address, status : ${listAddresses}">
+            <div class="relative">
+                <div class="absolute top-2 right-2 flex space-x-2">
+                    <th:block th:if="${address.defaultForShipping}">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
+                            Default
+                        </span>
+                    </th:block>
+                    <th:block th:unless="${address.defaultForShipping}">
+                        <a th:href="@{'/address_book/default/' + ${address.id}}"
+                           class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs font-medium transition-colors">
+                            Set as default
+                        </a>
+                    </th:block>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                        Address [[${status.count + 1}]]
+                    </h3>
+                    <div class="text-gray-600 space-y-1 mb-4">
                         [[${address}]]
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex justify-end space-x-3">
+                        <a th:href="@{'/address_book/edit/' + ${address.id}}"
+                           class="text-blue-600 hover:text-blue-800 flex items-center text-sm">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                            </svg>
+                            Edit
+                        </a>
+                        <a th:entityId="${address.id}"
+                           th:href="@{'/address_book/delete/' + ${address.id}}"
+                           class="text-red-600 hover:text-red-800 flex items-center text-sm linkDelete">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            Delete
+                        </a>
                     </div>
                 </div>
             </div>
         </th:block>
     </div>
-
 </div>
+
+<div class="test" th:replace="~{fragments/footer :: footer}"></div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".linkDelete").on("click", function(evt) {
+            evt.preventDefault();
+            showDeleteConfirmModal($(this), 'address');
+        });
+    });
+
+    function showDeleteConfirmModal(link, entityName) {
+        const entityId = link.attr("entityId");
+        const deleteHref = link.attr("href");
+
+        const modal = document.createElement('div');
+        modal.className = "fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50";
+
+        modal.innerHTML = `
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 p-6">
+                <h3 class="text-xl font-semibold mb-4">Confirm Delete</h3>
+                <p class="text-gray-600 mb-6">
+                    Are you sure you want to delete ${entityName} #${entityId}?
+                </p>
+                <div class="flex justify-end space-x-3">
+                    <button id="cancelButton"
+                            class="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+                        Cancel
+                    </button>
+                    <a id="yesButton" href="${deleteHref}"
+                       class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        modal.querySelector('#cancelButton').addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') document.body.removeChild(modal);
+        });
+    }
+</script>
 </body>
 </html>
