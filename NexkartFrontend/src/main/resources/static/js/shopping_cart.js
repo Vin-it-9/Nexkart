@@ -139,7 +139,7 @@ function showModalDialog(title, content) {
     modal.className = 'fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50';
 
     modal.innerHTML = `
-      <div class="bg-white rounded-lg shadow-lg max-w-md w-full">
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4 sm:mx-0">
         <div class="border-b px-4 py-2">
           <h2 class="text-xl font-semibold">${title}</h2>
         </div>
@@ -160,6 +160,7 @@ function showModalDialog(title, content) {
         document.body.removeChild(modal);
     });
 }
+
 
 function showErrorModal(message) {
     showModalDialog("Error", `<p>${message}</p>`);

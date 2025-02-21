@@ -7,32 +7,28 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <div th:replace="~{fragments/search_nav :: search_nav}"></div>
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-4 sm:py-8">
     <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
-        <div class="flex flex-col lg:flex-row gap-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-8">Shopping Cart</h1>
+        <div class="flex flex-col lg:flex-row gap-4 sm:gap-8">
             <!-- Cart Items Section -->
             <div class="lg:w-3/4">
                 <th:block th:each="item, status : ${cartItems}">
-                    <div class="bg-white rounded-lg shadow-sm p-6 mb-4" th:with="product = ${item.product} "   th:id="'row' + ${status.count}">
-
-
-                        <div class=" mb-5">
-                            <div>
-                                <a class="linkRemove"
-                                   th:rowNumber="${status.count}"
-                                   th:href="@{'/cart/remove/' + ${product.id}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4a1 1 0 011 1v2H9V4a1 1 0 011-1z"/>
-                                    </svg>
-                                </a>
-                            </div>
+                    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-4" th:with="product = ${item.product}" th:id="'row' + ${status.count}">
+                        <div class="absolute top-4 right-4">
+                            <a class="linkRemove"
+                               th:rowNumber="${status.count}"
+                               th:href="@{'/cart/remove/' + ${product.id}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4a1 1 0 011 1v2H9V4a1 1 0 011-1z"/>
+                                </svg>
+                            </a>
                         </div>
 
-                        <div class="flex items-start gap-6">
+                        <div class="flex items-start gap-4 sm:gap-6">
                             <!-- Product Image -->
-                            <div class="w-32 flex-shrink-0">
+                            <div class="w-20 sm:w-32 flex-shrink-0">
                                 <img th:src="@{${product.mainImagePath}}"
                                      class="w-full h-auto object-contain"
                                      alt="Product image"/>
@@ -40,26 +36,26 @@
 
                             <!-- Product Details -->
                             <div class="flex-grow">
-                                <div class="flex justify-between items-start">
-                                    <div>
+                                <div class="flex flex-col sm:flex-row justify-between items-start gap-2">
+                                    <div class="flex-1">
                                         <a th:href="@{'/p/' + ${product.alias}}"
-                                           class="text-lg font-medium text-gray-900 hover:text-blue-600">
+                                           class="text-base sm:text-lg font-medium text-gray-900 hover:text-blue-600 line-clamp-2">
                                             [[${product.shortName}]]
                                         </a>
-                                        <p class="text-gray-500 text-sm mt-1">In stock</p>
+                                        <p class="text-gray-500 text-xs sm:text-sm mt-1">In stock</p>
                                     </div>
 
-                                    <div>
+                                    <div class="sm:text-right">
                                         <div th:replace="product/product_fragment :: product_price"></div>
                                     </div>
                                 </div>
 
-                                <div class="mt-4 flex items-center justify-between">
+                                <div class="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                     <!-- Quantity Control -->
-                                    <div th:replace="cart/quantity_control :: quantity_control(${item.quantity}, ${product.id})"></div>
+                                    <div class="w-full sm:w-auto" th:replace="cart/quantity_control :: quantity_control(${item.quantity}, ${product.id})"></div>
 
-                                    <!-- Price -->
-                                    <div class="text-lg font-semibold text-gray-900">
+                                    <!-- Subtotal -->
+                                    <div class="text-md sm:text-xl font-semibold text-gray-900">
                                         <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}">Rs</span>
                                         [[${#numbers.formatDecimal(item.subtotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
                                         <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}">Rs</span>
@@ -72,21 +68,21 @@
                 </th:block>
             </div>
 
-            <!-- Order Summary -->
+            <!-- Order Summary - Mobile first -->
             <div class="lg:w-1/4" th:unless="${#lists.isEmpty(cartItems)}">
-                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-8">
-                    <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+                <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 sticky top-8">
+                    <h2 class="text-lg sm:text-xl font-semibold mb-4">Order Summary</h2>
 
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="text-gray-600">Total</span>
-                        <span class="text-2xl font-bold text-gray-900">
+                    <div class="flex justify-between items-center mb-4 sm:mb-6">
+                        <span class="text-sm sm:text-base text-gray-600">Total</span>
+                        <span class="text-md md:text-xl sm:text-2xl font-bold text-gray-900">
                             <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}">Rs</span>
                             [[${#numbers.formatDecimal(estimatedTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
                             <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}">Rs</span>
                         </span>
                     </div>
 
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors text-sm sm:text-base">
                         Checkout Now
                     </button>
                 </div>
@@ -94,28 +90,72 @@
         </div>
 
         <!-- Empty Cart State -->
-        <div class="text-center py-12" th:if="${#lists.isEmpty(cartItems) }">
+        <div class="text-center py-8 sm:py-12" th:if="${#lists.isEmpty(cartItems)}">
             <div class="max-w-md mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 sm:h-24 sm:w-24 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
-                <h3 class="text-xl font-medium text-gray-900 mb-2">Your cart is empty</h3>
-                <p class="text-gray-500">Looks like you haven't added anything to your cart yet</p>
+                <h3 class="text-lg sm:text-xl font-medium text-gray-900 mb-2">Your cart is empty</h3>
+                <p class="text-gray-500 text-sm sm:text-base">Looks like you haven't added anything to your cart yet</p>
             </div>
         </div>
-
     </div>
 </div>
 
-<div id="popupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-xl p-6 max-w-sm w-full">
-        <p id="popupMessage" class="text-gray-800 text-center"></p>
+<!-- Rest of the original code remains the same -->
+<!-- Modal Background -->
+<div id="popupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden transition-opacity duration-300">
+    <!-- Modal Content -->
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-lg transform transition-all duration-300 scale-95">
+        <!-- Close Button -->
+        <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-lg">&times;</button>
+        <!-- Message -->
+        <p id="popupMessage" class="text-gray-800 text-center text-lg font-medium"></p>
     </div>
 </div>
+
+<!-- JavaScript for Modal Handling -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("popupModal");
+        const closeModal = document.getElementById("closeModal");
+
+        // Function to show modal
+        function showModal(message) {
+            document.getElementById("popupMessage").textContent = message;
+            modal.classList.remove("hidden", "opacity-0", "scale-95");
+            modal.classList.add("flex", "opacity-100", "scale-100");
+        }
+
+        // Function to hide modal
+        function hideModal() {
+            modal.classList.add("opacity-0", "scale-95");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex", "opacity-100", "scale-100");
+            }, 300);
+        }
+
+        // Close modal when clicking the close button or outside the modal
+        closeModal.addEventListener("click", hideModal);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) hideModal();
+        });
+
+        // Close on "Escape" key press
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") hideModal();
+        });
+
+        // Example usage (Uncomment below to test)
+        // setTimeout(() => showModal("This is a test message!"), 1000);
+    });
+</script>
 
 <div class="test" th:replace="~{fragments/footer :: footer}"></div>
 
 <script type="text/javascript">
+
     contextPath = "[[@{/}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
     var csrfValue = "[[${_csrf.token}]]";
