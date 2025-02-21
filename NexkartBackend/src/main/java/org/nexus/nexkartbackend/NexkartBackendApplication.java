@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class NexkartBackendApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(NexkartBackendApplication.class, args);
 
 		System.out.println("NexkartBackendApplication started");
