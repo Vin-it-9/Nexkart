@@ -1,6 +1,9 @@
-package org.nexus.nexkartbackend.entity;
+package org.nexus.nexkartfrontend.order;
+
 
 import jakarta.persistence.*;
+import org.nexus.nexkartfrontend.address.Address;
+import org.nexus.nexkartfrontend.customer.Customer;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -267,6 +270,17 @@ public class Order {
         return destination;
     }
 
+    public void copyShippingAddress(Address address) {
+        setFirstName(address.getFirstName());
+        setLastName(address.getLastName());
+        setPhoneNumber(address.getPhoneNumber());
+        setAddressLine1(address.getAddressLine1());
+        setAddressLine2(address.getAddressLine2());
+        setCity(address.getCity());
+        setCountry(address.getCountry().getName());
+        setPostalCode(address.getPostalCode());
+        setState(address.getState());
+    }
 
 
 }
