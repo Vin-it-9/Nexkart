@@ -57,6 +57,7 @@
           <th:block th:each="currency : ${listCurrencies}">
             <option th:value="${currency.id}" th:selected="(${currency.id} == ${CURRENCY_ID})" th:text="${currency}"></option>
           </th:block>
+
         </select>
       </div>
     </div>

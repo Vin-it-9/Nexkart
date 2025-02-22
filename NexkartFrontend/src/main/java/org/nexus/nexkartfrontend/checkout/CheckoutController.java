@@ -91,7 +91,6 @@ public class CheckoutController {
 
     @PostMapping("/place_order")
     public String placeOrder(HttpServletRequest request)
-
             throws UnsupportedEncodingException, MessagingException {
 
         String paymentType = request.getParameter("paymentMethod");
@@ -153,7 +152,9 @@ public class CheckoutController {
         content = content.replace("[[paymentMethod]]", order.getPaymentMethod().toString());
 
         helper.setText(content, true);
+
         mailSender.send(message);
+
     }
 
 
