@@ -1,15 +1,16 @@
-package org.nexus.nexkartbackend.ShippingRate;
+package org.nexus.nexkartbackend.Repository;
 
 import org.nexus.nexkartbackend.entity.ShippingRate;
+import org.nexus.nexkartbackend.paging.SearchRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface ShippingRateRepository extends SearchRepository<ShippingRate, Integer> {
+public interface ShippingRateRepository extends SearchRepository<ShippingRate, Integer> , JpaRepository<ShippingRate, Integer> {
 
     @Query("SELECT sr FROM ShippingRate sr WHERE sr.country.id = ?1 AND sr.state = ?2")
     public ShippingRate findByCountryAndState(Integer countryId, String state);
