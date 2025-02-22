@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+<div class="container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Page Header -->
+    <div class="mb-8 text-center">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Complete Your Purchase</h1>
+        <p class="text-gray-600">Review your order and payment details</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column: Shipping & Payment -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Shipping Information Card -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold flex items-center">
+                        <i class="fas fa-map-marker-alt text-blue-600 mr-3"></i>
+                        Shipping Information
+                    </h3>
+                    <a th:href="@{/address_book}" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i class="fas fa-edit mr-2"></i>Change Address
+                    </a>
+                </div>
+
+                <div class="space-y-4 text-gray-700">
+                    <div class="flex items-center">
+                        <i class="fas fa-user text-gray-400 w-6"></i>
+                        <span th:text="${shippingAddress}" class="ml-2"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-clock text-gray-400 w-6"></i>
+                        <span class="ml-2">
+                            <span th:text="${checkoutInfo.deliverDays}"></span> Day Delivery ·
+                            <span th:text="${#dates.format(checkoutInfo.deliverDate, 'EEE, MMM d')}"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Method Card -->
+            <div class="bg-white rounded-xl shadow-sm p-6" th:if="${checkoutInfo.codSupported}">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fas fa-credit-card text-blue-600 mr-3"></i>
+                    Payment Method
+                </h3>
+
+                <div class="border rounded-lg p-4 hover:border-blue-500 transition-colors">
+                    <label class="flex items-center cursor-pointer">
+                        <input type="radio" name="paymentMethod" id="cod" class="form-radio h-5 w-5 text-blue-600">
+                        <div class="ml-3 flex-1">
+                            <span class="block font-medium text-gray-900">Cash on Delivery (COD)</span>
+                            <span class="block text-sm text-gray-500">Pay when you receive the order</span>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg
+                             font-medium transition-colors flex items-center justify-center">
+                    <i class="fas fa-shopping-bag mr-2"></i>
+                    Confirm COD Order
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-xl shadow-sm p-6 sticky top-6">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fas fa-receipt text-blue-600 mr-3"></i>
+                    Order Summary
+                </h3>
+
+                <!-- Cart Items -->
+                <div class="space-y-4 mb-6">
+                    <th:block th:each="item : ${cartItems}">
+                        <div class="flex items-start">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <a th:href="@{'/p/' + ${item.product.alias}}" target="_blank"
+                                           class="text-gray-900 hover:text-blue-600 font-medium"
+                                           th:text="${item.product.shortName}"></a>
+                                        <p class="text-sm text-gray-500 mt-1">
+                                            <span th:text="${item.quantity}"></span> ×
+                                            <span th:inline="text">
+                                                [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+                                                <!-- Corrected: Access price through product -->
+                                                [[${#numbers.formatDecimal(item.product.price, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                                                [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <span class="text-gray-900 font-medium ml-4" th:inline="text">
+                                        [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+                                        [[${#numbers.formatDecimal(item.subtotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                                        [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                                    </span>
+                                </div>
+                                <div class="text-sm text-gray-500 mt-1">
+                                    Shipping:
+                                    <span th:inline="text">
+                                        [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+                                        [[${#numbers.formatDecimal(item.shippingCost, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                                        [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+
+                <!-- Order Totals -->
+                <div class="space-y-3 border-t pt-4">
+                    <div class="flex justify-between text-gray-600">
+                        <span>Products Total:</span>
+                        <span th:inline="text" class="font-medium">
+                            [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+                            [[${#numbers.formatDecimal(checkoutInfo.productTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                            [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                        </span>
+                    </div>
+                    <div class="flex justify-between text-gray-600">
+                        <span>Shipping Total:</span>
+                        <span th:inline="text" class="font-medium">
+                            [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+                            [[${#numbers.formatDecimal(checkoutInfo.shippingCostTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                            [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                        </span>
+                    </div>
+                    <div class="flex justify-between text-gray-900 font-semibold pt-3">
+                        <span>Total Payment:</span>
+                        <span th:inline="text" class="text-blue-600">
+                            [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+                            [[${#numbers.formatDecimal(checkoutInfo.paymentTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                            [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

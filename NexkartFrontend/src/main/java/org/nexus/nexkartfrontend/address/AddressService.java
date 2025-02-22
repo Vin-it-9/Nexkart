@@ -39,5 +39,9 @@ public class AddressService {
         repo.setNonDefaultForOthers(defaultAddressId, customerId);
     }
 
+    public Address getDefaultAddress(Customer customer) {
+        return repo.findDefaultByCustomer(customer.getId());
+    }
+
 
 }

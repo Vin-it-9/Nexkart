@@ -150,6 +150,9 @@ public class CustomerController {
         if ("address_book".equals(redirectOption)) {
             redirectURL = "redirect:/address_book";
         }
+        else if ("cart".equals(redirectOption)) {
+            redirectURL = "redirect:/cart";
+        }
 
         return redirectURL;
     }
