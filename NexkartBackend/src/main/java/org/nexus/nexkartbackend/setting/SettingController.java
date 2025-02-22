@@ -88,8 +88,12 @@ public class SettingController {
         settingsMap.put("DECIMAL_POINT_TYPE", SettingCategory.CURRENCY);
         settingsMap.put("DECIMAL_DIGITS", SettingCategory.CURRENCY);
         settingsMap.put("THOUSANDS_POINT_TYPE", SettingCategory.CURRENCY);
+        settingsMap.put("PAYPAL_API_BASE_URL", SettingCategory.PAYMENT);
+        settingsMap.put("PAYPAL_API_CLIENT_ID", SettingCategory.PAYMENT);
+        settingsMap.put("PAYPAL_API_CLIENT_SECRET", SettingCategory.PAYMENT);
 
-      for (Map.Entry<String, SettingCategory> entry : settingsMap.entrySet()) {
+
+        for (Map.Entry<String, SettingCategory> entry : settingsMap.entrySet()) {
             String key = entry.getKey();
             String value = request.getParameter(key);
             if (value != null) {
@@ -155,9 +159,12 @@ public class SettingController {
 
     private void updateMailTemplateSettingValuesFromForm(HttpServletRequest request, List<Setting> listSettings) {
         Map<String, SettingCategory> mailTemplateMap = new HashMap<>();
-       
+
+
         mailTemplateMap.put("CUSTOMER_VERIFY_SUBJECT", SettingCategory.MAIL_TEMPLATES);
         mailTemplateMap.put("CUSTOMER_VERIFY_CONTENT", SettingCategory.MAIL_TEMPLATES);
+        mailTemplateMap.put("ORDER_CONFIRMATION_SUBJECT", SettingCategory.MAIL_TEMPLATES);
+        mailTemplateMap.put("ORDER_CONFIRMATION_CONTENT", SettingCategory.MAIL_TEMPLATES);
 
         for (Map.Entry<String, SettingCategory> entry : mailTemplateMap.entrySet()) {
             String key = entry.getKey();
@@ -174,6 +181,18 @@ public class SettingController {
             }
         }
         service.saveAll(listSettings);
+    }
+
+    @PostMapping("/settings/save_payment")
+    public String savePaymentSetttings(HttpServletRequest request, RedirectAttributes ra) {
+
+        List<Setting> paymentSettings = service.getPaymentSettings();
+
+        updateSettingValuesFromForm(request, paymentSettings);
+
+        ra.addFlashAttribute("message", "Payment settings have been saved");
+
+        return "redirect:/settings#payment";
     }
 
 
