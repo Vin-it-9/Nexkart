@@ -142,7 +142,7 @@
 <script>
     $(document).ready(function() {
         $("#customerVerificationContent").richText();
-        $("#orderConfirmationContent").richText();
+        $("#orderConfirmationContent").richText({height: 400});
     });
     var contextPath = "[[@{/}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
