@@ -81,4 +81,19 @@ public class OrderController {
 
     }
 
+
+    @GetMapping("/orders/delete/{id}")
+    public String deleteOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+        try {
+            orderService.delete(id);;
+            ra.addFlashAttribute("message", "The order ID " + id + " has been deleted.");
+        } catch (OrderNotFoundException ex) {
+            ra.addFlashAttribute("message", ex.getMessage());
+        }
+
+        return "redirect:/orders";
+    }
+
+
+
 }

@@ -22,6 +22,7 @@ public interface OrderRepository extends PagingAndSortingRepository<Order, Integ
             + " o.customer.lastName LIKE %?1%")
     public Page<Order> findAll(String keyword, Pageable pageable);
 
+    public Long countById(Integer id);
 
 
 }
