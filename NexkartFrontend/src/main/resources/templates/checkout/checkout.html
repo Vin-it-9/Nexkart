@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Checkout</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Added jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<head th:replace="~{fragments/common-header :: common-head}">
+    <title>Secure Checkout</title>
 </head>
-<body class="bg-gray-50 font-sans">
-<div class="container mx-auto px-4 py-8 max-w-7xl">
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen font-sans">
 
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div th:replace="~{fragments/search_nav :: search_nav}"></div>
+
+<div class="container mx-auto px-4 py-12 max-w-7xl">
     <!-- Page Header -->
-    <div class="mb-8 text-center">
-        <h1 class="text-2xl font-bold text-gray-900 mb-2">Complete Your Purchase</h1>
+    <div class="mb-12 text-start space-y-2">
+        <h1 class="text-3xl font-bold text-gray-900">Secure Checkout</h1>
         <p class="text-gray-600">Review your order and payment details</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Left Column: Shipping & Payment -->
-        <div class="lg:col-span-2 space-y-6">
+        <div class="lg:col-span-2 space-y-1 bg-white rounded-xl shadow-lg ">
             <!-- Shipping Information Card -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="border-b border-gray-400  p-8 ">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-xl font-semibold flex items-center">
-                        <i class="fas fa-map-marker-alt text-blue-600 mr-3"></i>
-                        Shipping Information
-                    </h3>
-                    <a th:href="@{/address_book}" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i class="fas fa-edit mr-2"></i>Change Address
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-purple-100 p-3 rounded-lg">
+                            <i class="fas fa-map-marker-alt text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">
+                            Shipping Details
+                        </h3>
+                    </div>
+                    <a th:href="@{/address_book}" class="text-purple-600 hover:text-purple-800 text-sm font-medium flex items-center space-x-2">
+                        <i class="fas fa-edit"></i>
+                        <span>Change</span>
                     </a>
                 </div>
 
                 <div class="space-y-4 text-gray-700">
-                    <div class="flex items-center">
-                        <i class="fas fa-user text-gray-400 w-6"></i>
-                        <span th:text="${shippingAddress}" class="ml-2"></span>
+                    <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                        <i class="fas fa-user text-gray-500 w-5"></i>
+                        <span th:text="${shippingAddress}" class="font-medium"></span>
                     </div>
-                    <div class="flex items-center">
-                        <i class="fas fa-clock text-gray-400 w-6"></i>
-                        <span class="ml-2">
+                    <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                        <i class="fas fa-clock text-gray-500 w-5"></i>
+                        <span class="font-medium">
                             <span th:text="${checkoutInfo.deliverDays}"></span> Day Delivery ·
                             <span th:text="${#dates.format(checkoutInfo.deliverDate, 'EEE, MMM d')}"></span>
                         </span>
@@ -47,60 +50,87 @@
                 </div>
             </div>
 
-            <!-- Payment Method Card -->
-            <div class="bg-white rounded-xl shadow-sm p-6" th:if="${checkoutInfo.codSupported}">
-                <h3 class="text-xl font-semibold mb-6 flex items-center">
-                    <i class="fas fa-credit-card text-blue-600 mr-3"></i>
-                    Payment Method
-                </h3>
-
-                <form th:action="@{/place_order}" method="post">
-                    <div class="border rounded-lg p-4 hover:border-blue-500 transition-colors">
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="paymentMethod" id="radioCOD" value="COD" class="form-radio h-5 w-5 text-blue-600">
-                            <div class="ml-3 flex-1">
-                                <span class="block font-medium text-gray-900">Cash on Delivery (COD)</span>
-                                <span class="block text-sm text-gray-500">Pay when you receive the order</span>
+            <!-- Payment Section -->
+            <div class="space-y-1" th:if="${checkoutInfo.codSupported}">
+                <!-- COD Payment Card -->
+                <div class="border-b border-gray-400  p-8">
+                    <form th:action="@{/place_order}" method="post">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-blue-100 p-3 rounded-lg">
+                                    <i class="fas fa-wallet text-blue-600 text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-900">
+                                    Cash on Delivery
+                                </h3>
                             </div>
-                        </label>
+                        </div>
+
+                        <div class="space-y-4 ">
+                            <div class="p-4 border-2 border-blue-200 rounded-lg hover:border-blue-400 transition-colors">
+                                <label class="flex items-center cursor-pointer space-x-4">
+                                    <input type="radio" name="paymentMethod" value="COD"
+                                           class="form-radio h-6 w-6 text-blue-600 border-2">
+                                    <div class="flex-1">
+                                        <span class="block font-medium text-gray-900">Pay on Delivery</span>
+                                        <span class="block text-sm text-gray-500 mt-1">Pay when you receive your package</span>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="w-full mt-6 bg-gradient-to-br from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-4 px-8 rounded-lg font-semibold transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-3">
+                                <i class="fas fa-shopping-bag"></i>
+                                <span>Confirm COD Order</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- PayPal Payment Card -->
+                <div class=" p-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="bg-yellow-100 p-3 rounded-lg">
+                            <i class="fab fa-paypal text-yellow-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">
+                            PayPal Payment
+                        </h3>
                     </div>
 
-                    <button type="submit" id="buttonSubmit" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center">
-                        <i class="fas fa-shopping-bag mr-2"></i>
-                        Confirm COD Order
-                    </button>
-                </form>
-
-                <div id="paypal-button-container" class="mt-6"></div>
-
-                <form th:action="@{/process_paypal_order}" method="post" id="paypalForm">
-                    <input type="hidden" name="orderId" id="orderId" />
-                    <input type="hidden" name="paymentMethod" value="PAYPAL" />
-                </form>
-
+                    <div id="paypal-button-container" class="mt-4"></div>
+                </div>
             </div>
 
+            <form th:action="@{/process_paypal_order}" method="post" id="paypalForm">
+                <input type="hidden" name="orderId" id="orderId" />
+                <input type="hidden" name="paymentMethod" value="PAYPAL" />
+            </form>
         </div>
 
         <!-- Right Column: Order Summary -->
         <div class="lg:col-span-1">
-            <div class="bg-white rounded-xl shadow-sm p-6 sticky top-6">
-                <h3 class="text-xl font-semibold mb-6 flex items-center">
-                    <i class="fas fa-receipt text-blue-600 mr-3"></i>
-                    Order Summary
-                </h3>
+            <div class="bg-white rounded-lg shadow-lg p-8 sticky top-8">
+
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <i class="fas fa-receipt text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Order Summary
+                    </h3>
+                </div>
 
                 <!-- Cart Items -->
-                <div class="space-y-4 mb-6">
+                <div class="space-y-2 mb-8">
                     <th:block th:each="item : ${cartItems}">
-                        <div class="flex items-start">
+                        <div class="flex items-start space-x-4">
                             <div class="flex-1">
                                 <div class="flex justify-between items-start">
-                                    <div>
+                                    <div class="space-y-1">
                                         <a th:href="@{'/p/' + ${item.product.alias}}" target="_blank"
                                            class="text-gray-900 hover:text-blue-600 font-medium"
                                            th:text="${item.product.shortName}"></a>
-                                        <p class="text-sm text-gray-500 mt-1">
+                                        <p class="text-sm text-gray-500">
                                             <span th:text="${item.quantity}"></span> ×
                                             <span th:inline="text">
                                                 [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
@@ -109,14 +139,14 @@
                                             </span>
                                         </p>
                                     </div>
-                                    <span class="text-gray-900 font-medium ml-4" th:inline="text">
+                                    <span class="text-gray-900 font-medium" th:inline="text">
                                         [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
                                         [[${#numbers.formatDecimal(item.subtotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
                                         [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
                                     </span>
                                 </div>
-                                <div class="text-sm text-gray-500 mt-1">
-                                    Shipping:
+                                <div class="text-sm text-gray-500 mt-2">
+                                    <i class="fas fa-truck mr-1"></i>
                                     <span th:inline="text">
                                         [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
                                         [[${#numbers.formatDecimal(item.shippingCost, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
@@ -129,29 +159,30 @@
                 </div>
 
                 <!-- Order Totals -->
-                <div class="space-y-3 border-t pt-4">
-                    <div class="flex justify-between text-gray-600">
-                        <span>Products Total:</span>
+                <div class="space-y-2 border-t pt-6">
+                    <div class="flex justify-between ">
+                        <span>Subtotal:</span>
                         <span th:inline="text" class="font-medium">
-                            [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+
                             [[${#numbers.formatDecimal(checkoutInfo.productTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
-                            [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                            [[${CURRENCY_SYMBOL}]]
+                            Rs
                         </span>
                     </div>
-                    <div class="flex justify-between text-gray-600">
-                        <span>Shipping Total:</span>
+                    <div class="flex justify-between ">
+                        <span>Shipping:</span>
                         <span th:inline="text" class="font-medium">
-                            [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
                             [[${#numbers.formatDecimal(checkoutInfo.shippingCostTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
-                            [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                            [[${CURRENCY_SYMBOL}]]
+                            Rs
                         </span>
                     </div>
-                    <div class="flex justify-between text-gray-900 font-semibold pt-3">
-                        <span>Total Payment:</span>
-                        <span th:inline="text" class="text-blue-600">
-                            [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
+                    <div class="flex justify-between text-xl font-bold text-gray-900 pt-4">
+                        <span>Total:</span>
+                        <span th:inline="text" class="">
                             [[${#numbers.formatDecimal(checkoutInfo.paymentTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
-                            [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
+                            [[${CURRENCY_SYMBOL}]]
+                            Rs
                         </span>
                     </div>
                 </div>
@@ -159,7 +190,6 @@
         </div>
     </div>
 </div>
-
 
 <script th:src="@{https://www.paypal.com/sdk/js(client-id=${paypalClientId},currency=${currencyCode})}"></script>
 
@@ -182,16 +212,13 @@
     paypal.Buttons({
         enableStandardCardFields: true,
         createOrder: function(data, actions) {
-
             return actions.order.create({
-
                 intent: 'CAPTURE',
                 payer: {
                     name: {
                         given_name: "[[${customer.firstName}]]",
                         surname: "[[${customer.lastName}]]"
                     },
-
                     address: {
                         address_line_1: "[[${customer.addressLine1}]]",
                         address_line_2: "[[${customer.addressLine2}]]",
@@ -200,9 +227,7 @@
                         postal_code: "[[${customer.postalCode}]]",
                         country_code: "[[${customer.country.code}]]"
                     },
-
                     email_address: "[[${customer.email}]]",
-
                     phone: {
                         phone_type: "MOBILE",
                         phone_number: {
@@ -210,36 +235,30 @@
                         }
                     }
                 },
-
                 purchase_units: [{
                     amount: {
                         value: "[[${checkoutInfo.paymentTotal4PayPal}]]",
                         currency_code: "[[${currencyCode}]]"
                     }
                 }],
-
                 application_context: {
                     shipping_preference: "NO_SHIPPING"
                 }
             });
         },
-
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
                 orderId = details.id;
                 validateOrder(orderId);
             });
         },
-
         onCancel: function(data) {
             alert('Payment cancelled by the buyer');
         },
-
         onError: function(err) {
             showErrorModal("Something wrong with your address information, so payment will not work.");
         }
     }).render("#paypal-button-container");
-
 </script>
 </body>
 </html>
