@@ -5,13 +5,15 @@
     <title>Checkout</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Added jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="bg-gray-50 font-sans">
 <div class="container mx-auto px-4 py-8 max-w-7xl">
 
     <!-- Page Header -->
     <div class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Complete Your Purchase</h1>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Complete Your Purchase</h1>
         <p class="text-gray-600">Review your order and payment details</p>
     </div>
 
@@ -53,10 +55,9 @@
                 </h3>
 
                 <form th:action="@{/place_order}" method="post">
-                    <p>
                     <div class="border rounded-lg p-4 hover:border-blue-500 transition-colors">
                         <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="paymentMethod" id="radioCOD" value="COD"  class="form-radio h-5 w-5 text-blue-600">
+                            <input type="radio" name="paymentMethod" id="radioCOD" value="COD" class="form-radio h-5 w-5 text-blue-600">
                             <div class="ml-3 flex-1">
                                 <span class="block font-medium text-gray-900">Cash on Delivery (COD)</span>
                                 <span class="block text-sm text-gray-500">Pay when you receive the order</span>
@@ -64,15 +65,21 @@
                         </label>
                     </div>
 
-                    <button type="submit" id="buttonSubmit"  class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg
-                             font-medium transition-colors flex items-center justify-center">
+                    <button type="submit" id="buttonSubmit" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center">
                         <i class="fas fa-shopping-bag mr-2"></i>
                         Confirm COD Order
                     </button>
-
-                    </p>
                 </form>
+
+                <div id="paypal-button-container" class="mt-6"></div>
+
+                <form th:action="@{/process_paypal_order}" method="post" id="paypalForm">
+                    <input type="hidden" name="orderId" id="orderId" />
+                    <input type="hidden" name="paymentMethod" value="PAYPAL" />
+                </form>
+
             </div>
+
         </div>
 
         <!-- Right Column: Order Summary -->
@@ -97,7 +104,6 @@
                                             <span th:text="${item.quantity}"></span> ×
                                             <span th:inline="text">
                                                 [[${CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : ''}]]
-                                                <!-- Corrected: Access price through product -->
                                                 [[${#numbers.formatDecimal(item.product.price, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
                                                 [[${CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : ''}]]
                                             </span>
@@ -154,6 +160,9 @@
     </div>
 </div>
 
+
+<script th:src="@{https://www.paypal.com/sdk/js(client-id=${paypalClientId},currency=${currencyCode})}"></script>
+
 <script type="text/javascript">
     contextPath = "[[@{/}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
@@ -165,7 +174,72 @@
         });
     });
 
-</script>
+    function validateOrder(orderId) {
+        $("#orderId").val(orderId);
+        $("#paypalForm").submit();
+    }
 
+    paypal.Buttons({
+        enableStandardCardFields: true,
+        createOrder: function(data, actions) {
+
+            return actions.order.create({
+
+                intent: 'CAPTURE',
+                payer: {
+                    name: {
+                        given_name: "[[${customer.firstName}]]",
+                        surname: "[[${customer.lastName}]]"
+                    },
+
+                    address: {
+                        address_line_1: "[[${customer.addressLine1}]]",
+                        address_line_2: "[[${customer.addressLine2}]]",
+                        admin_area_1: "[[${customer.state}]]",
+                        admin_area_2: "[[${customer.city}]]",
+                        postal_code: "[[${customer.postalCode}]]",
+                        country_code: "[[${customer.country.code}]]"
+                    },
+
+                    email_address: "[[${customer.email}]]",
+
+                    phone: {
+                        phone_type: "MOBILE",
+                        phone_number: {
+                            national_number: "[[${customer.phoneNumber}]]"
+                        }
+                    }
+                },
+
+                purchase_units: [{
+                    amount: {
+                        value: "[[${checkoutInfo.paymentTotal4PayPal}]]",
+                        currency_code: "[[${currencyCode}]]"
+                    }
+                }],
+
+                application_context: {
+                    shipping_preference: "NO_SHIPPING"
+                }
+            });
+        },
+
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                orderId = details.id;
+                validateOrder(orderId);
+            });
+        },
+
+        onCancel: function(data) {
+            alert('Payment cancelled by the buyer');
+        },
+
+        onError: function(err) {
+            showErrorModal("Something wrong with your address information, so payment will not work.");
+        }
+    }).render("#paypal-button-container");
+
+</script>
 </body>
 </html>

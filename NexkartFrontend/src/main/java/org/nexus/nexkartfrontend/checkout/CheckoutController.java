@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.nexus.nexkartfrontend.Utility;
 import org.nexus.nexkartfrontend.address.Address;
 import org.nexus.nexkartfrontend.address.AddressService;
+import org.nexus.nexkartfrontend.checkout.paypal.PayPalApiException;
+import org.nexus.nexkartfrontend.checkout.paypal.PayPalService;
 import org.nexus.nexkartfrontend.customer.Customer;
 import org.nexus.nexkartfrontend.customer.CustomerService;
 import org.nexus.nexkartfrontend.entity.ShippingRate;
@@ -15,6 +17,7 @@ import org.nexus.nexkartfrontend.order.OrderService;
 import org.nexus.nexkartfrontend.order.PaymentMethod;
 import org.nexus.nexkartfrontend.setting.CurrencySettingBag;
 import org.nexus.nexkartfrontend.setting.EmailSettingBag;
+import org.nexus.nexkartfrontend.setting.PaymentSettingBag;
 import org.nexus.nexkartfrontend.setting.SettingService;
 import org.nexus.nexkartfrontend.shipping.ShippingRateService;
 import org.nexus.nexkartfrontend.shoppingcart.CartItem;
@@ -55,6 +58,10 @@ public class CheckoutController {
     @Autowired
     private SettingService settingService;
 
+    @Autowired
+    private PayPalService paypalService;
+
+
 
     @GetMapping("/checkout")
     public String showCheckoutPage(Model model, HttpServletRequest request) {
@@ -78,6 +85,13 @@ public class CheckoutController {
         List<CartItem> cartItems = cartService.listCartItems(customer);
         CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems, shippingRate);
 
+        String currencyCode = settingService.getCurrencyCode();
+        PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
+        String paypalClientId = paymentSettings.getClientID();
+
+        model.addAttribute("paypalClientId", paypalClientId);
+        model.addAttribute("currencyCode", currencyCode);
+        model.addAttribute("customer", customer);
         model.addAttribute("checkoutInfo", checkoutInfo);
         model.addAttribute("cartItems", cartItems);
 
@@ -155,6 +169,32 @@ public class CheckoutController {
 
         mailSender.send(message);
 
+    }
+
+    @PostMapping("/process_paypal_order")
+    public String processPayPalOrder(HttpServletRequest request, Model model)
+            throws UnsupportedEncodingException, MessagingException {
+        String orderId = request.getParameter("orderId");
+
+        String pageTitle = "Checkout Failure";
+        String message = null;
+
+        try {
+            if (paypalService.validateOrder(orderId)) {
+                return placeOrder(request);
+            } else {
+                pageTitle = "Checkout Failure";
+                message = "ERROR: Transaction could not be completed because order information is invalid";
+            }
+        } catch (PayPalApiException e) {
+            message = "ERROR: Transaction failed due to error: " + e.getMessage();
+        }
+
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("title", pageTitle);
+        model.addAttribute("message", message);
+
+        return "message";
     }
 
 
