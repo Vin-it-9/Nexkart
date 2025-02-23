@@ -23,4 +23,6 @@ public interface ShippingRateRepository extends SearchRepository<ShippingRate, I
     public Page<ShippingRate> findAll(String keyword, Pageable pageable);
 
     public Long countById(Integer id);
+
+
 }

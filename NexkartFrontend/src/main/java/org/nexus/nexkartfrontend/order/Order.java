@@ -5,10 +5,7 @@ import jakarta.persistence.*;
 import org.nexus.nexkartfrontend.address.Address;
 import org.nexus.nexkartfrontend.customer.Customer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "orders")

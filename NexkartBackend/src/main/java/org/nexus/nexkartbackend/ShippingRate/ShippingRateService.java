@@ -5,29 +5,45 @@ import jakarta.transaction.Transactional;
 import org.nexus.nexkartbackend.Repository.CountryRepository;
 import org.nexus.nexkartbackend.Repository.ShippingRateRepository;
 import org.nexus.nexkartbackend.entity.Country;
+import org.nexus.nexkartbackend.entity.Order;
 import org.nexus.nexkartbackend.entity.ShippingRate;
 import org.nexus.nexkartbackend.exception.*;
 import org.nexus.nexkartbackend.paging.PagingAndSortingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.nexus.nexkartbackend.order.OrderService.ORDERS_PER_PAGE;
+
 
 @Service
 @Transactional
 public class ShippingRateService {
+
     public static final int RATES_PER_PAGE = 10;
 
-    @Autowired private
-    ShippingRateRepository shipRepo;
+    @Autowired
+    private ShippingRateRepository shipRepo;
 
-    @Autowired private
-    CountryRepository countryRepo;
+    @Autowired
+    private CountryRepository countryRepo;
 
-    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
-        helper.listEntities(pageNum, RATES_PER_PAGE, shipRepo);
+
+    public Page<ShippingRate> listByPage(int pageNum, String keyword) {
+
+        Pageable pageable = PageRequest.of(pageNum - 1, ORDERS_PER_PAGE);
+
+        if (keyword != null && !keyword.isEmpty()) {
+            return shipRepo.findAll(keyword, pageable);
+        }
+
+        return shipRepo.findAll(pageable);
+
     }
 
     public List<Country> listAllCountries() {
