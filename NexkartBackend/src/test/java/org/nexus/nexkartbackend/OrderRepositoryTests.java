@@ -1,6 +1,7 @@
 package org.nexus.nexkartbackend;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -153,4 +154,42 @@ public class OrderRepositoryTests {
         Optional<Order> result = repo.findById(orderId);
         assertThat(result).isNotPresent();
     }
+
+    @Test
+    public void testUpdateOrderTracks() {
+
+        Integer orderId = 1;
+        Order order = repo.findById(orderId).get();
+
+        OrderTrack newTrack = new OrderTrack();
+        newTrack.setOrder(order);
+        newTrack.setUpdatedTime(new Date());
+        newTrack.setStatus(OrderStatus.NEW);
+        newTrack.setNotes(OrderStatus.NEW.defaultDescription());
+
+        OrderTrack processingTrack = new OrderTrack();
+        processingTrack.setOrder(order);
+        processingTrack.setUpdatedTime(new Date());
+        processingTrack.setStatus(OrderStatus.PROCESSING);
+        processingTrack.setNotes(OrderStatus.PROCESSING.defaultDescription());
+
+        List<OrderTrack> orderTracks = order.getOrderTracks();
+        orderTracks.add(newTrack);
+        orderTracks.add(processingTrack);
+
+        Order updatedOrder = repo.save(order);
+
+        assertThat(updatedOrder.getOrderTracks());
+
+    }
+
+
+
+
+
+
+
+
+
+
 }

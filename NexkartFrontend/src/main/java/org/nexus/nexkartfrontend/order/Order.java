@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.nexus.nexkartfrontend.address.Address;
 import org.nexus.nexkartfrontend.customer.Customer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -66,6 +67,18 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderTrack> orderTracks = new ArrayList<>();
+
+    public List<OrderTrack> getOrderTracks() {
+        return orderTracks;
+    }
+
+    public void setOrderTracks(List<OrderTrack> orderTracks) {
+        this.orderTracks = orderTracks;
+    }
 
     public Integer getId() {
         return id;

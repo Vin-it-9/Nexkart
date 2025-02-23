@@ -191,6 +191,8 @@
     </div>
 </div>
 
+<div class="test" th:replace="~{fragments/footer :: footer}"></div>
+
 <script th:src="@{https://www.paypal.com/sdk/js(client-id=${paypalClientId},currency=${currencyCode})}"></script>
 
 <script type="text/javascript">

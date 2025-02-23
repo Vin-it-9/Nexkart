@@ -1,10 +1,7 @@
 package org.nexus.nexkartbackend.entity;
 
 import jakarta.persistence.*;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "orders")
@@ -27,6 +24,10 @@ public class Order {
 
     @Column(name = "address_line_2", length = 64)
     private String addressLine2;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OrderBy("updatedTime ASC")
+    private List<OrderTrack> orderTracks = new ArrayList<>();
 
     @Column(nullable = false, length = 45)
     private String city;
@@ -60,6 +61,14 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    public List<OrderTrack> getOrderTracks() {
+        return orderTracks;
+    }
+
+    public void setOrderTracks(List<OrderTrack> orderTracks) {
+        this.orderTracks = orderTracks;
+    }
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails = new HashSet<>();

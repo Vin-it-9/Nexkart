@@ -8,6 +8,7 @@
 <body>
 <div th:fragment="search_nav">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -45,16 +46,17 @@
                                 <span class="material-icons-round">person_outline</span>
                                 <span class="font-medium" sec:authentication="principal.fullName"></span>
                             </a>
-                            <a href="#" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
+                            <a th:href="@{/address_book}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
                                 <span class="material-icons-round">location_on</span>
                             </a>
                             <a href="#" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
                                 <span class="material-icons-round">receipt</span>
                             </a>
-                            <a th:href="@{/cart}" class="p-2  hover:text-blue-500 rounded-full hover:bg-gray-50 ">
-                                <span class="material-icons-round">cart</span>
+                            <a th:href="@{/cart}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
+                                <span class="material-icons-round">shopping_cart</span>
                             </a>
-                            <a class="nav-link" th:href="@{/address_book}">Address Book</a>
+
+
                         </div>
                     </th:block>
 
@@ -93,9 +95,7 @@
                         <span class="material-icons-round text-gray-500">receipt</span>
                         <span class="font-medium">Orders</span>
                     </a>
-                    <a th:href="@{/cart}" class="p-2  hover:text-blue-500 rounded-full hover:bg-gray-50 ">
-                        <span class="material-icons-round">cart</span>
-                    </a>
+
                 </div>
             </th:block>
         </div>
