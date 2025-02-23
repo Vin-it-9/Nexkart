@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-50">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container mx-auto p-4 lg:p-8 max-w-7xl">
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900">Manage Orders | [[${pageTitle}]]</h2>
+    </div>
+
+    <form th:action="@{/order/save}" th:object="${order}" method="post" class="bg-white rounded-xl shadow-lg p-6 lg:p-8">
+        <input type="hidden" th:field="*{id}" />
+
+        <!-- Enhanced Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="flex space-x-8" id="tabs">
+                    <button type="button" class="tab-link pb-4 px-1 border-b-2 font-medium text-m transition-colors text-blue-600 border-blue-500" data-tab="overview">
+                        Overview
+                    </button>
+                    <button type="button" class="tab-link pb-4 px-1 border-b-2 font-medium text-m transition-colors text-gray-500 hover:text-gray-700 hover:border-gray-300 border-transparent" data-tab="products">
+                        Products
+                    </button>
+                    <button type="button" class="tab-link pb-4 px-1 border-b-2 font-medium text-m transition-colors text-gray-500 hover:text-gray-700 hover:border-gray-300 border-transparent" data-tab="shipping">
+                        Shipping
+                    </button>
+                    <button type="button" class="tab-link pb-4 px-1 border-b-2 font-medium text-m transition-colors text-gray-500 hover:text-gray-700 hover:border-gray-300 border-transparent" data-tab="track">
+                        Track
+                    </button>
+                </nav>
+            </div>
+
+            <div id="tabContent" class="pt-6">
+                <div id="overview" class="tab-content active space-y-6">
+                    <div th:replace="orders/order_form_overview :: content"></div>
+                </div>
+                <div id="products" class="tab-content hidden">
+                    <div th:replace="orders/order_form_products :: content"></div>
+                </div>
+                <div id="shipping" class="tab-content hidden">
+                    <div th:replace="orders/order_form_shipping :: content"></div>
+                </div>
+                <div id="track" class="tab-content hidden">
+                        <div th:replace="orders/order_form_tracks :: content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Action Buttons -->
+        <div class="flex justify-end gap-4 mt-8 border-t border-gray-200 pt-6">
+            <input type="submit" value="Save" class="inline-flex items-center justify-center px-6 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" />
+            <input type="button" value="Cancel" class="inline-flex items-center justify-center px-6 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors" id="buttonCancel" />
+        </div>
+    </form>
+
+</div>
+
+<script>
+
+    const contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+
+
+    $(document).ready(function() {
+        // Cancel button click
+        $('#buttonCancel').click(function() {
+            window.location = "[[@{/orders}]]";
+        });
+        $('.tab-link').click(function() {
+            const tab = $(this).data('tab');
+            $('.tab-link').removeClass('text-blue-600 border-blue-500').addClass('text-gray-500 border-transparent');
+            $(this).addClass('text-blue-600 border-blue-500').removeClass('text-gray-500 border-transparent');
+            $('.tab-content').removeClass('active').addClass('hidden');
+            $('#' + tab).addClass('active').removeClass('hidden');
+        });
+    });
+
+</script>
+
+<!-- JavaScript Files -->
+<script th:src="@{/js/common_form.js}"></script>
+<script th:src="@{/js/common_form_country_state.js}"></script>
+<script th:src="@{/js/jquery.number.min.js}"></script>
+<script th:src="@{/js/order_form_overview_products.js}"></script>
+<script th:src="@{/js/order_form_add_product.js}"></script>
+<script th:src="@{/js/order_form_tracks.js}"></script>
+
+
+</body>
+</html>

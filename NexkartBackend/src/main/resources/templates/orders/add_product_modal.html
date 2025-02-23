@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <div id="addProductModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <!-- Modal overlay -->
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            <!-- Modal container -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full relative z-20">
+                <div class="px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-medium text-gray-900" id="modalTitle">Add Product</h3>
+                    <button type="button" class="text-gray-400 hover:text-gray-600" id="modalClose">&times;</button>
+                </div>
+                <div class="px-4 py-5">
+                    <iframe id="modalIframe" class="w-full h-64" src=""></iframe>
+                </div>
+                <div class="px-4 py-3 border-t border-gray-200 text-right">
+                    <button type="button" class="bg-red-600 text-white px-4 py-2 rounded" id="modalClose2">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

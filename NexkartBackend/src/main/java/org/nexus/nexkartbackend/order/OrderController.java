@@ -2,12 +2,9 @@ package org.nexus.nexkartbackend.order;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.nexus.nexkartbackend.entity.Country;
 import org.nexus.nexkartbackend.entity.Order;
-import org.nexus.nexkartbackend.entity.User;
 import org.nexus.nexkartbackend.exception.OrderNotFoundException;
-import org.nexus.nexkartbackend.paging.PagingAndSortingHelper;
-import org.nexus.nexkartbackend.paging.PagingAndSortingParam;
-import org.nexus.nexkartbackend.setting.Setting;
 import org.nexus.nexkartbackend.setting.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +20,8 @@ import java.util.List;
 
 @Controller
 public class OrderController {
+
+    public String defaultRedirectURL = "redirect:/orders";
 
 
     @Autowired
@@ -92,6 +91,27 @@ public class OrderController {
         }
 
         return "redirect:/orders";
+    }
+
+    @GetMapping("/orders/edit/{id}")
+    public String editOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra,
+                            HttpServletRequest request) {
+        try {
+            Order order = orderService.get(id);;
+
+            List<Country> listCountries = orderService.listAllCountries();
+
+            model.addAttribute("pageTitle", "Edit Order (ID: " + id + ")");
+            model.addAttribute("order", order);
+            model.addAttribute("listCountries", listCountries);
+
+            return "orders/order_form";
+
+        } catch (OrderNotFoundException ex) {
+            ra.addFlashAttribute("message", ex.getMessage());
+            return defaultRedirectURL;
+        }
+
     }
 
 

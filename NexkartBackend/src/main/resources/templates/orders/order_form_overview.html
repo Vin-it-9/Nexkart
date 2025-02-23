@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left Column -->
+        <div class="space-y-4">
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Order ID</label>
+                <input type="text" readonly
+                       class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-600"
+                       th:value="${order.id}">
+            </div>
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Customer</label>
+                <input type="text" readonly
+                       class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-600"
+                       th:value="${order.customer.fullName}">
+            </div>
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Payment Method</label>
+                <select th:field="*{paymentMethod}"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        required>
+                    <option th:each="pm : ${T(org.nexus.nexkartbackend.entity.PaymentMethod).values()}"
+                            th:value="${pm}" th:text="${pm}"></option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="space-y-4">
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Product Cost</label>
+                <input type="text" th:field="*{productCost}" required
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+            </div>
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Subtotal</label>
+                <input type="text" th:field="*{subtotal}" required
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+            </div>
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Shipping Cost</label>
+                <input type="text" th:field="*{shippingCost}" required
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+            </div>
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Tax</label>
+                <input type="text" th:field="*{tax}" required
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+            </div>
+            <div class="space-y-1">
+                <label class="block text-sm font-medium text-gray-700">Total</label>
+                <input type="text" th:field="*{total}" required
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors font-semibold text-gray-900">
+            </div>
+        </div>
+    </div>
+
+    <div class="space-y-4">
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">Status</label>
+            <select th:field="*{status}"
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    required>
+                <option th:each="os : ${T(org.nexus.nexkartbackend.entity.OrderStatus).values()}"
+                        th:value="${os}" th:text="${os}"></option>
+            </select>
+        </div>
+    </div>
+</div>
+</body>
+</html>

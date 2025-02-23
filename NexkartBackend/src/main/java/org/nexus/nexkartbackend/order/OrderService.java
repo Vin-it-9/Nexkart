@@ -1,6 +1,8 @@
 package org.nexus.nexkartbackend.order;
 
+import org.nexus.nexkartbackend.Repository.CountryRepository;
 import org.nexus.nexkartbackend.Repository.OrderRepository;
+import org.nexus.nexkartbackend.entity.Country;
 import org.nexus.nexkartbackend.entity.Order;
 import org.nexus.nexkartbackend.entity.User;
 import org.nexus.nexkartbackend.exception.OrderNotFoundException;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -20,8 +23,11 @@ public class OrderService {
 
     public static final int ORDERS_PER_PAGE = 10;
 
-    @Autowired private
-    OrderRepository repo;
+    @Autowired
+    private OrderRepository repo;
+
+    @Autowired
+    private CountryRepository countryRepo;
 
     public Page<Order> listByPage(int pageNum, String keyword) {
 
@@ -50,6 +56,10 @@ public class OrderService {
         } catch (NoSuchElementException ex) {
             throw new OrderNotFoundException("Could not find any orders with ID " + id);
         }
+    }
+
+    public List<Country> listAllCountries() {
+        return countryRepo.findAllByOrderByNameAsc();
     }
 
 

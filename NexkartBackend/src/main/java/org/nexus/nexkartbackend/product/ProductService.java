@@ -3,6 +3,7 @@ package org.nexus.nexkartbackend.product;
 import org.nexus.nexkartbackend.Repository.ProductRepository;
 import org.nexus.nexkartbackend.entity.Product;
 import org.nexus.nexkartbackend.exception.ProductNotFoundException;
+import org.nexus.nexkartbackend.paging.PagingAndSortingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.Date;
 import java.util.List;
@@ -34,6 +36,24 @@ public class ProductService {
         productRepository.updateEnabledStatus(id, enabled);
     }
 
+
+    public void searchProducts(int pageNum, String keyword, Model model) {
+        Pageable pageable = createPageable(PRODUCTS_PER_PAGE, pageNum);
+        Page<Product> page = productRepository.searchProductsByName(keyword, pageable);
+        updateModelAttributes(pageNum, page, keyword, model);
+    }
+
+    private Pageable createPageable(int pageSize, int pageNum) {
+        return PageRequest.of(pageNum - 1, pageSize);
+    }
+
+    private void updateModelAttributes(int pageNum, Page<Product> page, String keyword, Model model) {
+        model.addAttribute("listProducts", page.getContent());
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("keyword", keyword);
+    }
 
     public Product save(Product product) {
 

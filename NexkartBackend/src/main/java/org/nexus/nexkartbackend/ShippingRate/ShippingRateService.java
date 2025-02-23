@@ -3,9 +3,11 @@ package org.nexus.nexkartbackend.ShippingRate;
 
 import jakarta.transaction.Transactional;
 import org.nexus.nexkartbackend.Repository.CountryRepository;
+import org.nexus.nexkartbackend.Repository.ProductRepository;
 import org.nexus.nexkartbackend.Repository.ShippingRateRepository;
 import org.nexus.nexkartbackend.entity.Country;
 import org.nexus.nexkartbackend.entity.Order;
+import org.nexus.nexkartbackend.entity.Product;
 import org.nexus.nexkartbackend.entity.ShippingRate;
 import org.nexus.nexkartbackend.exception.*;
 import org.nexus.nexkartbackend.paging.PagingAndSortingHelper;
@@ -26,12 +28,37 @@ import static org.nexus.nexkartbackend.order.OrderService.ORDERS_PER_PAGE;
 public class ShippingRateService {
 
     public static final int RATES_PER_PAGE = 10;
+    public static final int DIM_DIVISOR = 139;
+
 
     @Autowired
     private ShippingRateRepository shipRepo;
 
     @Autowired
     private CountryRepository countryRepo;
+
+    @Autowired
+    private ProductRepository productRepo;
+
+
+    public float calculateShippingCost(Integer productId, Integer countryId, String state)
+            throws ShippingRateNotFoundException {
+
+        ShippingRate shippingRate = shipRepo.findByCountryAndState(countryId, state);
+
+        if (shippingRate == null) {
+            throw new ShippingRateNotFoundException("No shipping rate found for the given "
+                    + "destination. You have to enter shipping cost manually.");
+        }
+
+        Product product = productRepo.findById(productId).get();
+
+        float dimWeight = (product.getLength() * product.getWidth() * product.getHeight()) / DIM_DIVISOR;
+        float finalWeight = product.getWeight() > dimWeight ? product.getWeight() : dimWeight;
+
+        return finalWeight * shippingRate.getRate();
+    }
+
 
 
     public Page<ShippingRate> listByPage(int pageNum, String keyword) {

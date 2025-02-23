@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag" class="space-y-8">
+    <div id="productList" class="space-y-8">
+        <th:block th:each="detail, status : ${order.orderDetails}">
+            <div class="border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow" th:with="product=${detail.product}">
+                <div class="flex items-start gap-4">
+                    <span class="text-lg font-semibold text-gray-600 min-w-[30px]">[[${status.count}]]</span>
+                    <input type="hidden" name="productId" th:value="${product.id}" class="hiddenProductId" />
+                    <img th:src="@{${product.mainImagePath}}" alt="Product image" class="w-20 h-20 object-cover rounded-lg border border-gray-200" />
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">[[${product.name}]]</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Product Cost</label>
+                                    <input type="text" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                           th:rowNumber="${status.count}"
+                                           th:value="${detail.productCost}" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Quantity</label>
+                                    <input type="number" step="1" min="1" max="5"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                           th:id="'quantity' + ${status.count}"
+                                           th:rowNumber="${status.count}"
+                                           th:value="${detail.quantity}" />
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Unit Price</label>
+                                    <input type="text" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                           th:id="'price' + ${status.count}"
+                                           th:rowNumber="${status.count}"
+                                           th:value="${detail.unitPrice}" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Subtotal</label>
+                                    <input type="text" readonly
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 font-medium text-gray-700"
+                                           th:id="'subtotal' + ${status.count}"
+                                           th:value="${detail.subtotal}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Shipping Cost</label>
+                            <input type="text" required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                   th:value="${detail.shippingCost}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+    <div class="mt-6 border-2 border-dashed border-gray-200 rounded-xl p-4 text-center hover:border-blue-500 transition-colors">
+        <a th:href="@{/orders/search_product}"
+           class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+            </svg>
+            Add a Product
+        </a>
+    </div>
+</div>
+</body>
+</html>

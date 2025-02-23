@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag" class="space-y-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">Deliver Days</label>
+            <input type="number" step="1" th:field="*{deliverDays}" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">Expected Deliver Date</label>
+            <input type="date" th:field="*{deliverDateOnForm}" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">First Name</label>
+            <input type="text" th:field="*{firstName}" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input type="text" th:field="*{lastName}" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+    </div>
+
+    <div class="space-y-1">
+        <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+        <input type="text" th:field="*{phoneNumber}" required
+               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">Address Line 1</label>
+            <input type="text" th:field="*{addressLine1}" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">Address Line 2</label>
+            <input type="text" th:field="*{addressLine2}"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">City</label>
+            <input type="text" th:field="*{city}" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">Country</label>
+            <select id="country" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                <option th:each="aCountry : ${listCountries}"
+                        th:value="${aCountry.id}"
+                        th:selected="${aCountry.name == order.country}">
+                    [[${aCountry.name}]]
+                </option>
+            </select>
+        </div>
+        <div class="space-y-1">
+            <label class="block text-sm font-medium text-gray-700">State</label>
+            <input type="text" th:field="*{state}" list="listStates"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+            <datalist id="listStates">
+                <!-- Options to be populated dynamically -->
+            </datalist>
+        </div>
+    </div>
+
+    <div class="space-y-1">
+        <label class="block text-sm font-medium text-gray-700">Postal Code</label>
+        <input type="text" th:field="*{postalCode}" required
+               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+    </div>
+</div>
+</body>
+</html>

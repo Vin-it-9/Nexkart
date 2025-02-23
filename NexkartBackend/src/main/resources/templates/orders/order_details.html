@@ -24,7 +24,7 @@
                 <a href="/NexkartAdmin/orders" class="text-gray-400 hover:text-blue-600 mr-3">
                     <i class="fas fa-arrow-left"></i>
                 </a>
-                Order <span th:text=" ${order.id}"></span>
+                Order <span th:text="${order.id}"></span>
                 <span class="ml-4 px-3 py-1 text-sm font-semibold rounded-full"
                       :class="{
                         'bg-green-100 text-green-800': 'DELIVERED' === '[[${order.status}]]',
@@ -58,6 +58,11 @@
                     :class="tab === 'shipping' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
                     class="flex-1 py-4 px-6 text-sm font-medium text-center border-b-2">
                 <i class="fas fa-truck mr-2"></i> Shipping
+            </button>
+            <button @click="tab = 'track'"
+                    :class="tab === 'track' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="flex-1 py-4 px-6 text-sm font-medium text-center border-b-2">
+                <i class="fas fa-list-ul mr-2"></i> Track
             </button>
         </nav>
 
@@ -176,6 +181,28 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Track Tab -->
+        <div x-show="tab === 'track'" class="p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Order Tracking History</h3>
+            <div class="space-y-4">
+                <div th:each="track : ${order.orderTracks}" class="flex items-start">
+                    <div class="mr-3 pt-1">
+                        <div class="h-2 w-2 bg-blue-500 rounded-full"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-900">
+                            <span th:text="${track.status}"></span> -
+                            <span class="text-sm text-gray-500" th:text="${#dates.format(track.updatedTime, 'MMM dd, yyyy hh:mm a')}"></span>
+                        </p>
+                        <p class="text-sm text-gray-600 mt-1" th:text="${track.notes} ?: 'No additional notes'"></p>
+                    </div>
+                </div>
+                <div th:if="${#lists.isEmpty(order.orderTracks)}" class="text-center py-4 text-gray-500">
+                    No tracking information available
                 </div>
             </div>
         </div>

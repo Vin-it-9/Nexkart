@@ -184,6 +184,25 @@ public class OrderRepositoryTests {
     }
 
 
+    @Test
+    public void testAddTrackWithStatusNewToOrder() {
+
+        Integer orderId = 6;
+        Order order = repo.findById(orderId).get();
+
+        OrderTrack newTrack = new OrderTrack();
+        newTrack.setOrder(order);
+        newTrack.setUpdatedTime(new Date());
+        newTrack.setStatus(OrderStatus.DELIVERED);
+        newTrack.setNotes(OrderStatus.DELIVERED.defaultDescription());
+
+        List<OrderTrack> orderTracks = order.getOrderTracks();
+        orderTracks.add(newTrack);
+
+        Order updatedOrder = repo.save(order);
+
+    }
+
 
 
 
