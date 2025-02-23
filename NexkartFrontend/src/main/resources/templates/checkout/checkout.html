@@ -85,6 +85,7 @@
                         </div>
                     </form>
                 </div>
+            </div>
 
                 <!-- PayPal Payment Card -->
                 <div class=" p-8">
@@ -99,7 +100,6 @@
 
                     <div id="paypal-button-container" class="mt-4"></div>
                 </div>
-            </div>
 
             <form th:action="@{/process_paypal_order}" method="post" id="paypalForm">
                 <input type="hidden" name="orderId" id="orderId" />
