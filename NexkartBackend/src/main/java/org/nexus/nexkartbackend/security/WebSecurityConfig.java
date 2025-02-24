@@ -65,6 +65,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/test/**").permitAll() // Allow access to all /test APIs without authentication
                         .requestMatchers("/Users/**").hasAuthority("Admin")
                         .requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
+                        .requestMatchers("/orders_shipper/update/**").hasAuthority("Shipper")
                         .requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )

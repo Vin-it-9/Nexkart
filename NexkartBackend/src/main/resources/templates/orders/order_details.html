@@ -70,6 +70,7 @@
         <div x-show="tab === 'overview'" class="p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Customer Card -->
+                <th:block th:if="${isVisibleForAdminOrSalesperson}">
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h3 class="text-sm font-semibold text-gray-600 mb-3">CUSTOMER</h3>
                     <div class="flex items-center">
@@ -79,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-
+                </th:block>
                 <!-- Payment Card -->
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h3 class="text-sm font-semibold text-gray-600 mb-3">PAYMENT</h3>
@@ -110,10 +111,12 @@
                             <span class="text-gray-600">Tax</span>
                             <span class="font-medium" th:text="'$' + ${order.tax}"></span>
                         </div>
+                        <th:block th:if="${isVisibleForAdminOrSalesperson}">
                         <div class="flex justify-between border-t pt-3">
                             <span class="text-gray-800 font-semibold">Total</span>
                             <span class="text-blue-600 font-bold" th:text="'$' + ${order.total}"></span>
                         </div>
+                        </th:block>
                     </div>
                 </div>
             </div>

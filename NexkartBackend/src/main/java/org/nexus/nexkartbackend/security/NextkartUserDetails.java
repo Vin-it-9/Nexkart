@@ -75,4 +75,11 @@ public class NextkartUserDetails implements UserDetails {
         return this.user.getFirstName() + " " + this.user.getLastName();
     }
 
+    public boolean hasRole(String roleName) {
+        return user.hasRole(roleName);
+    }
+
+
+
+
 }

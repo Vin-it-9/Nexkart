@@ -4,11 +4,14 @@ package org.nexus.nexkartbackend.order;
 import jakarta.servlet.http.HttpServletRequest;
 import org.nexus.nexkartbackend.entity.*;
 import org.nexus.nexkartbackend.exception.OrderNotFoundException;
+import org.nexus.nexkartbackend.security.NexkartUserDetailsService;
+import org.nexus.nexkartbackend.security.NextkartUserDetails;
 import org.nexus.nexkartbackend.setting.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.expression.ParseException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +28,7 @@ import java.util.Set;
 @Controller
 public class OrderController {
 
-    public String defaultRedirectURL = "redirect:/orders";
+    public String defaultRedirectURL = "redirect:/orders/page/1";
 
 
     @Autowired
@@ -36,11 +39,12 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String ListFirstPage(Model model) {
-        return listPage(1,model,null);
+        return defaultRedirectURL;
     }
 
     @GetMapping("/orders/page/{pageNum}")
-    public String listPage(@PathVariable (name = "pageNum") int pageNum, Model model , @Param("keyword") String keyword ) {
+    public String listPage(@PathVariable (name = "pageNum") int pageNum, Model model , @Param("keyword") String keyword ,HttpServletRequest request,
+                           @AuthenticationPrincipal NextkartUserDetails loggedUser ) {
 
         Page<Order> page = orderService.listByPage(pageNum,keyword);
 
@@ -63,6 +67,9 @@ public class OrderController {
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listOrders" , listOrders);
 
+        if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Salesperson") && loggedUser.hasRole("Shipper")) {
+            return "orders/orders_shipper";
+        }
 
         return "orders/orders" ;
 
@@ -70,16 +77,24 @@ public class OrderController {
 
     @GetMapping("/orders/detail/{id}")
     public String viewOrderDetails(@PathVariable("id") Integer id, Model model,
-                                   RedirectAttributes ra, HttpServletRequest request) {
+                                   RedirectAttributes ra, HttpServletRequest request,
+                                   @AuthenticationPrincipal NextkartUserDetails loggedUser) {
         try {
-
             Order order = orderService.get(id);
-            model.addAttribute("order", order);
-            return "orders/order_details";
 
+            boolean isVisibleForAdminOrSalesperson = false;
+
+            if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson")) {
+                isVisibleForAdminOrSalesperson = true;
+            }
+
+            model.addAttribute("isVisibleForAdminOrSalesperson", isVisibleForAdminOrSalesperson);
+            model.addAttribute("order", order);
+
+            return "orders/order_details";
         } catch (OrderNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
-            return "redirect:/orders";
+            return defaultRedirectURL;
         }
 
     }
