@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Orders</title>
+    <!-- Tailwind CSS CDN -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+</head>
+<body class="bg-gray-100">
+<!-- Header -->
+<header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-gray-900">My Orders</h1>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto p-4">
+    <!-- Filter Form -->
+    <form
+            th:action="@{'/orders/page/1'}"
+            method="get"
+            class="flex items-center space-x-4 mb-6"
+    >
+        <input type="hidden" name="sortField" th:value="${sortField}" />
+        <input type="hidden" name="sortDir" th:value="${sortDir}" />
+        <label for="orderKeyword" class="text-gray-700">Filter:</label>
+        <input
+                type="search"
+                id="orderKeyword"
+                name="orderKeyword"
+                th:value="${orderKeyword}"
+                required
+                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+                type="submit"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+            <i class="fas fa-search"></i>
+        </button>
+        <button
+                type="button"
+                onclick="clearFilter()"
+                class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+            <i class="fas fa-eraser"></i>
+        </button>
+    </form>
+
+    <!-- Orders Table for Desktop -->
+    <div class="hidden md:block">
+        <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
+            <thead class="bg-gray-800 text-white">
+            <tr>
+                <th class="w-1/12 px-4 py-2 text-left">
+                    <a
+                            th:href="@{'/orders/page/1?sortField=id&sortDir=' + ${sortDir}}"
+                            class="hover:text-blue-300"
+                    >ID</a
+                    >
+                </th>
+                <th class="w-2/12 px-4 py-2 text-left">
+                    <a
+                            th:href="@{'/orders/page/1?sortField=orderTime&sortDir=' + ${sortDir}}"
+                            class="hover:text-blue-300"
+                    >Order Time</a
+                    >
+                </th>
+                <th class="w-4/12 px-4 py-2 text-left">Products</th>
+                <th class="w-2/12 px-4 py-2 text-left">
+                    <a
+                            th:href="@{'/orders/page/1?sortField=total&sortDir=' + ${sortDir}}"
+                            class="hover:text-blue-300"
+                    >Total</a
+                    >
+                </th>
+                <th class="w-2/12 px-4 py-2 text-left">
+                    <a
+                            th:href="@{'/orders/page/1?sortField=status&sortDir=' + ${sortDir}}"
+                            class="hover:text-blue-300"
+                    >Status</a
+                    >
+                </th>
+                <th class="w-1/12 px-4 py-2 text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="text-gray-700">
+            <tr
+                    th:each="order : ${listOrders}"
+                    class="border-b hover:bg-gray-50"
+            >
+                <td class="px-4 py-2" th:text="${order.id}">ID</td>
+                <td
+                        class="px-4 py-2"
+                        th:text="${#dates.format(order.orderTime, 'yyyy-MM-dd HH:mm')}"
+                >
+                    Order Time
+                </td>
+                <td class="px-4 py-2" th:utext="${order.productNames}">
+                    Products
+                </td>
+                <td class="px-4 py-2">
+                <span
+                        th:text="${#numbers.formatDecimal(order.total, 1, 'COMMA', 2, 'POINT')}"
+                >Total</span
+                >
+                </td>
+                <td class="px-4 py-2">
+                <span th:class="'textOrderStatus' + ${order.id}"
+                      th:text="${order.status}">Status</span>
+                </td>
+                <td class="px-4 py-2 text-center">
+                    <a
+                            th:href="@{'/orders/detail/' + ${order.id}}"
+                            title="View details"
+                            class="text-green-500 hover:text-green-700 mr-2"
+                    >
+                        <i class="fas fa-file-alt fa-lg"></i>
+                    </a>
+                    <!-- Updated condition for displaying Return link -->
+                    <th:block
+                            th:if="${order.status == T(org.nexus.nexkartfrontend.order.OrderStatus).DELIVERED}" >
+                        <a
+                                th:href="@{'/orders/return/' + ${order.id}}"
+                                title="Return this order"
+                                class="text-gray-500 hover:text-gray-700"
+                        >
+                            <i class="fas fa-undo fa-lg"></i>
+                        </a>
+                    </th:block>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Orders Cards for Mobile -->
+    <div class="md:hidden space-y-4">
+        <div
+                th:each="order : ${listOrders}"
+                class="bg-white shadow rounded-lg p-4"
+        >
+            <div class="flex justify-between items-center">
+                <span class="font-semibold">Order ID #[[${order.id}]]</span>
+                <div>
+                    <a
+                            th:href="@{'/orders/detail/' + ${order.id}}"
+                            title="View details"
+                            class="text-green-500 hover:text-green-700 mr-2"
+                    >
+                        <i class="fas fa-file-alt fa-lg"></i>
+                    </a>
+                    <th:block
+                            th:if="${order.status == T(org.nexus.nexkartfrontend.order.OrderStatus).DELIVERED}" >
+                        <a
+                                th:href="@{'/orders/return/' + ${order.id}}"
+                                title="Return this order"
+                                class="text-gray-500 hover:text-gray-700"
+                        >
+                            <i class="fas fa-undo fa-lg"></i>
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+            <div class="mt-2">
+                <div>
+              <span
+                      class="text-sm text-gray-600"
+                      th:text="${#dates.format(order.orderTime, 'yyyy-MM-dd HH:mm')}"
+              >Order Time</span
+              >
+                </div>
+                <div class="mt-1" th:utext="${order.productNames}">
+                    Products
+                </div>
+                <div class="mt-1 flex justify-between">
+              <span
+                      class="font-medium"
+                      th:text="${#numbers.formatDecimal(order.total, 1, 'COMMA', 2, 'POINT')}"
+              >Total</span
+              >
+                    <span class="text-sm" th:text="${order.status}">Status</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+
+    contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+
+    function clearFilter() {
+        window.location = moduleURL;
+    }
+
+</script>
+
+<!-- You can include other JS files (e.g., for detail links) here -->
+</body>
+</html>
