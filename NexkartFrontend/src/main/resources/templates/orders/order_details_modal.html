@@ -1,288 +1,250 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order Details - Order #[[${order.id}]]</title>
     <!-- Tailwind CSS CDN -->
-    <link
-            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-            rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <!-- AlpineJS for tab functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" defer></script>
     <!-- Font Awesome for icons -->
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <style>
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-<div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-lg my-6">
-    <h2 class="text-2xl font-bold mb-4">
-        Order Details - Order #[[${order.id}]]
-    </h2>
+<body class="bg-gray-50">
+<!-- Navbar fragment -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <!-- Overview Section -->
-    <section class="mb-6">
-        <h3 class="text-xl font-semibold mb-2">Overview</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label class="block text-gray-600">Order ID:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.id}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Customer:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.customer.fullName}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Product Cost:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${#numbers.formatDecimal(order.productCost, 1, 'COMMA', 2, 'POINT')}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Subtotal:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${#numbers.formatDecimal(order.subtotal, 1, 'COMMA', 2, 'POINT')}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Shipping Cost:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${#numbers.formatDecimal(order.shippingCost, 1, 'COMMA', 2, 'POINT')}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Tax:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${#numbers.formatDecimal(order.tax, 1, 'COMMA', 2, 'POINT')}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div class="md:col-span-2">
-                <label class="block text-gray-600">Total:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${#numbers.formatDecimal(order.total, 1, 'COMMA', 2, 'POINT')}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div class="md:col-span-2">
-                <p class="text-sm text-gray-500 mt-1">
-                    TOTAL = Subtotal + Shipping Cost + Tax
-                </p>
-            </div>
-            <div>
-                <label class="block text-gray-600">Payment Method:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.paymentMethod}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Status:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.status}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Order Date:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${#dates.format(order.orderTime, 'yyyy-MM-dd HH:mm')}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
+<div class="container mx-auto p-6 max-w-7xl mt-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl font-bold text-gray-800 flex items-center">
+                <a href="/Nexkart/orders" class="text-gray-400 hover:text-blue-600 mr-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <!-- Main heading hidden on small screens -->
+                <span class="">Order [[${order.id}]]</span>
+
+                <span class="ml-4 px-3 py-1 text-sm font-semibold rounded-full"
+                      :class="{
+                  'bg-green-100 text-green-800': 'DELIVERED' === '[[${order.status}]]',
+                  'bg-yellow-100 text-yellow-800': 'PROCESSING' === '[[${order.status}]]',
+                  'bg-blue-100 text-blue-800': 'SHIPPED' === '[[${order.status}]]',
+                  'bg-red-100 text-red-800': 'CANCELLED' === '[[${order.status}]]'
+                }" th:text="${order.status}"></span>
+            </h1>
+            <p class="text-gray-500 mt-1" th:text="'Placed on ' + ${#dates.format(order.orderTime, 'MMMM dd, yyyy')}"></p>
         </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="mb-6">
-        <h3 class="text-xl font-semibold mb-2">Products</h3>
-        <div th:each="detail : ${order.orderDetails}" class="flex flex-col md:flex-row items-center border rounded p-4 mb-4">
-            <div class="w-12 text-center font-bold" th:text="${detail.quantity}">1</div>
-            <div class="w-24 h-24 md:ml-4">
-                <img
-                        th:src="@{${detail.product.mainImagePath}}"
-                        alt="Product Image"
-                        class="object-cover w-full h-full rounded"
-                />
-            </div>
-            <div class="flex-1 md:ml-4">
-                <p class="font-semibold" th:text="${detail.product.name}">Product Name</p>
-                <p class="text-gray-600">
-                    Subtotal:
-                    <span th:text="${detail.quantity}"></span> x
-                    <span th:text="${#numbers.formatDecimal(detail.unitPrice, 1, 'COMMA', 2, 'POINT')}"></span>
-                    = <span th:text="${#numbers.formatDecimal(detail.subtotal, 1, 'COMMA', 2, 'POINT')}"></span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Shipping Section -->
-    <section class="mb-6">
-        <h3 class="text-xl font-semibold mb-2">Shipping</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label class="block text-gray-600">Deliver Days:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.deliverDays}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Expected Deliver Date:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${#dates.format(order.deliverDate, 'E, dd MMM yyyy')}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">First Name:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.firstName}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Last Name:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.lastName}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Phone Number:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.phoneNumber}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Postal Code:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.postalCode}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div class="md:col-span-2">
-                <label class="block text-gray-600">Address Line 1:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.addressLine1}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div class="md:col-span-2">
-                <label class="block text-gray-600">Address Line 2:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.addressLine2}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">City:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.city}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">State:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.state}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label class="block text-gray-600">Country:</label>
-                <input
-                        type="text"
-                        readonly
-                        th:value="${order.country}"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-            </div>
-        </div>
-    </section>
-
-    <!-- Order Tracking Section -->
-    <section class="mb-6">
-        <h3 class="text-xl font-semibold mb-2">Order Track</h3>
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
-                <thead class="bg-gray-800 text-white">
-                <tr>
-                    <th class="px-4 py-2">Time</th>
-                    <th class="px-4 py-2">Status</th>
-                    <th class="px-4 py-2">Notes</th>
-                </tr>
-                </thead>
-                <tbody class="text-gray-700">
-                <tr th:each="track : ${order.orderTracks}" class="border-b">
-                    <td class="px-4 py-2" th:text="${track.updatedTime}">Time</td>
-                    <td class="px-4 py-2" th:text="${track.status}">Status</td>
-                    <td class="px-4 py-2">
-                        <em th:text="${track.notes}">Notes</em>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- Close Button -->
-    <div class="text-right">
-        <a href="/Nexkart/orders"  class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" >Close</a>
     </div>
 
+    <!-- Tabs Container -->
+    <div x-data="{ tab: 'overview' }" class="bg-white rounded-lg shadow-lg">
+        <!-- Tab Navigation -->
+        <nav class="flex border-b overflow-x-auto no-scrollbar">
+            <button @click="tab = 'overview'"
+                    :class="tab === 'overview' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="min-w-max py-3 sm:py-4 px-3 sm:px-6 text-sm font-medium text-center border-b-2 whitespace-nowrap">
+                <i class="fas fa-info-circle mr-2"></i>
+                <span class="hidden sm:inline">Overview</span>
+            </button>
+            <button @click="tab = 'products'"
+                    :class="tab === 'products' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="min-w-max py-3 sm:py-4 px-3 sm:px-6 text-sm font-medium text-center border-b-2 whitespace-nowrap">
+                <i class="fas fa-boxes mr-2"></i>
+                <span class="hidden sm:inline">Products ([[${order.orderDetails.size}]])</span>
+            </button>
+            <button @click="tab = 'shipping'"
+                    :class="tab === 'shipping' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="min-w-max py-3 sm:py-4 px-3 sm:px-6 text-sm font-medium text-center border-b-2 whitespace-nowrap">
+                <i class="fas fa-truck mr-2"></i>
+                <span class="hidden sm:inline">Shipping</span>
+            </button>
+            <button @click="tab = 'track'"
+                    :class="tab === 'track' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="min-w-max py-3 sm:py-4 px-3 sm:px-6 text-sm font-medium text-center border-b-2 whitespace-nowrap">
+                <i class="fas fa-list-ul mr-2"></i>
+                <span class="hidden sm:inline">Track</span>
+            </button>
+        </nav>
+
+        <!-- Overview Tab -->
+        <div x-show="tab === 'overview'" class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Customer Info Card -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-sm font-semibold text-gray-600 mb-3">CUSTOMER</h3>
+                    <div class="flex items-center">
+                        <div>
+                            <p class="font-medium" th:text="${order.customer.fullName}"></p>
+                            <p class="text-sm text-gray-500" th:text="${order.phoneNumber}"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Payment & Order Info Card -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-sm font-semibold text-gray-600 mb-3">PAYMENT & ORDER INFO</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Payment Method</span>
+                            <span class="font-medium" th:text="${order.paymentMethod}"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Order Date</span>
+                            <span class="font-medium" th:text="${#dates.format(order.orderTime, 'yyyy-MM-dd HH:mm')}"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Status</span>
+                            <span class="font-medium" th:text="${order.status}"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cost Breakdown -->
+                <div class="col-span-full">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Cost Breakdown</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Product Cost</span>
+                            <span class="font-medium" th:text="'$' + ${#numbers.formatDecimal(order.productCost, 1, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span class="font-medium" th:text="'$' + ${#numbers.formatDecimal(order.subtotal, 1, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Shipping Cost</span>
+                            <span class="font-medium" th:text="'$' + ${#numbers.formatDecimal(order.shippingCost, 1, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Tax</span>
+                            <span class="font-medium" th:text="'$' + ${#numbers.formatDecimal(order.tax, 1, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+                        <div class="flex justify-between border-t pt-3">
+                            <span class="text-gray-800 font-semibold">Total</span>
+                            <span class="text-blue-600 font-bold" th:text="'$' + ${#numbers.formatDecimal(order.total, 1, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div x-show="tab === 'products'" class="p-6">
+            <div class="divide-y divide-gray-200">
+                <div th:each="detail : ${order.orderDetails}" class="py-4 flex items-start" th:with="product=${detail.product}">
+                    <div class="w-20 h-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                        <img th:src="@{${product.mainImagePath}}" class="w-full h-full object-contain" alt="Product image">
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-900" th:text="${product.name}"></h4>
+                                <p class="mt-1 text-sm text-gray-500" th:text="'Quantity: ' + ${detail.quantity}"></p>
+                            </div>
+                            <p class="ml-4 font-medium" th:text="'$' + ${#numbers.formatDecimal(detail.subtotal, 1, 'COMMA', 2, 'POINT')}"></p>
+                        </div>
+                        <div class="mt-2 flex items-center text-sm text-gray-500">
+                            <span class="mr-4" th:text="'$' + ${#numbers.formatDecimal(detail.unitPrice, 1, 'COMMA', 2, 'POINT')} + ' each'"></span>
+                            <span th:text="'Shipping: $' + ${#numbers.formatDecimal(detail.shippingCost, 1, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shipping Tab -->
+        <div x-show="tab === 'shipping'" class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Shipping Address -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Shipping Address</h3>
+                    <div class="space-y-2 text-gray-600">
+                        <p th:text="${order.firstName + ' ' + order.lastName}"></p>
+                        <p th:text="${order.addressLine1}"></p>
+                        <p th:text="${order.addressLine2}"></p>
+                        <p th:text="${order.city + ', ' + order.state + ' ' + order.postalCode}"></p>
+                        <p th:text="${order.country}"></p>
+                        <p th:text="${order.phoneNumber}"></p>
+                    </div>
+                </div>
+                <!-- Delivery Details -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Delivery Details</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="mr-3 pt-1">
+                                <div class="h-2 w-2 bg-blue-500 rounded-full"></div>
+                            </div>
+                            <div>
+                                <p class="font-medium" th:text="'Expected Deliver Date: ' + ${#dates.format(order.deliverDate, 'E, dd MMM yyyy')}"></p>
+                                <p class="text-sm text-gray-500" th:text="'Deliver in ' + ${order.deliverDays} + ' days'"></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="mr-3 pt-1">
+                                <div class="h-2 w-2 bg-gray-300 rounded-full"></div>
+                            </div>
+                            <div>
+                                <p class="font-medium">Carrier Information</p>
+                                <p class="text-sm text-gray-500">Standard Shipping · Tracking available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Track Tab -->
+        <div x-show="tab === 'track'" class="p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Order Tracking History</h3>
+            <div class="space-y-4">
+                <div th:each="track : ${order.orderTracks}" class="flex items-start">
+                    <div class="mr-3 pt-1">
+                        <div class="h-2 w-2 bg-blue-500 rounded-full"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-900">
+                            <span th:text="${track.status}"></span> -
+                            <span class="text-sm text-gray-500" th:text="${#dates.format(track.updatedTime, 'MMM dd, yyyy hh:mm a')}"></span>
+                        </p>
+                        <p class="text-sm text-gray-600 mt-1" th:text="${track.notes} ?: 'No additional notes'"></p>
+                    </div>
+                </div>
+                <div th:if="${#lists.isEmpty(order.orderTracks)}" class="text-center py-4 text-gray-500">
+                    No tracking information available
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="mt-6 flex justify-end space-x-3">
+        <a href="/Nexkart/orders" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+            Back to Orders
+        </a>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            <i class="fas fa-print mr-2"></i> Print Receipt
+        </button>
+    </div>
 </div>
 </body>
 </html>

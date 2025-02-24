@@ -7,7 +7,8 @@
     <list default="true" id="2d14ecd2-3996-4e9a-bb98-7d1e23934921" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/fragments/search_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/fragments/search_nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/order_details_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/order_details_modal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/orders_customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/orders_customer.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,15 +245,7 @@
       <workItem from="1740415849314" duration="2142000" />
       <workItem from="1740418023988" duration="477000" />
       <workItem from="1740419011828" duration="4407000" />
-      <workItem from="1740423699943" duration="3344000" />
-    </task>
-    <task id="LOCAL-00005" summary="commit">
-      <option name="closed" value="true" />
-      <created>1739884267240</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1739884267240</updated>
+      <workItem from="1740423699943" duration="7105000" />
     </task>
     <task id="LOCAL-00006" summary="commit">
       <option name="closed" value="true" />
@@ -638,7 +631,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740426573885</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740427191841</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1740427191841</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
