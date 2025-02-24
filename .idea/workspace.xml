@@ -5,44 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d14ecd2-3996-4e9a-bb98-7d1e23934921" name="Changes" comment="commit">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/eba03aac-ce39-4727-b83a-c1ad529f3769.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/eba03aac-ce39-4727-b83a-c1ad529f3769/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/eba03aac-ce39-4727-b83a-c1ad529f3769/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/eba03aac-ce39-4727-b83a-c1ad529f3769/storage_v2/_src_/schema/nexus._9M9Bg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/eba03aac-ce39-4727-b83a-c1ad529f3769/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/aws/AmazonS3Util.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/aws/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/test/java/org/nexus/nexkartbackend/AmazonS3UtilTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/aws/AmazonS3Util.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/aws/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/entity/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/return_order_modal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/site-logo/Screenshot 2025-02-20 002217.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/MvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/MvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/brand/BrandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/brand/BrandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/category/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/category/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Brand.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Brand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductSaveHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/setting/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/setting/SettingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/resources/templates/settings/general.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/resources/templates/settings/general.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NexkartFrontend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/MvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/MvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/brand/Brand.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/brand/Brand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/category/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/category/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/aws/AmazonS3Util.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/entity/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/oauth/OAuth2LoginSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/oauth/OAuth2LoginSuccessHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/setting/SettingFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/setting/SettingFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/orders_customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/orders_customer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/cart/shopping_cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/cart/shopping_cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_fragment.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_fragment.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,94 +66,94 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Constants.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JUnit.AddressRepositoryTests.executor": "Run",
-    "JUnit.AddressRepositoryTests.testAddNew.executor": "Run",
-    "JUnit.AddressRepositoryTests.testFindByIdAndCustomer.executor": "Run",
-    "JUnit.AddressRepositoryTests.testSetDefault.executor": "Run",
-    "JUnit.AddressRepositoryTests.testUpdate.executor": "Run",
-    "JUnit.CartItemRepositoryTests.testDeleteByCustomerAndProduct.executor": "Run",
-    "JUnit.CartItemRepositoryTests.testFindByCustomer.executor": "Run",
-    "JUnit.CartItemRepositoryTests.testFindByCustomerAndProduct.executor": "Run",
-    "JUnit.CartItemRepositoryTests.testSave2Items.executor": "Run",
-    "JUnit.CartItemRepositoryTests.testSaveItem.executor": "Run",
-    "JUnit.CartItemRepositoryTests.testUpdateQuantity.executor": "Run",
-    "JUnit.CountryRepotest.testCreateCountry.executor": "Run",
-    "JUnit.CountryRepotest.testCreateMultipleCountries.executor": "Run",
-    "JUnit.CountryRepotest.testDeleteCountry.executor": "Run",
-    "JUnit.CountryRepotest.testGetCountry.executor": "Run",
-    "JUnit.CountryRepotest.testListCountries.executor": "Run",
-    "JUnit.CountryRepotest.testUpdateCountry.executor": "Run",
-    "JUnit.CountryRestControllerTests.executor": "Run",
-    "JUnit.CountryRestControllerTests.testListCountries.executor": "Run",
-    "JUnit.CountryRestControllerTests.testUpdateCountry.executor": "Run",
-    "JUnit.CurrencyRepositoryTests.testCreateCurrencies.executor": "Run",
-    "JUnit.CustomerRepositoryTests.testCreateCustomer1.executor": "Run",
-    "JUnit.CustomerRepositoryTests.testCreateCustomer2.executor": "Run",
-    "JUnit.CustomerRepositoryTests.testCreateCustomer3.executor": "Run",
-    "JUnit.CustomerRepositoryTests.testFindByVerificationCode.executor": "Run",
-    "JUnit.CustomerRepositoryTests.testUpdateAuthenticationType.executor": "Run",
-    "JUnit.OrderRepositoryTests.testAddTrackWithStatusNewToOrder.executor": "Run",
-    "JUnit.OrderRepositoryTests.testCreateNewOrderWithMultipleProducts.executor": "Run",
-    "JUnit.OrderRepositoryTests.testCreateNewOrderWithSingleProduct.executor": "Run",
-    "JUnit.OrderRepositoryTests.testDeleteOrder.executor": "Run",
-    "JUnit.OrderRepositoryTests.testListOrders.executor": "Run",
-    "JUnit.OrderRepositoryTests.testUpdateOrderTracks.executor": "Run",
-    "JUnit.OrderRestControllerTests.testSendOrderReturnRequestFailed.executor": "Run",
-    "JUnit.OrderRestControllerTests.testUpdateOrderStatus.executor": "Run",
-    "JUnit.SettingRepositoryTests.testCreateCurrencySettings.executor": "Run",
-    "JUnit.SettingRepositoryTests.testCreateGeneralSettings.executor": "Run",
-    "JUnit.SettingRepositoryTests.testCreateMailSettings.executor": "Run",
-    "JUnit.SettingRepositoryTests.testFindByTwoCategories.executor": "Run",
-    "JUnit.ShippingRateRepositoryTests.testCreateNew.executor": "Run",
-    "JUnit.ShippingRateRepositoryTests.testDelete.executor": "Run",
-    "JUnit.ShippingRateRepositoryTests.testFindAll.executor": "Run",
-    "JUnit.ShippingRateRepositoryTests.testFindByCountryAndState.executor": "Run",
-    "JUnit.ShippingRateRepositoryTests.testUpdate.executor": "Run",
-    "JUnit.ShippingRateRepositoryTests.testUpdateCODSupport.executor": "Run",
-    "JUnit.ShippingRateServiceTests.testCalculateShippingCost_NoRateFound.executor": "Run",
-    "JUnit.ShippingRateServiceTests.testCalculateShippingCost_RateFound.executor": "Run",
-    "JUnit.StateRepositoryTests.testCreateStatesInIndia.executor": "Run",
-    "JUnit.StateRepositoryTests.testCreateStatesInUS.executor": "Run",
-    "JUnit.StateRepositoryTests.testGetState.executor": "Run",
-    "JUnit.StateRepositoryTests.testListStatesByCountry.executor": "Run",
-    "JUnit.StateRepositoryTests.testUpdateState.executor": "Run",
-    "JUnit.StateRestControllerTests.testCreateState.executor": "Run",
-    "JUnit.StateRestControllerTests.testDeleteState.executor": "Run",
-    "JUnit.StateRestControllerTests.testListByCountries.executor": "Run",
-    "JUnit.StateRestControllerTests.testUpdateState.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.NexkartBackendApplication.executor": "Run",
-    "Spring Boot.NexkartFrontendApplication.executor": "Run",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Vineet/Desktop/Nexkart/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "application.passwordSafe",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Constants.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JUnit.AddressRepositoryTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AddressRepositoryTests.testAddNew.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AddressRepositoryTests.testFindByIdAndCustomer.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AddressRepositoryTests.testSetDefault.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AddressRepositoryTests.testUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CartItemRepositoryTests.testDeleteByCustomerAndProduct.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CartItemRepositoryTests.testFindByCustomer.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CartItemRepositoryTests.testFindByCustomerAndProduct.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CartItemRepositoryTests.testSave2Items.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CartItemRepositoryTests.testSaveItem.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CartItemRepositoryTests.testUpdateQuantity.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRepotest.testCreateCountry.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRepotest.testCreateMultipleCountries.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRepotest.testDeleteCountry.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRepotest.testGetCountry.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRepotest.testListCountries.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRepotest.testUpdateCountry.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRestControllerTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRestControllerTests.testListCountries.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CountryRestControllerTests.testUpdateCountry.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CurrencyRepositoryTests.testCreateCurrencies.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CustomerRepositoryTests.testCreateCustomer1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CustomerRepositoryTests.testCreateCustomer2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CustomerRepositoryTests.testCreateCustomer3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CustomerRepositoryTests.testFindByVerificationCode.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CustomerRepositoryTests.testUpdateAuthenticationType.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRepositoryTests.testAddTrackWithStatusNewToOrder.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRepositoryTests.testCreateNewOrderWithMultipleProducts.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRepositoryTests.testCreateNewOrderWithSingleProduct.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRepositoryTests.testDeleteOrder.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRepositoryTests.testListOrders.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRepositoryTests.testUpdateOrderTracks.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRestControllerTests.testSendOrderReturnRequestFailed.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderRestControllerTests.testUpdateOrderStatus.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SettingRepositoryTests.testCreateCurrencySettings.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SettingRepositoryTests.testCreateGeneralSettings.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SettingRepositoryTests.testCreateMailSettings.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SettingRepositoryTests.testFindByTwoCategories.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateRepositoryTests.testCreateNew.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateRepositoryTests.testDelete.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateRepositoryTests.testFindAll.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateRepositoryTests.testFindByCountryAndState.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateRepositoryTests.testUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateRepositoryTests.testUpdateCODSupport.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateServiceTests.testCalculateShippingCost_NoRateFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShippingRateServiceTests.testCalculateShippingCost_RateFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRepositoryTests.testCreateStatesInIndia.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRepositoryTests.testCreateStatesInUS.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRepositoryTests.testGetState.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRepositoryTests.testListStatesByCountry.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRepositoryTests.testUpdateState.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRestControllerTests.testCreateState.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRestControllerTests.testDeleteState.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRestControllerTests.testListByCountries.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateRestControllerTests.testUpdateState.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.NexkartBackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.NexkartFrontendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Vineet/Desktop/Nexkart/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "module"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;module&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "eba03aac-ce39-4727-b83a-c1ad529f3769"
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;eba03aac-ce39-4727-b83a-c1ad529f3769&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Vineet\Desktop\Nexkart\NexkartFrontend\src\main\java\org\nexus\nexkartfrontend" />
@@ -275,14 +251,11 @@
       <workItem from="1740405685450" duration="1057000" />
       <workItem from="1740409192511" duration="3510000" />
       <workItem from="1740412934380" duration="1576000" />
-    </task>
-    <task id="LOCAL-00003" summary="commit">
-      <option name="closed" value="true" />
-      <created>1739694835319</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1739694835320</updated>
+      <workItem from="1740414574823" duration="75000" />
+      <workItem from="1740415849314" duration="2142000" />
+      <workItem from="1740418023988" duration="477000" />
+      <workItem from="1740419011828" duration="4407000" />
+      <workItem from="1740423699943" duration="2690000" />
     </task>
     <task id="LOCAL-00004" summary="commit">
       <option name="closed" value="true" />
@@ -668,7 +641,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740403465012</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740414621416</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1740414621416</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

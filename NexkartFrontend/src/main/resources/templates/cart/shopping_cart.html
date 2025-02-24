@@ -44,13 +44,12 @@
                                         <p class="text-gray-500 text-xs sm:text-sm mt-1">In stock</p>
                                     </div>
                                     <div class="sm:text-right">
-                                        <!-- Product Price Fragment (if available) -->
-                                        <div th:replace="product/product_fragment :: product_price"></div>
+                                        <div th:replace="~{product/product_fragment :: product_price}"></div>
                                     </div>
                                 </div>
                                 <div class="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                     <!-- Quantity Control -->
-                                    <div class="w-full sm:w-auto" th:replace="cart/quantity_control :: quantity_control(${item.quantity}, ${product.id})"></div>
+                                    <div class="w-full sm:w-auto" th:replace="~{cart/quantity_control :: quantity_control(${item.quantity}, ${product.id})}"></div>
                                     <!-- Subtotal -->
                                     <div class="text-md sm:text-xl font-semibold text-gray-900">
                                         <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}">Rs</span>

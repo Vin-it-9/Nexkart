@@ -2,6 +2,7 @@ package org.nexus.nexkartfrontend.common.product;
 
 
 import jakarta.persistence.*;
+import org.nexus.nexkartfrontend.aws.Constants;
 
 @Entity
 public class ProductImage {
@@ -59,7 +60,7 @@ public class ProductImage {
 
     @Transient
     public String getImagePath() {
-        return "/product-images/" + product.getId() + "/extras/" + this.name;
+        return Constants.S3_BASE_URI + "/product-images/" + product.getId() + "/extras/" + this.name;
     }
 
 

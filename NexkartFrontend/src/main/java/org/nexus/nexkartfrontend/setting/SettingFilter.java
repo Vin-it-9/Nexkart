@@ -2,7 +2,7 @@ package org.nexus.nexkartfrontend.setting;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
-import org.nexus.nexkartfrontend.entity.Constants;
+import org.nexus.nexkartfrontend.aws.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,5 +38,6 @@ public class SettingFilter implements Filter {
         request.setAttribute("S3_BASE_URI", Constants.S3_BASE_URI);
 
         chain.doFilter(request, response);
+
     }
 }

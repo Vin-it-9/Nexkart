@@ -83,7 +83,7 @@
 
                 <!-- Quantity & Add to Cart -->
                 <div class="space-y-4">
-                    <div th:replace="cart/quantity_control :: quantity_control(1, ${product.id})"></div>
+                    <div th:replace="~{cart/quantity_control :: quantity_control(1, ${product.id})}"></div>
                     <button id="buttonAdd2Cart" class=" bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 font-medium">
                         Add to Cart
                     </button>
@@ -121,7 +121,6 @@
     productId = "[[${product.id}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
     var csrfValue = "[[${_csrf.token}]]";
-
 
     $(document).ready(function() {
         const bigImage = $("#bigImage");

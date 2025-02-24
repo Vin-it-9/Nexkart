@@ -1,5 +1,6 @@
 package org.nexus.nexkartfrontend.common.product;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.nexus.nexkartfrontend.common.Exception.CategoryNotFoundException;
 import org.nexus.nexkartfrontend.common.Exception.ProductNotFoundException;
 import org.nexus.nexkartfrontend.common.category.Category;
@@ -67,9 +68,10 @@ public class ProductController {
 
 
     @GetMapping("/p/{product_alias}")
-    public String viewProductDetail(@PathVariable("product_alias") String alias, Model model) {
+    public String viewProductDetail(@PathVariable("product_alias") String alias, Model model , HttpServletRequest request) {
 
         try {
+
             Product product = productService.getProduct(alias);
             List<Category> listCategoryParents = categoryService.getCategoryParents(product.getCategory());
 
