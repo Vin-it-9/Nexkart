@@ -1,111 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Order Track List</title>
-    <!-- Tailwind CSS CDN -->
 
-</head>
-<body class="bg-gray-100">
-<div th:fragment="content" th:remove="tag" class="container mx-auto p-4 bg-white shadow rounded">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Track List -->
+<body>
+<div th:fragment="content" th:remove="tag">
     <div id="trackList">
         <th:block th:each="track, status : ${order.orderTracks}">
-            <div class="flex flex-col md:flex-row items-start border rounded p-4 mb-4"
+            <div class="row border rounded p-1"
                  th:id="'rowTrack' + ${status.count}"
-                 th:with="isTrackWithStatusNew=${track.status.toString() == 'NEW'}">
-                <!-- Hidden Field -->
-                <input type="hidden" name="trackId" th:value="${track.id}" class="hiddenTrackId" />
+                 th:with="isTrackWithStatusNew = ${track.status.toString() == 'NEW'}">
 
-                <!-- Count & Remove Icon -->
-                <div class="w-full md:w-1/6 flex flex-col items-center">
-                    <div class="text-xl font-bold">[[${status.count}]]</div>
+                <input type="hidden" name="trackId" th:value="${track.id}"
+                       class="hiddenTrackId" />
+
+                <div class="col-2">
+                    <div class="divCountTrack">[[${status.count}]]</div>
+
                     <th:block th:if="${!isTrackWithStatusNew}">
-                        <div class="mt-2">
-                            <a class="text-red-500 hover:text-red-700 linkRemoveTrack" href="" th:attr="rowNumber=${status.count}">
-                                <!-- Trash Icon (Heroicons) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M10 3h4a1 1 0 011 1v1H9V4a1 1 0 011-1z" />
-                                </svg>
-                            </a>
+                        <div class="mt-1">
+                            <a class="fas fa-trash icon-dark linkRemoveTrack" href=""
+                               th:rowNumber="${status.count}"></a>
                         </div>
                     </th:block>
                 </div>
 
-                <!-- Track Details -->
-                <div class="flex-1 mt-4 md:mt-0 md:ml-4">
-                    <!-- Time Field -->
-                    <div class="mb-4">
+                <div class="col-10">
+                    <div class="form-group row">
+                        <label class="col-form-label">Time:</label>
+                        <div class="col">
 
-                        <label class="block text-gray-700 font-medium">Time:</label>
-                        <input  type="datetime-local" name="trackDate" th:value="${track.updatedTimeOnForm}"
-                               class="mt-1 h-5 block border p-5 w-full rounded-md border-gray-300 shadow-sm"
-                               th:readonly="${isTrackWithStatusNew}"
-                               th:required="${!isTrackWithStatusNew}" />
+                            <input type="datetime-local" name="trackDate"
+                                   th:value="${track.updatedTimeOnForm}" class="form-control"
+                                   th:readonly="${isTrackWithStatusNew}"
+                                   th:required="${!isTrackWithStatusNew}" style="max-width: 300px" />
+                        </div>
                     </div>
-                    <!-- Status Field -->
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-medium">Status:</label>
-                        <div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label">Status:</label>
+                        <div class="col">
                             <th:block th:if="${isTrackWithStatusNew}">
                                 <input type="hidden" name="trackStatus" value="NEW" />
                             </th:block>
-                            <select name="trackStatus" class="mt-1 border h-10 block w-full rounded-md border-gray-300 shadow-sm"
-                                    th:attr="rowNumber=${status.count}"
+                            <select name="trackStatus" class="form-control dropDownStatus"
+                                    required style="max-width: 150px"
+                                    th:rowNumber="${status.count}"
                                     th:disabled="${isTrackWithStatusNew}"
-                                    th:id="${isTrackWithStatusNew ? 'trackStatusOptions' : ''}"
-                                    required>
-                                <th:block th:each="os : ${T(org.nexus.nexkartbackend.entity.OrderStatus).values()}">
+                                    th:id="${isTrackWithStatusNew ? 'trackStatusOptions' : ''}">
+
+                                <th:block
+                                        th:each="os : ${T(org.nexus.nexkartbackend.entity.OrderStatus).values()}">
                                     <option th:value="${os}" th:text="${os}"
                                             th:selected="${os == track.status}"
-                                            data-default-description="${os.defaultDescription()}">
-                                    </option>
+                                            th:defaultDescription="${os.defaultDescription}"/>
                                 </th:block>
+
                             </select>
                         </div>
                     </div>
-                    <!-- Notes Field -->
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-medium">Notes:</label>
-                        <textarea rows="3" name="trackNotes"
-                                  class="mt-1 block w-full border rounded-md border-gray-300 shadow-sm"
-                                  th:id="'trackNote' + ${status.count}"
-                                  th:readonly="${isTrackWithStatusNew}" required>[[${track.notes}]]</textarea>
+
+                    <div class="form-group row">
+                        <label class="col-form-label">Notes:</label>
+                        <div class="col">
+								<textarea rows="2" cols="10" class="form-control"
+                                          name="trackNotes" style="max-width: 300px"
+                                          th:id="'trackNote' + ${status.count}"
+                                          th:readonly="${isTrackWithStatusNew}" required>[[${track.notes}]]</textarea>
+                        </div>
                     </div>
 
                 </div>
-
             </div>
-
-            <div th:id="'emptyLine' + ${status.count}" class="mb-4">&nbsp;</div>
-
+            <div th:id="'emptyLine' + ${status.count}" class="row">&nbsp;</div>
         </th:block>
     </div>
 
-    <!-- Add Track Record Button -->
-    <button id="linkAddTrack" type="button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4">
-        Add Track Record
-    </button>
-
-    <!-- Hidden template for cloning status options -->
-    <div id="trackStatusOptionsTemplate" style="display:none;">
-        <select>
-            <th:block th:each="os : ${T(org.nexus.nexkartbackend.entity.OrderStatus).values()}">
-                <option th:value="${os}" th:text="${os}"
-                        data-default-description="${os.defaultDescription()}"></option>
-            </th:block>
-        </select>
-    </div>
-
+    <button id="linkAddTrack" class="btn btn-success mt-3">Add
+        Track Record</button>
 </div>
-
-<script>
-
-</script>
-</body>
-</html>

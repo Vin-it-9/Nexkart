@@ -4,6 +4,10 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/jquery.richtext.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/richtext_for_npm@1.0.16/src/richtext.min.css">
+
 </head>
 <body class="bg-gray-50">
 
@@ -38,16 +42,16 @@
 
             <div id="tabContent" class="pt-6">
                 <div id="overview" class="tab-content active space-y-6">
-                    <div th:replace="orders/order_form_overview :: content"></div>
+                    <div th:replace="~{orders/order_form_overview :: content}"></div>
                 </div>
                 <div id="products" class="tab-content hidden">
-                    <div th:replace="orders/order_form_products :: content"></div>
+                    <div th:replace="~{orders/order_form_products :: content}"></div>
                 </div>
                 <div id="shipping" class="tab-content hidden">
-                    <div th:replace="orders/order_form_shipping :: content"></div>
+                    <div th:replace="~{orders/order_form_shipping :: content}"></div>
                 </div>
                 <div id="track" class="tab-content hidden">
-                        <div th:replace="orders/order_form_tracks :: content"></div>
+                        <div th:replace="~{orders/order_form_tracks :: content}"></div>
                 </div>
             </div>
         </div>
