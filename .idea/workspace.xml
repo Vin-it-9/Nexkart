@@ -6,19 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2d14ecd2-3996-4e9a-bb98-7d1e23934921" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/MvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/MvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/aws/AmazonS3Util.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/common/product/ProductImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/entity/Constants.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/oauth/OAuth2LoginSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/oauth/OAuth2LoginSuccessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/setting/SettingFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/setting/SettingFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/cart/shopping_cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/cart/shopping_cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_fragment.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/product/product_fragment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/fragments/search_nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/fragments/search_nav.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,15 +244,7 @@
       <workItem from="1740415849314" duration="2142000" />
       <workItem from="1740418023988" duration="477000" />
       <workItem from="1740419011828" duration="4407000" />
-      <workItem from="1740423699943" duration="2690000" />
-    </task>
-    <task id="LOCAL-00004" summary="commit">
-      <option name="closed" value="true" />
-      <created>1739862629036</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1739862629036</updated>
+      <workItem from="1740423699943" duration="3344000" />
     </task>
     <task id="LOCAL-00005" summary="commit">
       <option name="closed" value="true" />
@@ -649,7 +630,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740414621416</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740426573885</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1740426573885</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -7,9 +7,11 @@
 </head>
 <body>
 <div th:fragment="search_nav">
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenuPanel = document.getElementById('mobile-menu-panel');
@@ -25,6 +27,7 @@
                 setTimeout(() => searchInput.focus(), 100);
             });
         });
+
     </script>
     <nav class="sticky top-0  bg-white/80 backdrop-blur-md border-b mt-3 border-gray-300">
         <div class="container mx-auto px-4">
@@ -49,7 +52,7 @@
                             <a th:href="@{/address_book}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
                                 <span class="material-icons-round">location_on</span>
                             </a>
-                            <a href="#" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
+                            <a th:href="@{/orders}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
                                 <span class="material-icons-round">receipt</span>
                             </a>
                             <a th:href="@{/cart}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
@@ -83,17 +86,21 @@
             </form>
             <th:block sec:authorize="isAuthenticated()">
                 <div class="space-y-4">
-                    <a th:href="@{/customer}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                    <a th:href="@{/account_details}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
                         <span class="material-icons-round text-gray-500">person</span>
                         <span class="font-medium" sec:authentication="principal.fullName"></span>
                     </a>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                    <a th:href="@{/address_book}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
                         <span class="material-icons-round text-gray-500">location_on</span>
                         <span class="font-medium">Addresses</span>
                     </a>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                    <a th:href="@{/orders}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
                         <span class="material-icons-round text-gray-500">receipt</span>
                         <span class="font-medium">Orders</span>
+                    </a>
+                    <a th:href="@{/cart}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                        <span class="material-icons-round text-gray-500">shopping_cart</span>
+                        <span class="font-medium">shopping_cart</span>
                     </a>
 
                 </div>
