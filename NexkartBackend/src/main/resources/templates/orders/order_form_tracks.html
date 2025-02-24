@@ -41,8 +41,9 @@
                 <div class="flex-1 mt-4 md:mt-0 md:ml-4">
                     <!-- Time Field -->
                     <div class="mb-4">
+
                         <label class="block text-gray-700 font-medium">Time:</label>
-                        <input type="datetime-local" name="trackDate" th:value="${track.updatedTimeOnForm}"
+                        <input  type="datetime-local" name="trackDate" th:value="${track.updatedTimeOnForm}"
                                class="mt-1 h-5 block border p-5 w-full rounded-md border-gray-300 shadow-sm"
                                th:readonly="${isTrackWithStatusNew}"
                                th:required="${!isTrackWithStatusNew}" />
@@ -76,9 +77,13 @@
                                   th:id="'trackNote' + ${status.count}"
                                   th:readonly="${isTrackWithStatusNew}" required>[[${track.notes}]]</textarea>
                     </div>
+
                 </div>
+
             </div>
+
             <div th:id="'emptyLine' + ${status.count}" class="mb-4">&nbsp;</div>
+
         </th:block>
     </div>
 

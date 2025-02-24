@@ -7,22 +7,26 @@
             <div class="border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow" th:with="product=${detail.product}">
                 <div class="flex items-start gap-4">
                     <span class="text-lg font-semibold text-gray-600 min-w-[30px]">[[${status.count}]]</span>
+
+                    <input type="hidden" name="detailId" th:value="${detail.id}" />
                     <input type="hidden" name="productId" th:value="${product.id}" class="hiddenProductId" />
+
                     <img th:src="@{${product.mainImagePath}}" alt="Product image" class="w-20 h-20 object-cover rounded-lg border border-gray-200" />
+
                     <div class="flex-1">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">[[${product.name}]]</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 mb-1">Product Cost</label>
-                                    <input type="text" required
+                                    <input name="productDetailCost"  type="text" required
                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                            th:rowNumber="${status.count}"
                                            th:value="${detail.productCost}" />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 mb-1">Quantity</label>
-                                    <input type="number" step="1" min="1" max="5"
+                                    <input name="quantity"  type="number" step="1" min="1" max="5"
                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                            th:id="'quantity' + ${status.count}"
                                            th:rowNumber="${status.count}"
@@ -32,7 +36,7 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 mb-1">Unit Price</label>
-                                    <input type="text" required
+                                    <input  name="productPrice" type="text" required
                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                            th:id="'price' + ${status.count}"
                                            th:rowNumber="${status.count}"
@@ -40,7 +44,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 mb-1">Subtotal</label>
-                                    <input type="text" readonly
+                                    <input name="productSubtotal"  type="text" readonly
                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 font-medium text-gray-700"
                                            th:id="'subtotal' + ${status.count}"
                                            th:value="${detail.subtotal}" />
@@ -49,7 +53,7 @@
                         </div>
                         <div class="mt-4">
                             <label class="block text-sm font-medium text-gray-600 mb-1">Shipping Cost</label>
-                            <input type="text" required
+                            <input   name="productShipCost" type="text" required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                    th:value="${detail.shippingCost}" />
                         </div>

@@ -9,6 +9,7 @@ $(document).ready(function() {
             $(this).find("iframe").attr("src", url);
         });
 
+        $("#addProductModal").modal();
     })
 });
 
@@ -58,6 +59,8 @@ function getProductInfo(productId, shippingCost) {
         htmlCode = generateProductCode(productId, productName, mainImagePath, productCost, productPrice, shippingCost);
         $("#productList").append(htmlCode);
 
+        updateOrderAmounts();
+
     }).fail(function(err) {
         showWarningModal(err.responseJSON.message);
     });
@@ -65,16 +68,20 @@ function getProductInfo(productId, shippingCost) {
 
 function generateProductCode(productId, productName, mainImagePath, productCost, productPrice, shippingCost) {
     nextCount = $(".hiddenProductId").length + 1;
+    rowId = "row" + nextCount;
     quantityId = "quantity" + nextCount;
     priceId = "price" + nextCount;
     subtotalId = "subtotal" + nextCount;
+    blankLineId= "blankLine" + nextCount;
 
     htmlCode = `
-		<div class="border rounded p-1">
+		<div class="border rounded p-1" id="${rowId}">
+			<input type="hidden" name="detailId" value="0" />
 			<input type="hidden" name="productId" value="${productId}" class="hiddenProductId" />
 			<div class="row">
 				<div class="col-1">
-					<div>${nextCount}</div>				
+					<div class="divCount">${nextCount}</div>
+					<div><a class="fas fa-trash icon-dark linkRemove" href="" rowNumber="${nextCount}"></a></div>				
 				</div>
 				<div class="col-3">
 					<img src="${mainImagePath}" class="img-fluid" />
@@ -91,6 +98,7 @@ function generateProductCode(productId, productName, mainImagePath, productCost,
 					<td>Product Cost:</td>
 					<td>
 						<input type="text" required class="form-control m-1 cost-input"
+							name="productDetailCost"
 							rowNumber="${nextCount}" 
 							value="${productCost}" style="max-width: 140px"/>
 					</td>
@@ -99,6 +107,7 @@ function generateProductCode(productId, productName, mainImagePath, productCost,
 					<td>Quantity:</td>
 					<td>
 						<input type="number" step="1" min="1" max="5" class="form-control m-1 quantity-input"
+							name="quantity"
 							id="${quantityId}"
 							rowNumber="${nextCount}" 
 							value="1" style="max-width: 140px"/>
@@ -108,6 +117,7 @@ function generateProductCode(productId, productName, mainImagePath, productCost,
 					<td>Unit Price:</td>
 					<td>
 						<input type="text" required class="form-control m-1 price-input"
+							name="productPrice"
 							id="${priceId}"
 							rowNumber="${nextCount}" 
 							value="${productPrice}" style="max-width: 140px"/>
@@ -117,6 +127,7 @@ function generateProductCode(productId, productName, mainImagePath, productCost,
 					<td>Subtotal:</td>
 					<td>
 						<input type="text" readonly="readonly" class="form-control m-1 subtotal-output"
+							name="productSubtotal"
 							id="${subtotalId}" 
 							value="${productPrice}" style="max-width: 140px"/>
 					</td>
@@ -124,7 +135,8 @@ function generateProductCode(productId, productName, mainImagePath, productCost,
 				<tr>
 					<td>Shipping Cost:</td>
 					<td>
-						<input type="text" required class="form-control m-1 ship-input" 
+						<input type="text" required class="form-control m-1 ship-input"
+							name="productShipCost" 
 							value="${shippingCost}" style="max-width: 140px"/>
 					</td>
 				</tr>											
@@ -132,7 +144,7 @@ function generateProductCode(productId, productName, mainImagePath, productCost,
 			</div>
 			
 		</div>
-		<div class="row">&nbsp;</div>	
+		<div id="${blankLineId}"class="row">&nbsp;</div>	
 	`;
 
     return htmlCode;

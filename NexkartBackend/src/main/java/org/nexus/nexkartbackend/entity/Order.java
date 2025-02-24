@@ -1,6 +1,7 @@
 package org.nexus.nexkartbackend.entity;
 
 import jakarta.persistence.*;
+import org.springframework.expression.ParseException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,7 @@ public class Order {
     @Column(name = "address_line_2", length = 64)
     private String addressLine2;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("updatedTime ASC")
     private List<OrderTrack> orderTracks = new ArrayList<>();
 
@@ -73,7 +74,7 @@ public class Order {
         this.orderTracks = orderTracks;
     }
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
     public Integer getId() {
@@ -244,6 +245,7 @@ public class Order {
         this.customer = customer;
     }
 
+
     public Set<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
@@ -306,6 +308,18 @@ public class Order {
     public String getDeliverDateOnForm() {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormatter.format(this.deliverDate);
+    }
+
+    public void setDeliverDateOnForm(String dateString) {
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            this.deliverDate = dateFormatter.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (java.text.ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

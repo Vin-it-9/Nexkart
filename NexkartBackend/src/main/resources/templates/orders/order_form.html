@@ -14,7 +14,7 @@
         <h2 class="text-xl font-semibold text-gray-900">Manage Orders | [[${pageTitle}]]</h2>
     </div>
 
-    <form th:action="@{/order/save}" th:object="${order}" method="post" class="bg-white rounded-xl shadow-lg p-6 lg:p-8">
+    <form onsubmit="processFormBeforeSubmit()" th:action="@{/order/save}" th:object="${order}" method="post" class="bg-white rounded-xl shadow-lg p-6 lg:p-8">
         <input type="hidden" th:field="*{id}" />
 
         <!-- Enhanced Tabs -->
@@ -91,6 +91,8 @@
 <script th:src="@{/js/order_form_overview_products.js}"></script>
 <script th:src="@{/js/order_form_add_product.js}"></script>
 <script th:src="@{/js/order_form_tracks.js}"></script>
+<script th:src="@{/js/product_form_overview.js}"></script>
+
 
 
 </body>
