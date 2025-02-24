@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Return Order #[[${orderId}]]</title>
+    <!-- Tailwind CSS CDN -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+</head>
+<body class="bg-gray-100">
+<!-- Header -->
+<header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Return Order #[[${orderId}]]
+        </h1>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="max-w-2xl mx-auto p-6 bg-white shadow rounded-lg my-6">
+    <form th:action="@{'/orders/return'}" method="post" >
+
+        <input type="hidden" name="orderId" th:value="${orderId}" />
+        <!-- Add CSRF token if required -->
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold mb-2">Select a Reason for Return</h2>
+            <div class="space-y-2">
+                <label class="inline-flex items-center">
+                    <input
+                            type="radio"
+                            name="returnReason"
+                            value="I bought the wrong items"
+                            required
+                            class="form-radio"
+                    />
+                    <span class="ml-2">I bought the wrong items</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input
+                            type="radio"
+                            name="returnReason"
+                            value="I received the wrong items"
+                            class="form-radio"
+                    />
+                    <span class="ml-2">I received the wrong items</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input
+                            type="radio"
+                            name="returnReason"
+                            value="The product was damaged/defective"
+                            class="form-radio"
+                    />
+                    <span class="ml-2">The product was damaged/defective</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input
+                            type="radio"
+                            name="returnReason"
+                            value="The product arrived too late"
+                            class="form-radio"
+                    />
+                    <span class="ml-2">The product arrived too late</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="returnNote" class="block text-gray-700 mb-2"
+            >Additional Information (optional):</label
+            >
+            <textarea
+                    id="returnNote"
+                    name="returnNote"
+                    rows="3"
+                    maxlength="120"
+                    placeholder="Enter any additional details..."
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
+        </div>
+
+        <div id="divMessage" class="mb-4 text-center text-red-500 hidden"></div>
+
+        <div class="flex justify-end space-x-4">
+            <button
+                    type="submit"
+                    class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            >
+                Send Request
+            </button>
+            <a
+                    href="/orders"
+                    class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            >
+                Cancel
+            </a>
+        </div>
+    </form>
+</main>
+
+<script type="text/javascript" th:src="@{/js/return_order.js}"></script>
+
+
+</body>
+</html>

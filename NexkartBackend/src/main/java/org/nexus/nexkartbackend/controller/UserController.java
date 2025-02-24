@@ -5,6 +5,7 @@ import org.nexus.nexkartbackend.Exporter.UserCsvExporter;
 import org.nexus.nexkartbackend.Exporter.UserExcelExporter;
 import org.nexus.nexkartbackend.Exporter.UserPdfExporter;
 import org.nexus.nexkartbackend.FileUploadUtil;
+import org.nexus.nexkartbackend.aws.AmazonS3Util;
 import org.nexus.nexkartbackend.entity.Role;
 import org.nexus.nexkartbackend.entity.User;
 import org.nexus.nexkartbackend.exception.UserNotFoundException;
@@ -96,8 +97,12 @@ public class UserController {
             user.setPhotos(filename);
             User savedUser = service.save(user);
             String uploadDir = "user-photos/" + savedUser.getId();
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir,filename,multipartFile);
+
+            AmazonS3Util.removeFolder(uploadDir);
+            AmazonS3Util.uploadFile(uploadDir, filename, multipartFile.getInputStream());
+//            String uploadDir = "user-photos/" + savedUser.getId();
+//            FileUploadUtil.cleanDir(uploadDir);
+//            FileUploadUtil.saveFile(uploadDir,filename,multipartFile);
 
         }
 
@@ -140,17 +145,20 @@ public class UserController {
     }
 
     @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable(name = "id") Integer id ,
-                             Model model ,
-                             RedirectAttributes redirectAttributes ){
+    public String deleteUser(@PathVariable(name = "id") Integer id,
+                             Model model,
+                             RedirectAttributes redirectAttributes) {
         try {
             service.delete(id);
-            redirectAttributes.addFlashAttribute("message" , "The user with ID" + id + " deleted successfully");
+            String userPhotosDir = "user-photos/" + id;
+            AmazonS3Util.removeFolder(userPhotosDir);
 
+            redirectAttributes.addFlashAttribute("message",
+                    "The user ID " + id + " has been deleted successfully");
         } catch (UserNotFoundException ex) {
-            redirectAttributes.addFlashAttribute("message" , ex.getMessage());
-
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
         }
+
         return "redirect:/users";
     }
 

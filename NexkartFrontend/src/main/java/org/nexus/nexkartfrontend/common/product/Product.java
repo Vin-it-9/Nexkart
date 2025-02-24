@@ -2,6 +2,7 @@ package org.nexus.nexkartfrontend.common.product;
 
 
 import jakarta.persistence.*;
+import org.nexus.nexkartfrontend.aws.Constants;
 import org.nexus.nexkartfrontend.common.brand.Brand;
 import org.nexus.nexkartfrontend.common.category.Category;
 
@@ -239,8 +240,9 @@ public class Product {
         if(id == null || mainImage == null){
             return "default.jpg";
         }
+        return Constants.S3_BASE_URI +  "/product-images/" + this.id + "/" + this.mainImage;
 
-        return "/product-images/" + this.id + "/" + this.mainImage;
+//        return "/product-images/" + this.id + "/" + this.mainImage;
     }
 
     public List<ProductDetail> getDetails() {

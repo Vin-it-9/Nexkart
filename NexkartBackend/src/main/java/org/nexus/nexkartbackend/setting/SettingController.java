@@ -3,7 +3,9 @@ package org.nexus.nexkartbackend.setting;
 import jakarta.servlet.http.HttpServletRequest;
 import org.nexus.nexkartbackend.FileUploadUtil;
 import org.nexus.nexkartbackend.Repository.CurrencyRepository;
+import org.nexus.nexkartbackend.aws.AmazonS3Util;
 import org.nexus.nexkartbackend.entity.Category;
+import org.nexus.nexkartbackend.entity.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,8 @@ public class SettingController {
         for (Setting setting : listSettings) {
             model.addAttribute(setting.getKey(), setting.getValue());
         }
+        model.addAttribute("S3_BASE_URI", Constants.S3_BASE_URI);
+
 
         return "settings/settings";
     }
@@ -61,9 +65,11 @@ public class SettingController {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             String value = "/site-logo/" + fileName;
             settingBag.updateSiteLogo(value);
-            String uploadDir = "./site-logo/";
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+            String uploadDir = "site-logo";
+            AmazonS3Util.removeFolder(uploadDir);
+            AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
+
         }
 
     }

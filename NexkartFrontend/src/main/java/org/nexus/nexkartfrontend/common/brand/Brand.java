@@ -2,6 +2,7 @@ package org.nexus.nexkartfrontend.common.brand;
 
 
 import jakarta.persistence.*;
+import org.nexus.nexkartfrontend.aws.Constants;
 import org.nexus.nexkartfrontend.common.category.Category;
 
 import java.util.HashSet;
@@ -81,8 +82,9 @@ public class Brand {
     public String getLogoPath() {
 
         if (this.id == null) return "/images/default.png";
+        return Constants.S3_BASE_URI + "/brand-logos/" + this.id + "/" + this.logo;
 
-        return "/brands-logo/" + this.id + "/" + this.logo;
+//        return "/brands-logo/" + this.id + "/" + this.logo;
 
     }
 

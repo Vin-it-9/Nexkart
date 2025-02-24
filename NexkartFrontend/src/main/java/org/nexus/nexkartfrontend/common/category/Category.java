@@ -1,6 +1,7 @@
 package org.nexus.nexkartfrontend.common.category;
 
 import jakarta.persistence.*;
+import org.nexus.nexkartfrontend.aws.Constants;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -151,8 +152,8 @@ public class Category {
     public String getImagePath() {
 
         if (this.id == null) return "/images/default.png";
-
-        return "/category-images/" + this.id + "/" + this.image;
+        return  Constants.S3_BASE_URI + "/category-images/" + this.id + "/" + this.image;
+//        return "/category-images/" + this.id + "/" + this.image;
     }
 
     @Transient

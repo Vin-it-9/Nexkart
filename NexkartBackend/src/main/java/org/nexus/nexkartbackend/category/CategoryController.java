@@ -3,6 +3,7 @@ package org.nexus.nexkartbackend.category;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.nexus.nexkartbackend.FileUploadUtil;
+import org.nexus.nexkartbackend.aws.AmazonS3Util;
 import org.nexus.nexkartbackend.entity.Category;
 import org.nexus.nexkartbackend.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,10 +77,15 @@ public class CategoryController {
             category.setImage(fileName);
 
             Category savedCategory = categoryService.save(category);
-            String uploadDir = "./category-images/" + savedCategory.getId();
 
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            String uploadDir = "category-images/" + savedCategory.getId();
+            AmazonS3Util.removeFolder(uploadDir);
+            AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
+
+//            String uploadDir = "./category-images/" + savedCategory.getId();
+//            FileUploadUtil.cleanDir(uploadDir);
+//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
         } else {
             categoryService.save(category);
         }
@@ -122,7 +128,9 @@ public class CategoryController {
         try {
             categoryService.delete(id);
             String categoryDir = "category-images/" + id;
-            FileUploadUtil.removeDir(categoryDir);
+            AmazonS3Util.removeFolder(categoryDir);
+//            String categoryDir = "category-images/" + id;
+//            FileUploadUtil.removeDir(categoryDir);
 
             redirectAttributes.addFlashAttribute("message",
                     "The category ID " + id + " has been deleted successfully");

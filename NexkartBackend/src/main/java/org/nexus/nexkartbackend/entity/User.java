@@ -175,7 +175,10 @@ public class User {
         if(photos == null || id == null) {
             return "/images/user.png";
         }
-        return "/user-photos/" +this.id + "/" + this.photos;
+//        return "/user-photos/" +this.id + "/" + this.photos;
+
+        return   Constants.S3_BASE_URI + "/user-photos/" +this.id + "/" + this.photos;
+
     }
 
     public boolean hasRole(String roleName) {

@@ -244,8 +244,7 @@ public class Product {
         if(id == null || mainImage == null){
             return "default.jpg";
         }
-
-        return "/product-images/" + this.id + "/" + this.mainImage;
+        return Constants.S3_BASE_URI +  "/product-images/" + this.id + "/" + this.mainImage;
     }
 
     public List<ProductDetail> getDetails() {

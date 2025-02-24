@@ -2,6 +2,7 @@ package org.nexus.nexkartbackend.brand;
 
 
 import org.nexus.nexkartbackend.FileUploadUtil;
+import org.nexus.nexkartbackend.aws.AmazonS3Util;
 import org.nexus.nexkartbackend.category.CategoryService;
 import org.nexus.nexkartbackend.entity.Brand;
 import org.nexus.nexkartbackend.entity.Category;
@@ -95,10 +96,17 @@ public class BrandController {
             brand.setLogo(fileName);
 
             Brand savedBrand = brandService.save(brand);
-            String uploadDir = "./brands-logo/" + savedBrand.getId();
 
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+            String uploadDir = "brand-logos/" + savedBrand.getId();
+
+            AmazonS3Util.removeFolder(uploadDir);
+            AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
+
+//            String uploadDir = "./brands-logo/" + savedBrand.getId();
+//
+//            FileUploadUtil.cleanDir(uploadDir);
+//            FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+
         }
         else {
             brandService.save(brand);
@@ -132,8 +140,10 @@ public class BrandController {
             try {
 
                 brandService.delete(id);
-                String brandDir = "./brands-logo/" + id;
-                FileUploadUtil.removeDir(brandDir);
+                String brandDir = "brand-logos/" + id;
+                AmazonS3Util.removeFolder(brandDir);
+//                String brandDir = "./brands-logo/" + id;
+//                FileUploadUtil.removeDir(brandDir);
 
                 redirectAttributes.addFlashAttribute("message", "The brand " + id + " has been deleted successfully");
             } catch (BrandNotFoundException e) {

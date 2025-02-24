@@ -152,7 +152,10 @@ public class Category {
 
         if (this.id == null) return "/images/default.png";
 
-        return "/category-images/" + this.id + "/" + this.image;
+//        return "/category-images/" + this.id + "/" + this.image;
+
+        return  Constants.S3_BASE_URI + "/category-images/" + this.id + "/" + this.image;
+
     }
 
     @Transient

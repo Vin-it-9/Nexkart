@@ -81,7 +81,8 @@ public class Brand {
 
         if (this.id == null) return "/images/default.png";
 
-        return "/brands-logo/" + this.id + "/" + this.logo;
+        return Constants.S3_BASE_URI + "/brand-logos/" + this.id + "/" + this.logo;
+//        return  "/brand-logos/" + this.id + "/" + this.logo;
 
     }
 
