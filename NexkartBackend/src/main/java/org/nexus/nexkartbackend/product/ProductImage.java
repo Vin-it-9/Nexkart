@@ -23,7 +23,6 @@ public class ProductImage {
 
     }
 
-
     public ProductImage(Integer id, String name, Product product) {
         this.id = id;
         this.name = name;

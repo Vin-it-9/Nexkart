@@ -2,6 +2,7 @@ package org.nexus.nexkartbackend.product;
 
 
 import org.nexus.nexkartbackend.FileUploadUtil;
+import org.nexus.nexkartbackend.aws.AmazonS3Util;
 import org.nexus.nexkartbackend.brand.BrandService;
 import org.nexus.nexkartbackend.category.CategoryService;
 import org.nexus.nexkartbackend.entity.Brand;
@@ -50,31 +51,6 @@ public class ProductController {
         return listByPage(1, model, null,0);
     }
 
-//    @GetMapping("/products/page/{pageNum}")
-//    public String listByPage(
-//            @PathVariable(name = "pageNum") int pageNum, Model model,
-//            @Param("keyword") String keyword
-//    ) {
-//        Page<Product> page = productService.listByPage(pageNum , keyword);
-//        List<Product> listProducts = page.getContent();
-//
-//        long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
-//        long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
-//        if (endCount > page.getTotalElements()) {
-//            endCount = page.getTotalElements();
-//        }
-//
-//        model.addAttribute("currentPage", pageNum);
-//        model.addAttribute("totalPages", page.getTotalPages());
-//        model.addAttribute("startCount", startCount);
-//        model.addAttribute("endCount", endCount);
-//        model.addAttribute("totalItems", page.getTotalElements());
-//        model.addAttribute("keyword", keyword);
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "products/products";
-//    }
-
     @GetMapping("/products/page/{pageNum}")
     public String listByPage(
             @PathVariable(name = "pageNum") int pageNum, Model model,
@@ -106,19 +82,6 @@ public class ProductController {
         return "products/products";
     }
 
-
-
-
-//    @GetMapping("/products")
-//    public String getProduct(Model model) {
-//
-//        List<Product> listProducts = productService.listAll();
-//
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "products/products";
-//
-//    }
 
     @GetMapping("/products/new")
     public String newProduct(Model model) {
@@ -167,33 +130,24 @@ public class ProductController {
 
     private void deleteExtraImagesWeredRemovedOnForm(Product product) {
 
-        String extraImageDir = "./product-images/" + product.getId() + "/extras";
-        Path dirpath = Paths.get(extraImageDir);
+        String extraImageDir = "product-images/" + product.getId() + "/extras";
 
-        try{
-            Files.list(dirpath).forEach(file -> {
+        List<String> listObjectKeys = AmazonS3Util.listFolder(extraImageDir);
 
-                String fileName = file.toFile().getName();
+        for (String objectKey : listObjectKeys) {
+            int lastIndexOfSlash = objectKey.lastIndexOf("/");
+            String fileName = objectKey.substring(lastIndexOfSlash + 1, objectKey.length());
 
-                if(!product.containsImageName(fileName)){
-                    try {
-                        Files.delete(file);
-                        LOGGER.info("Deleted extra image " + fileName);
-                    }
-                    catch (IOException e) {
-                        LOGGER.error("Could not delete extra image" + fileName);
-                    }
-                }
-            });
-
+            if (!product.containsImageName(fileName)) {
+                AmazonS3Util.deleteFile(objectKey);
+            }
         }
-        catch (IOException e){
-            LOGGER.error("Could not list directory" + dirpath);
-        }
+
     }
 
     private void setExistingExtraImageNames(String[] imageIds, String[] imageNames,
                                             Product product) {
+
     if(imageIds == null || imageIds.length == 0) {
         return;
     }
@@ -230,25 +184,32 @@ public class ProductController {
                                     MultipartFile[] extraImageMultiparts, Product savedProduct) throws IOException {
 
         if (!mainImageMultipart.isEmpty()) {
-
             String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
+            String uploadDir = "product-images/" + savedProduct.getId();
 
-            String uploadDir = "./product-images/" + savedProduct.getId();
+            List<String> listObjectKeys = AmazonS3Util.listFolder(uploadDir + "/");
+            for (String objectKey : listObjectKeys) {
+                if (!objectKey.contains("/extras/")) {
+                    AmazonS3Util.deleteFile(objectKey);
+                }
+            }
 
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, mainImageMultipart);
+            AmazonS3Util.uploadFile(uploadDir, fileName, mainImageMultipart.getInputStream());
         }
 
         if (extraImageMultiparts.length > 0) {
-            String uploadDir = "./product-images/" + savedProduct.getId() + "/extras";
+            String uploadDir = "product-images/" + savedProduct.getId() + "/extras";
 
             for (MultipartFile multipartFile : extraImageMultiparts) {
                 if (multipartFile.isEmpty()) continue;
 
                 String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+                AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
             }
         }
+
+
+
     }
 
 
@@ -296,15 +257,19 @@ public class ProductController {
                                 Model model,
                                 RedirectAttributes redirectAttributes) {
         try {
-            productService.delete(id);
-            String productExtraImagesDir = "./product-images/" + id + "/extras";
-            String productImagesDir = "./product-images/" + id;
 
-            FileUploadUtil.removeDir(productExtraImagesDir);
-            FileUploadUtil.removeDir(productImagesDir);
+            productService.delete(id);
+
+            String productExtraImagesDir = "product-images/" + id + "/extras";
+            String productImagesDir = "product-images/" + id;
+
+            AmazonS3Util.removeFolder(productExtraImagesDir);
+            AmazonS3Util.removeFolder(productImagesDir);
+
 
             redirectAttributes.addFlashAttribute("message",
                     "The product ID " + id + " has been deleted successfully");
+
         } catch (ProductNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
         }

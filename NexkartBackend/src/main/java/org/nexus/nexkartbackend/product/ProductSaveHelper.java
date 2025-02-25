@@ -32,6 +32,7 @@ public class ProductSaveHelper {
 
     static void setExistingExtraImageNames(String[] imageIDs, String[] imageNames,
                                            Product product) {
+
         if (imageIDs == null || imageIDs.length == 0) return;
 
         Set<ProductImage> images = new HashSet<>();
@@ -44,6 +45,7 @@ public class ProductSaveHelper {
         }
 
         product.setImages(images);
+
 
     }
 

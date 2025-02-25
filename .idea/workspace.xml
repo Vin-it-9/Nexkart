@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2d14ecd2-3996-4e9a-bb98-7d1e23934921" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/product/ProductSaveHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/security/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/order_details_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/order_details_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/orders_customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/templates/orders/orders_customer.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +134,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -245,15 +247,11 @@
       <workItem from="1740415849314" duration="2142000" />
       <workItem from="1740418023988" duration="477000" />
       <workItem from="1740419011828" duration="4407000" />
-      <workItem from="1740423699943" duration="7105000" />
-    </task>
-    <task id="LOCAL-00006" summary="commit">
-      <option name="closed" value="true" />
-      <created>1739900809512</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1739900809512</updated>
+      <workItem from="1740423699943" duration="7139000" />
+      <workItem from="1740433682608" duration="235000" />
+      <workItem from="1740433937738" duration="703000" />
+      <workItem from="1740436503248" duration="84000" />
+      <workItem from="1740468427652" duration="1416000" />
     </task>
     <task id="LOCAL-00007" summary="commit">
       <option name="closed" value="true" />
@@ -639,7 +637,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740427191841</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740432956916</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1740432956916</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

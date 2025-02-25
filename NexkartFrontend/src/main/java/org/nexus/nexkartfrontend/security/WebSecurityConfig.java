@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -45,11 +47,17 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Force session creation for every user
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/account_details", "/update_account_details", "/cart" ,"/address_book/**", "/checkout", "/place_order",  "/process_paypal_order" ).authenticated()
+                        .requestMatchers("/account_details", "/update_account_details", "/cart", "/address_book/**", "/checkout", "/place_order", "/process_paypal_order")
+                        .authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
@@ -65,10 +73,13 @@ public class WebSecurityConfig {
                         )
                         .successHandler(oauth2LoginHandler)
                 )
-                .logout(logout -> logout.permitAll());
+                .logout(logout -> logout.permitAll())
+                // Explicitly configure CSRF token repository
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
+                );
 
         return http.build();
     }
-
 
 }
