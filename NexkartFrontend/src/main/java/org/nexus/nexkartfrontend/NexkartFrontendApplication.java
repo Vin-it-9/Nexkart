@@ -10,7 +10,7 @@ public class NexkartFrontendApplication {
 
         SpringApplication.run(NexkartFrontendApplication.class, args);
 
-        System.out.println("NexkartFrontendApplication started");
+        System.out.println("Nexkart Started");
         System.out.println("http://localhost:8081/Nexkart");
 
     }

@@ -21,6 +21,8 @@ public class AmazonS3Util {
     private static final String BUCKET_NAME;
 
 
+
+
     static {
         BUCKET_NAME = System.getenv("AWS_BUCKET_NAME");
     }
