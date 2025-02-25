@@ -25,8 +25,6 @@ public class OrderDetailReportService extends AbstractReportService {
             listOrderDetails = repo.findWithCategoryAndTimeBetween(startDate, endDate);
         }
 
-        printRawData(listOrderDetails);
-
         List<ReportItem> listReportItems = new ArrayList<>();
 
         for (OrderDetail detail : listOrderDetails) {
@@ -51,24 +49,10 @@ public class OrderDetailReportService extends AbstractReportService {
             }
         }
 
-        printReportData(listReportItems);
 
         return listReportItems;
     }
 
-    private void printReportData(List<ReportItem> listReportItems) {
-        for (ReportItem item : listReportItems) {
-            System.out.printf("%-20s, %10.2f, %10.2f, %d \n",
-                    item.getIdentifier(), item.getGrossSales(), item.getNetSales(), item.getProductsCount());
-        }
-    }
 
-    private void printRawData(List<OrderDetail> listOrderDetails) {
-        for (OrderDetail detail : listOrderDetails) {
-            System.out.printf("%d, %-20s, %10.2f, %10.2f, %10.2f \n",
-                    detail.getQuantity(), detail.getProduct().getCategory().getName(),
-                    detail.getSubtotal(), detail.getProductCost(), detail.getShippingCost());
-        }
-    }
 
 }

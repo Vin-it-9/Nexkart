@@ -106,40 +106,39 @@ function prepareChartData(responseJSON) {
 function customizeChart(period) {
     chartOptions = {
         title: getChartTitle(period),
-        'height': 360,
-        legend: {position: 'top'},
-
+        height: 360,
+        legend: { position: 'top' },
         series: {
-            0: {targetAxisIndex: 0},
-            1: {targetAxisIndex: 0},
-            2: {targetAxisIndex: 1},
+            0: { targetAxisIndex: 0 },
+            1: { targetAxisIndex: 0 },
+            2: { targetAxisIndex: 1 },
         },
-
         vAxes: {
-            0: {title: 'Sales Amount', format: 'currency'},
-            1: {title: 'Number of Orders'}
+            0: { title: 'Sales Amount', format: '₹#,##0.00' },
+            1: { title: 'Number of Orders' }
         }
     };
 
+    // Use a number format that displays the rupee symbol with two decimal places
     var formatter = new google.visualization.NumberFormat({
-        prefix: '$'
+        pattern: '₹#,##0.00'
     });
-
-    formatter.format(data, 1);
-    formatter.format(data, 2);
+    formatter.format(data, 1); // Format Gross Sales column
+    formatter.format(data, 2); // Format Net Sales column
 }
+
 
 function drawChart(period) {
     var salesChart = new google.visualization.ColumnChart(document.getElementById('chart_sales_by_date'));
     salesChart.draw(data, chartOptions);
 
-    $("#textTotalGrossSales").text("$" + $.number(totalGrossSales, 2));
-    $("#textTotalNetSales").text("$" + $.number(totalNetSales, 2));
+    $("#textTotalGrossSales").text("₹" + $.number(totalGrossSales, 2));
+    $("#textTotalNetSales").text("₹" + $.number(totalNetSales, 2));
 
     denominator = getDenominator(period);
 
-    $("#textAvgGrossSales").text("$" + $.number(totalGrossSales / denominator, 2));
-    $("#textAvgNetSales").text("$" + $.number(totalNetSales / denominator, 2));
+    $("#textAvgGrossSales").text("₹" + $.number(totalGrossSales / denominator, 2));
+    $("#textAvgNetSales").text("₹" + $.number(totalNetSales / denominator, 2));
     $("#textTotalOrders").text(totalOrders);
 }
 

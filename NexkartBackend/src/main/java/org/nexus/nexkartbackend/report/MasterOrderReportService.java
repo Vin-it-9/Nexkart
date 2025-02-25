@@ -15,20 +15,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MasterOrderReportService extends AbstractReportService {
+
+
     @Autowired private OrderRepository repo;
 
 
     protected List<ReportItem> getReportDataByDateRangeInternal(Date startTime, Date endTime, ReportType reportType) {
         List<Order> listOrders = repo.findByOrderTimeBetween(startTime, endTime);
-        printRawData(listOrders);
 
         List<ReportItem> listReportItems = createReportData(startTime, endTime, reportType);
 
-        System.out.println();
-
         calculateSalesForReportData(listOrders, listReportItems);
 
-        printReportData(listReportItems);
 
         return listReportItems;
     }
@@ -51,13 +49,7 @@ public class MasterOrderReportService extends AbstractReportService {
         }
     }
 
-    private void printReportData(List<ReportItem> listReportItems) {
-        listReportItems.forEach(item -> {
-            System.out.printf("%s, %10.2f, %10.2f, %d \n", item.getIdentifier(), item.getGrossSales(),
-                    item.getNetSales(), item.getOrdersCount());
-        });
 
-    }
 
     private List<ReportItem> createReportData(Date startTime, Date endTime, ReportType reportType) {
         List<ReportItem> listReportItems = new ArrayList<>();
@@ -90,12 +82,7 @@ public class MasterOrderReportService extends AbstractReportService {
         return listReportItems;
     }
 
-    private void printRawData(List<Order> listOrders) {
-        listOrders.forEach(order -> {
-            System.out.printf("%-3d | %s | %10.2f | %10.2f \n",
-                    order.getId(), order.getOrderTime(), order.getTotal(), order.getProductCost());
-        });
-    }
+
 
 
 }

@@ -20,7 +20,6 @@ public class ReportRestController {
 
     @GetMapping("/reports/sales_by_date/{period}")
     public List<ReportItem> getReportDataByDatePeriod(@PathVariable("period") String period) {
-        System.out.println("Report period: " + period);
 
         switch (period) {
             case "last_7_days":
