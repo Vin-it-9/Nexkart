@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends PagingAndSortingRepository<Order, Integer> , JpaRepository<Order, Integer> {
 
@@ -25,6 +28,11 @@ public interface OrderRepository extends PagingAndSortingRepository<Order, Integ
     public Page<Order> findAll(String keyword, Pageable pageable);
 
     public Long countById(Integer id);
+
+    @Query("SELECT NEW org.nexus.nexkartbackend.entity.Order(o.id, o.orderTime, o.productCost,"
+            + " o.subtotal, o.total) FROM Order o WHERE"
+            + " o.orderTime BETWEEN ?1 AND ?2 ORDER BY o.orderTime ASC")
+    public List<Order> findByOrderTimeBetween(Date startTime, Date endTime);
 
 
 }

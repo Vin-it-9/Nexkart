@@ -44,7 +44,7 @@
         <li><a th:href="@{/customers}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Customers</a></li>
         <li><a th:href="@{/shipping_rates}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
         <li><a th:href="@{/orders}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
-        <li><a th:href="@{/report}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
+        <li><a th:href="@{/reports}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
         <li><a th:href="@{/articles}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a></li>
         <li><a th:href="@{/menu}" class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
         <li><a th:href="@{/settings}"  sec:authorize = "hasAuthority('Admin')"   class="text-sm text-black font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Settings </a></li>
@@ -94,7 +94,7 @@
                 <li class="mb-1 border-b"><a th:href="@{/categories}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Categories</a></li>
                 <li class="mb-1 border-b"><a th:href="@{/shipping}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Shipping</a></li>
                 <li class="mb-1 border-b"><a th:href="@{/orders}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Orders</a></li>
-                <li class="mb-1 border-b"><a th:href="@{/report}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
+                <li class="mb-1 border-b"><a th:href="@{/reports}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Report</a></li>
                 <li class="mb-1 border-b"><a th:href="@{/articles}" class="block p-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-600 rounded">Articles</a> </li>
                 <li class="mb-1 border-b"><a th:href="@{/menu}" class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">menu</a></li>
                 <li sec:authorize = "hasAuthority('Admin')"  class="mb-3 border-b"><a th:href="@{/settings}"    class="block p-3 text-sm font-semibold  hover:bg-blue-50 hover:text-blue-600 rounded">Settings</a></li>
