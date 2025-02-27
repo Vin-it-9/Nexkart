@@ -3,48 +3,65 @@
 <head th:replace="~{fragments/common-header :: common-head}">
   <title>Nexkart</title>
 </head>
-<body class="flex flex-col min-h-screen ">
+<body class="flex flex-col min-h-screen bg-gray-50">
 <!-- Navbar Fragment -->
 <header th:replace="~{fragments/navbar :: navbar}"></header>
 <div th:replace="~{fragments/search_nav :: search_nav}"></div>
-<!-- Main Content Container -->
-<main class="flex-grow container mx-auto px-4 py-6 bg-gray-50">
 
+<!-- Main Content Container -->
+<main class="flex-grow container mx-auto px-4 py-8">
   <!-- Breadcrumb Section -->
-  <div th:if="${listCategoryParents != null && !listCategoryParents.empty}" class="mb-6">
+  <div th:if="${listCategoryParents != null && !listCategoryParents.empty}"
+       class="mb-8 bg-white rounded-lg shadow-sm p-4">
     <nav class="flex" aria-label="Breadcrumb">
-      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+      <ol class="inline-flex items-center flex-wrap gap-2">
         <li class="inline-flex items-center">
-          <a th:href="@{/static}" class="text-gray-700 hover:text-blue-600">
-            Home
+          <a th:href="@{/}"
+             class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm font-medium">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+            </svg>
+
           </a>
         </li>
         <li th:each="parent, iterStat : ${listCategoryParents}" class="inline-flex items-center">
-          <svg class="w-4 h-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
           </svg>
           <a th:if="${!iterStat.last}"
              th:href="@{'/c/' + ${parent.alias}}"
-             class="text-gray-700 hover:text-blue-600">
+             class="ml-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors duration-200">
             [[${parent.name}]]
           </a>
-          <span th:if="${iterStat.last}" class="text-gray-500">
-              [[${parent.name}]]
-            </span>
+          <span th:if="${iterStat.last}" class="ml-1 text-sm font-medium text-blue-600">
+                        [[${parent.name}]]
+                    </span>
         </li>
       </ol>
     </nav>
   </div>
 
   <!-- Subcategories Section -->
-  <section th:if="${category.children != null and !category.children.empty}" class="mb-10 w-3/5">
-    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Subcategories</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+  <section th:if="${category.children != null and !category.children.empty}"
+           class="mb-12 w-full lg:w-4/5 mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Subcategories</h2>
+      <div class="h-0.5 flex-grow ml-6 bg-gradient-to-r from-blue-600/20 to-transparent"></div>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
       <th:block th:each="cat : ${category.children}">
-        <div th:if="${cat.enabled == true}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 text-center">
-          <a th:href="@{'/c/' + ${cat.alias}}">
-            <img th:src="@{${cat.imagePath}}" alt="[[${cat.name}]]" class="mx-auto h-24 object-contain mb-2" />
-            <p class="font-medium text-gray-700">[[${cat.name}]]</p>
+        <div th:if="${cat.enabled == true}"
+             class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+          <a th:href="@{'/c/' + ${cat.alias}}"
+             class="block p-4">
+            <div class="aspect-square bg-gray-50 rounded-lg mb-4 p-4 transform transition-transform duration-300 group-hover:scale-105">
+              <img th:src="@{${cat.imagePath}}"
+                   alt="[[${cat.name}]]"
+                   class="w-full h-full object-contain" />
+            </div>
+            <h3 class="font-medium text-gray-800 text-center group-hover:text-blue-600 transition-colors duration-200">
+              [[${cat.name}]]
+            </h3>
           </a>
         </div>
       </th:block>
@@ -52,43 +69,67 @@
   </section>
 
   <!-- Products Section -->
-  <section th:if="${listProducts != null and !listProducts.empty}">
-    <h2 class="text-xl font-semibold mb-4 text-gray-800">Products</h2>
-    <!-- Outer grid: on mobile a single column; on larger screens multiple columns -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5  ">
+  <section th:if="${listProducts != null and !listProducts.empty}" class="mb-8">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Products</h2>
+      <div class="h-0.5 flex-grow ml-6 bg-gradient-to-r from-blue-600/20 to-transparent"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <th:block th:each="product : ${listProducts}">
-        <div class="hover:bg-gray-100  hover:shadow-lg   p-4">
-          <!-- Responsive product card: horizontal (row) on mobile; vertical (col) on md+ -->
-          <a th:href="@{'/p/' + ${#strings.replace(product.name, ' ', '-')}}" class="flex flex-row md:flex-col group">
+        <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+          <a th:href="@{'/p/' + ${#strings.replace(product.name, ' ', '-')}}"
+             class="block p-4">
             <!-- Image Container -->
-            <div class="flex-shrink-0 w-24 h-24 md:w-full md:h-48 flex items-center justify-center overflow-hidden rounded-md transition-transform duration-300 group-hover:scale-105">
-              <img th:src="@{${product.mainImagePath}}"
-                   alt="[[${product.name}]]"
-                   class="max-w-full max-h-full object-contain" />
-            </div>
-            <!-- Product Details -->
-            <div class="ml-4 md:ml-0 md:mt-3 flex flex-col justify-center">
-              <h3 class="text-sm md:text-m font-semibold text-gray-800 mb-2">[[${product.name}]]</h3>
-              <div>
-                  <span th:if="${product.discountPercent <= 0}" class="text-sm font-semibold text-gray-900">
-                    [[${product.price}]] Rs
-                  </span>
-                <div th:if="${product.discountPercent > 0}" class="flex items-center">
-                    <span class="text-sm font-bold text-red-600">
-                      [[${product.discountPrice}]] Rs
-                    </span>
-                  <del class="text-gray-500 ml-2 text-sm">[[${product.price}]] Rs</del>
-                </div>
+            <div class="aspect-square bg-gray-50 rounded-lg mb-4 p-4">
+              <div class="w-full h-full relative overflow-hidden">
+                <img th:src="@{${product.mainImagePath}}"
+                     alt="[[${product.name}]]"
+                     class="w-full h-full object-contain transform transition-transform duration-300 group-hover:scale-110" />
               </div>
             </div>
+            <!-- Product Details -->
+            <div class="space-y-2 h-4/5">
+              <h3 class="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
+                [[${product.name}]]
+              </h3>
+              <div class="flex items-center justify-between">
+                <div>
+                                    <span th:if="${product.discountPercent <= 0}"
+                                          class="text-lg font-bold text-gray-900">
+                                        [[${product.price}]] Rs
+                                    </span>
+                  <div th:if="${product.discountPercent > 0}"
+                       class="space-y-1">
+                                        <span class="text-lg font-bold text-red-600">
+                                            [[${product.discountPrice}]] Rs
+                                        </span>
+                    <div class="flex items-center gap-2">
+                      <del class="text-sm text-gray-400">
+                        [[${product.price}]] Rs
+                      </del>
+                      <span class="text-xs font-medium text-green-600 bg-green-100 px-2 py-0.5 rounded">
+                                                -[[${product.discountPercent}]]%
+                                            </span>
+                    </div>
+                  </div>
+                </div>
+                <button class="p-2 rounded-full text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                    </path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+
           </a>
         </div>
       </th:block>
     </div>
   </section>
-
 </main>
-
 
 <!-- Footer Fragment -->
 <footer th:replace="~{fragments/footer :: footer}" class="mt-auto"></footer>
