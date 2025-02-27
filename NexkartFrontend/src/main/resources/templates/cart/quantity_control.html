@@ -4,21 +4,22 @@
 </head>
 <body>
 <div th:fragment="quantity_control(quantityValue, productId)">
-    <nav class="flex items-center justify-start space-x-2">
+    <nav class="flex items-center justify-start space-x-2 sm:space-x-3">
         <!-- Minus Button -->
-        <button id="decreaseBtn" class="linkMinus p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none"
-                th:pid="${productId}">
+        <button id="decreaseBtn" class="linkMinus p-2.5 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                th:pid="${productId}" aria-label="Decrease quantity">
             <span class="text-gray-700 font-bold text-lg">−</span>
         </button>
 
         <!-- Quantity Input -->
-        <input type="text" th:value="${quantityValue}" th:id="'quantity' + ${productId}"
+        <input type="text" th:value="${quantityValue}" th:id="'quantity' + ${productId}" readonly
                onkeydown="return false;"
-               class="w-16 text-center border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-transparent" />
+               class="w-16 text-center border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-transparent cursor-not-allowed"
+               title="Quantity is not directly editable" aria-label="Quantity"/>
 
         <!-- Plus Button -->
-        <button id="increaseBtn" class="linkPlus p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none"
-                th:pid="${productId}">
+        <button id="increaseBtn" class="linkPlus p-2.5 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                th:pid="${productId}" aria-label="Increase quantity">
             <span class="text-gray-700 font-bold text-lg">+</span>
         </button>
     </nav>

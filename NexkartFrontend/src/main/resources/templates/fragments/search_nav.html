@@ -2,112 +2,171 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <title>Modern Search Navigation</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<div th:fragment="search_nav">
-
+<body class="bg-gray-50">
+<div th:fragment="search_nav" class="mt-2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-            const searchButton = document.getElementById('search-button');
-            const searchInput = document.getElementById('search-input');
+            const searchToggle = document.getElementById('search-toggle');
+            const searchBar = document.getElementById('search-bar');
+            const overlay = document.getElementById('overlay');
+            const closeMenu = document.getElementById('close-menu');
 
+            // Toggle mobile menu
             mobileMenuButton.addEventListener('click', () => {
-                mobileMenuPanel.classList.toggle('translate-x-full');
-                mobileMenuPanel.classList.toggle('translate-x-0');
+                mobileMenuPanel.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
             });
 
-            searchButton.addEventListener('click', () => {
-                setTimeout(() => searchInput.focus(), 100);
+            // Close mobile menu
+            closeMenu.addEventListener('click', () => {
+                mobileMenuPanel.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            overlay.addEventListener('click', () => {
+                mobileMenuPanel.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Toggle search bar on mobile
+            searchToggle.addEventListener('click', () => {
+                searchBar.classList.toggle('hidden');
+                searchBar.querySelector('input').focus();
+            });
+
+            // Handle search bar close on mobile
+            document.addEventListener('click', (e) => {
+                if (!searchBar.contains(e.target) && !searchToggle.contains(e.target)) {
+                    searchBar.classList.add('hidden');
+                }
             });
         });
-
     </script>
-    <nav class="sticky top-0  bg-white/80 backdrop-blur-md border-b mt-3 border-gray-300">
+
+    <!-- Overlay for mobile menu -->
+    <div id="overlay" class="fixed inset-0 bg-black/90 z-40 hidden transition-opacity"></div>
+
+    <!-- Main Navigation -->
+    <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm z-30">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
-                <div class="flex-1 max-w-xl mx-8 hidden md:block">
+                <!-- Left side: Search (Desktop) -->
+                <div class="hidden lg:block flex-1 max-w-2xl">
                     <form th:action="@{/search}" method="get" class="relative">
-                        <input type="search" name="keyword" th:value="${keyword}"
-                               class="w-3/5 pl-4 pr-12 py-3 rounded-lg border-0 ring-1 ring-gray-200  transition-all"
+                        <input type="search"
+                               name="keyword"
+                               th:value="${keyword}"
+                               class="w-full pl-12 pr-4 py-2.5 rounded-full border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-blue-500 transition-all bg-gray-50"
                                placeholder="Search products...">
-                        <button type="submit" class="absolute right-64 top-3 text-gray-400 hover:text-blue-500">
-                            <span class="material-icons-round text-xl">search</span>
-                        </button>
+                        <span class="material-icons-round absolute left-4 top-2.5 text-gray-400">search</span>
                     </form>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <th:block sec:authorize="isAuthenticated()">
-                        <div class="hidden md:flex items-center space-x-4">
-                            <a th:href="@{/account_details}" class="flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors">
-                                <span class="material-icons-round">person_outline</span>
-                                <span class="font-medium" sec:authentication="principal.fullName"></span>
-                            </a>
-                            <a th:href="@{/address_book}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
-                                <span class="material-icons-round">location_on</span>
-                            </a>
-                            <a th:href="@{/orders}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
-                                <span class="material-icons-round">receipt</span>
-                            </a>
-                            <a th:href="@{/cart}" class="p-2 text-gray-600 hover:text-blue-500 rounded-full hover:bg-gray-50 transition-colors">
-                                <span class="material-icons-round">shopping_cart</span>
-                            </a>
 
-
-                        </div>
-                    </th:block>
-
-                    <!-- Mobile Menu Button -->
-                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-50">
+                <!-- Left side: Mobile Controls -->
+                <div class="flex lg:hidden items-center space-x-4">
+                    <button id="search-toggle" class="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors">
+                        <span class="material-icons-round text-2xl">search</span>
+                    </button>
+                    <button id="mobile-menu-button" class="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors">
                         <span class="material-icons-round text-2xl">menu</span>
                     </button>
-
                 </div>
+
+                <!-- Right side: Desktop Navigation Items -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <th:block sec:authorize="isAuthenticated()">
+                        <a th:href="@{/account_details}" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors">
+                            <span class="material-icons-round">person_outline</span>
+                            <span class="font-medium" sec:authentication="principal.fullName"></span>
+                        </a>
+                        <div class="flex items-center space-x-4">
+                            <a th:href="@{/address_book}" class="p-2 text-gray-600 hover:text-blue-600 rounded-full hover:bg-gray-50 transition-all">
+                                <span class="material-icons-round">location_on</span>
+                            </a>
+                            <a th:href="@{/orders}" class="p-2 text-gray-600 hover:text-blue-600 rounded-full hover:bg-gray-50 transition-all">
+                                <span class="material-icons-round">receipt</span>
+                            </a>
+                            <a th:href="@{/cart}" class="p-2 text-gray-600 hover:text-blue-600 rounded-full hover:bg-gray-50 transition-all">
+                                <span class="material-icons-round">shopping_cart</span>
+                            </a>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div id="search-bar" class="hidden lg:hidden py-3 px-4 border-t border-gray-100 bg-white absolute left-0 right-0 top-16 z-20">
+                <form th:action="@{/search}" method="get" class="relative">
+                    <input type="search"
+                           name="keyword"
+                           th:value="${keyword}"
+                           class="w-full pl-12 pr-4 py-2.5 rounded-full border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50"
+                           placeholder="Search products...">
+                    <span class="material-icons-round absolute left-4 top-2.5 text-gray-400">search</span>
+                </form>
             </div>
         </div>
     </nav>
 
-    <div id="mobile-menu-panel" class="fixed inset-y-0 right-0 w-80 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 md:hidden">
-        <div class="p-6">
-            <form th:action="@{/search}" method="get" class="mb-8">
-                <div class="relative">
-                    <input id="search-input" type="search" name="keyword" th:value="${keyword}"
-                           class="w-full pl-4 pr-12 py-3 rounded-lg border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-blue-500">
-                    <button type="submit" class="absolute right-3 top-3 text-gray-400 hover:text-blue-500">
-                        <span class="material-icons-round text-xl">search</span>
-                    </button>
-                </div>
-            </form>
-            <th:block sec:authorize="isAuthenticated()">
-                <div class="space-y-4">
-                    <a th:href="@{/account_details}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-                        <span class="material-icons-round text-gray-500">person</span>
-                        <span class="font-medium" sec:authentication="principal.fullName"></span>
-                    </a>
-                    <a th:href="@{/address_book}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-                        <span class="material-icons-round text-gray-500">location_on</span>
-                        <span class="font-medium">Addresses</span>
-                    </a>
-                    <a th:href="@{/orders}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-                        <span class="material-icons-round text-gray-500">receipt</span>
-                        <span class="font-medium">Orders</span>
-                    </a>
-                    <a th:href="@{/cart}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-                        <span class="material-icons-round text-gray-500">shopping_cart</span>
-                        <span class="font-medium">shopping_cart</span>
-                    </a>
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu-panel"
+         class="fixed inset-y-0 right-0 w-2/3 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 lg:hidden">
+        <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800">Menu</h2>
+                <button id="close-menu" class="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-colors">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
 
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="p-4">
+                    <th:block sec:authorize="isAuthenticated()">
+                        <!-- User Profile -->
+                        <div class="mb-6 p-4 bg-gray-50 rounded-xl">
+                            <a th:href="@{/account_details}" class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="material-icons-round text-blue-600">person</span>
+                                </div>
+                                <div>
+                                    <span class="block text-sm font-medium text-gray-900" sec:authentication="principal.fullName"></span>
+                                    <span class="block text-sm text-gray-500">View Profile</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Navigation Links -->
+                        <div class="space-y-1">
+                            <a th:href="@{/orders}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors border border-b">
+                                <span class="material-icons-round text-gray-500">receipt</span>
+                                <span class="font-medium">Orders</span>
+                            </a>
+                            <a th:href="@{/address_book}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors border border-b">
+                                <span class="material-icons-round text-gray-500">location_on</span>
+                                <span class="font-medium">Addresses</span>
+                            </a>
+                            <a th:href="@{/cart}" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors border border-b">
+                                <span class="material-icons-round text-gray-500">shopping_cart</span>
+                                <span class="font-medium">Cart</span>
+                            </a>
+                        </div>
+                    </th:block>
                 </div>
-            </th:block>
+            </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>
