@@ -11,7 +11,7 @@
     <div class="max-w-7xl mx-auto">
         <!-- Cart Header -->
         <div class="flex items-center justify-between mb-6 sm:mb-8">
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Shopping Cart</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Shopping Cart</h1>
             <span th:unless="${#lists.isEmpty(cartItems)}"
                   class="text-sm text-gray-600">
                 [[${#lists.size(cartItems)}]] items
@@ -98,9 +98,14 @@
 
                     <!-- Price Breakdown -->
                     <div class="space-y-4 mb-6">
+
                         <div class="flex justify-between text-gray-600">
                             <span>Subtotal</span>
                             <span>Rs [[${#numbers.formatDecimal(estimatedTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span>
+                        </div>
+                        <div class="flex justify-between text-green-600">
+                            <span>You Save</span>
+                            <span>Rs [[${#numbers.formatDecimal(totalSavings, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span>
                         </div>
                         <!-- Delivery charges section removed as requested -->
                         <div class="h-px bg-gray-200 my-4"></div>

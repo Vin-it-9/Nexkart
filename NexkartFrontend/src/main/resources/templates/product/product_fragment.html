@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="content" class="w-full sm:w-1/6 p-4">
+
     <div class="bg-white rounded-lg shadow-md p-4">
         <a th:href="@{'/p/' + ${product.alias}}">
             <img th:src="@{${product.mainImagePath}}" class="w-full h-auto object-contain" />
@@ -13,19 +14,26 @@
 </div>
 
 <div th:fragment="product_price" th:remove="tag">
+
     <th:block th:if="${product.discountPercent &lt;= 0}">
+
         <div th:replace="~{product/product_fragment :: price_fragment(${product.price})}" ></div>
+
     </th:block>
+
     <th:block th:if="${product.discountPercent > 0}">
-      <span class="md:text-lg text-md font-bold text-red-700">
+
+      <span class="md:text-lg text-md font-bold text-black">
         <div th:replace="~{product/product_fragment :: price_fragment(${product.discountPrice})}"></div>
       </span>
+
         <del>
         <span>
           <div th:replace="~{product/product_fragment :: price_fragment(${product.price})}"></div>
         </span>
         </del>
     </th:block>
+
 </div>
 
 <div th:fragment="price_fragment(productPrice)" th:remove="tag">
