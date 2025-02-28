@@ -1,122 +1,226 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/common-header :: common-head}"></head>
+<head th:replace="~{fragments/common-header :: common-head}">
+    <!-- This will be replaced by common header -->
+    <title>Product Details</title>
+</head>
 
-
-<body class="bg-gray-50">
-<!-- Main container centered with a maximum width -->
+<body class="bg-gray-50 flex flex-col min-h-screen">
 <header th:replace="~{fragments/navbar :: navbar}"></header>
 <div th:replace="~{fragments/search_nav :: search_nav}"></div>
-<main class="container mx-auto px-4 py-6">
-<div class="max-w-7xl mx-auto px-4 py-8 border shadow-md rounded-lg bg-white  ">
-    <!-- Two-Column Layout for Product Section -->
 
-    <div class="flex flex-col lg:flex-row gap-8">
-        <!-- Left Partition: Image Gallery -->
-        <div class="lg:w-2/5">
-            <!-- The sticky wrapper keeps the image section in view as you scroll -->
-            <div class="sticky top-8">
-                <div class="flex flex-col lg:flex-row lg:gap-4">
-                    <!-- Vertical Thumbnails -->
-
-
-                    <div class="order-last lg:order-first flex lg:flex-col space-x-2 lg:space-x-0 lg:space-y-2 overflow-x-auto lg:overflow-y-auto lg:w-20 py-4 lg:py-0">
-                        <div class="flex-shrink-0">
-                            <img class="w-20 h-20 p-2 object-contain shadow-lg  border-2 border-blue-500 rounded-lg cursor-pointer image-thumbnail"
-                                 th:src="@{${product.mainImagePath}}"
-                                 index="0" alt="Thumbnail" />
-                        </div>
-                        <th:block th:each="extraImage, status : ${product.images}">
+<main class="container mx-auto px-4 py-6 flex-grow">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="flex flex-col lg:flex-row">
+            <div class="lg:w-2/5 border-r border-gray-100">
+                <div class="sticky top-0 p-4">
+                    <div class="flex flex-col-reverse lg:flex-row">
+                        <div class="flex flex-row lg:flex-col lg:space-y-2 lg:mr-3 lg:w-20 space-x-2 lg:space-x-0 mt-3 lg:mt-0 overflow-x-auto">
                             <div class="flex-shrink-0">
-                                <img class="w-20 h-20 p-2 object-contain  border border-gray-200 rounded-lg hover:border-blue-300 cursor-pointer image-thumbnail"
-                                     th:src="@{${extraImage.imagePath}}"
-                                     th:index="${status.count}" alt="Thumbnail" />
+                                <img class="w-16 h-16 object-contain border-2 border-blue-500 rounded-md cursor-pointer image-thumbnail p-1"
+                                     th:src="@{${product.mainImagePath}}"
+                                     index="0" alt="Thumbnail" />
                             </div>
-                        </th:block>
-                    </div>
-
-                    <!-- Main Image -->
-                    <div class="flex-1 ">
-                        <img id="bigImage"
-                             th:src="@{${product.mainImagePath}}"
-                             class="w-full h-96 object-contain p-4  cursor-pointer"
-                             index="0" alt="Product Image" />
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Partition: Product Details -->
-        <div class="lg:w-3/5">
-            <!-- Product Information -->
-            <div class=" p-6  ">
-                <h1 class="text-2xl font-bold text-gray-900 mb-2">[[${product.name}]]</h1>
-                <div class="text-sm text-gray-500 mb-4">Brand: [[${product.brand.name}]]</div>
-
-                <!-- Pricing Section -->
-                <div class="mb-4">
-                    <div th:if="${product.discountPercent > 0}" class="flex items-center space-x-3">
-                       <span class="text-xl font-bold text-red-600">
-                         [[${product.discountPrice}]] Rs
-                       </span>
-                        <del class="text-gray-400">[[${product.price}]] Rs</del>
-                        <span class="text-green-600 font-medium">
-                         [[${product.discountPercent}]]% off
-                        </span>
-                    </div>
-                    <div th:unless="${product.discountPercent > 0}" class="text-xl font-bold text-gray-900">
-                        [[${product.price}]] Rs
-                    </div>
-                </div>
-
-                <!-- Stock Status -->
-                <div class="mb-4">
-                    <span th:if="${product.inStock}" class="text-green-600 font-medium">
-                        ✓ In Stock
-                    </span>
-                    <span th:unless="${product.inStock}" class="text-red-600 font-medium">
-                        ✗ Out of Stock
-                   </span>
-                </div>
-
-                <!-- Quantity & Add to Cart -->
-                <div class="space-y-4">
-                    <div th:replace="~{cart/quantity_control :: quantity_control(1, ${product.id})}"></div>
-                    <button id="buttonAdd2Cart" class=" bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 font-medium">
-                        Add to Cart
-                    </button>
-                </div>
-
-                <!-- Short Description -->
-                <div class="mt-6 text-gray-700 text-sm" th:utext="${product.shortDescription}"></div>
-            <!-- Product Description & Details -->
-            <div class="mt-8 ">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">Product Description</h2>
-                <div class="prose max-w-none" th:utext="${product.fullDescription}"></div>
-
-                <h2 class="text-xl font-bold mt-5 text-gray-900 mb-4">Product Details</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <th:block th:each="detail : ${product.details}">
-                        <div class="flex justify-between py-2 border-b">
-                            <span class="text-gray-600">[[${detail.name}]]</span>
-                            <span class="text-gray-900">[[${detail.value}]]</span>
+                            <th:block th:each="extraImage, status : ${product.images}">
+                                <div class="flex-shrink-0">
+                                    <img class="w-16 h-16 object-contain border border-gray-200 rounded-md hover:border-blue-500 cursor-pointer image-thumbnail p-1"
+                                         th:src="@{${extraImage.imagePath}}"
+                                         th:index="${status.count}" alt="Thumbnail" />
+                                </div>
+                            </th:block>
                         </div>
-                    </th:block>
+                        <div class="flex-1">
+                            <div class="relative flex justify-center items-center h-96">
+                                <img id="bigImage" th:src="@{${product.mainImagePath}}"
+                                     class="max-h-full max-w-full object-contain"
+                                     index="0" alt="Product Image" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+            </div>
+
+            <div class="lg:w-3/5 p-6">
+                <div class="border-b pb-4">
+                    <h1 class="text-2xl font-medium text-gray-800 mb-1">[[${product.name}]]</h1>
+                    <div class="text-gray-500 text-sm mb-2">Brand: <span class="font-medium">[[${product.brand.name}]]</span></div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-600 font-medium text-sm">✓ Special Price</span>
+                   </div>
+                </div>
+                <div class="py-4 border-b">
+                    <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4">
+                        <div>
+                            <div th:if="${product.discountPercent <= 0}" class="flex items-baseline gap-1">
+                <span class="text-2xl md:text-3xl font-bold text-gray-900">
+                    <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">Rs</span>
+                    [[${#numbers.formatDecimal(product.price, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                    <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">Rs</span>
+                </span>
+                                <span class="text-xs text-gray-500">inclusive of all taxes</span>
+                            </div>
+                            <div th:if="${product.discountPercent > 0}" class="space-y-1">
+                                <div class="flex items-baseline gap-1">
+                    <span class="text-2xl md:text-3xl font-bold text-gray-900">
+                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">Rs</span>
+                        [[${#numbers.formatDecimal(product.discountPrice, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">Rs</span>
+                    </span>
+                                    <span class="text-xs text-gray-500">inclusive of all taxes</span>
+                                </div>
+
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <del class="text-sm text-gray-500">
+                                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">Rs</span>
+                                        [[${#numbers.formatDecimal(product.price, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">Rs</span>
+                                    </del>
+                                    <span class="text-xs font-medium text-white bg-green-600 px-2 py-0.5 rounded">
+                        [[${product.discountPercent}]]% OFF
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stock Status -->
+                        <div class="mt-2 md:mt-0 md:ml-auto">
+            <span th:if="${product.inStock}" class="text-green-600 font-medium flex items-center gap-1 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                In Stock
+            </span>
+                            <span th:unless="${product.inStock}" class="text-red-600 font-medium flex items-center gap-1 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                </svg>
+                Out of Stock
+            </span>
+                        </div>
+                    </div>
+
+                    <!-- Savings Information (Only for discounted products) -->
+                    <div th:if="${product.discountPercent > 0}" class="mt-3 bg-green-50 border border-green-100 rounded-md p-3">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <p class="text-sm font-medium text-green-800">Save Extra with Combo Offer</p>
+                                <p class="text-xs text-gray-600">
+                                    You save
+                                    <span class="font-semibold">
+                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">Rs</span>
+                        [[${#numbers.formatDecimal(product.price - product.discountPrice, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+                        <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">Rs</span>
+                    </span>
+                                    on this order
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-xs text-gray-600">Fast delivery available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="py-4 border-b">
+                    <h3 class="text-gray-800 font-medium mb-3">Quantity</h3>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div class="sm:flex-1">
+                            <div th:replace="~{cart/quantity_control :: quantity_control(1, ${product.id})}"></div>
+                        </div>
+                        <div class="sm:flex-1">
+                            <button id="buttonAdd2Cart" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 font-medium w-full">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="py-4">
+                    <div class="text-gray-700" th:utext="${product.shortDescription}"></div>
+                </div>
             </div>
         </div>
+
+        <div class="border-t">
+            <div class="container mx-auto px-6 py-6">
+                <div class="border-b mb-6">
+                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="productTabs" role="tablist">
+                        <li class="mr-2" role="presentation">
+                            <button class="inline-block p-4 border-b-2 border-blue-600 rounded-t-lg text-blue-600 active"
+                                    id="specifications-tab" data-tabs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="true">
+                                Specifications
+                            </button>
+                        </li>
+                        <li class="mr-2" role="presentation">
+                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg "
+                                    id="description-tab" data-tabs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="false">
+                                Description
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="tabContent">
+                    <div class="hidden" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <div class="prose max-w-none" th:utext="${product.fullDescription}"></div>
+                    </div>
+                    <div class="block" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-800 mb-3">Product Specifications</h3>
+                                <table class="w-full">
+                                    <tbody>
+                                    <th:block th:each="detail : ${product.details}">
+                                        <tr class="border-b">
+                                            <td class="py-3 text-gray-600 w-1/2">[[${detail.name}]]</td>
+                                            <td class="py-3 text-gray-900 w-1/2">[[${detail.value}]]</td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-800 mb-3">Brand Information</h3>
+                                <div class="bg-gray-50 p-4 rounded-md">
+                                    <div class="flex items-center gap-4 mb-4">
+                                        <div class="w-16 h-16 flex items-center justify-center bg-white rounded-full shadow-sm">
+                                            <img class="max-h-10" th:src="@{${product.brand.logoPath}}"
+                                                 alt="Brand Logo" onerror="this.src='/images/default-brand.png'">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium">[[${product.brand.name}]]</h4>
+                                            <p class="text-sm text-gray-500">Official Brand Store</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-600">
+                                        Quality products from [[${product.brand.name}]]. All products come with manufacturer warranty.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
-  </div>
 </main>
 
 <footer th:replace="~{fragments/footer :: footer}" class="mt-auto"></footer>
 
-<!-- JavaScript for Image Handling -->
+<!-- JavaScript for Image Handling and Tabs -->
 <script type="text/javascript">
-
     contextPath = "[[@{/}]]";
     productId = "[[${product.id}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
@@ -134,15 +238,20 @@
 
             bigImage.attr("src", currentImageSource).attr("index", currentImageIndex);
         });
+
+        $('#productTabs button').on('click', function() {
+            const target = $(this).data('tabs-target');
+            $('#tabContent > div').addClass('hidden');
+            $(target).removeClass('hidden');
+            $('#productTabs button').removeClass('border-blue-600 text-blue-600').addClass('border-transparent');
+            $(this).removeClass('border-transparent').addClass('border-blue-600 text-blue-600');
+        });
     });
-
-
 </script>
 
 <script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
 <script type="text/javascript" th:src="@{/js/add_to_cart.js}"></script>
 <script type="text/javascript" th:src="@{/js/shopping_cart.js}"></script>
-
 
 </body>
 </html>
