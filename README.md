@@ -139,6 +139,6 @@ To work with the Spring Boot project in IntelliJ IDEA, follow these steps:
   - Default admin account: `admin@gmail.com` with password `admin`
 
 - **User Portal**: Access at `http://localhost:8081/Nexkart`
-  - Default user account: `user@gmail.com` with password `user`
+  - First setup the settings module in the admin page and then create new user 
 
 Note: For production deployment on Heroku, additional configuration for environment variables and build packs may be required. Refer to the Heroku documentation for detailed deployment instructions.
