@@ -2,7 +2,7 @@
 
 ### Project Description:
 
-Developed a feature-rich **E-Commerce Web Application** for *Nexkart*, with comprehensive administrative capabilities and user-friendly shopping experience. The system leverages **Spring Boot**, **Spring Security**, **Spring Data JPA**, and **Spring Web** for backend operations, with a dynamic frontend using **Thymeleaf**, **Tailwind CSS**, **JavaScript**, and **jQuery**. Data is stored in **AWS RDS MySQL**, while product images are managed through **AWS S3 buckets**. The platform ensures secure authentication through both traditional methods and social login integrations, with a smooth checkout process via PayPal integration.
+Developed a feature-rich **E-Commerce WebApp** for *Nexkart*, with comprehensive administrative capabilities and user-friendly shopping experience. The system leverages **Spring Boot**, **Spring Security**, **Spring Data JPA**, and **Spring Web** for backend operations, with a dynamic frontend using **Thymeleaf**, **Tailwind CSS**, **JavaScript**, and **jQuery**. Data is stored in **AWS RDS MySQL**, while product images are managed through **AWS S3 buckets**. The platform ensures secure authentication through both traditional methods and social login integrations, with a smooth checkout process via PayPal integration.
 
 ### Key Features:
 
