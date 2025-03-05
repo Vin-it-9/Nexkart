@@ -49,6 +49,7 @@ public class ShoppingCartService {
         return updatedQuantity;
     }
 
+
     public List<CartItem> listCartItems(Customer customer) {
         return cartRepo.findByCustomer(customer);
     }

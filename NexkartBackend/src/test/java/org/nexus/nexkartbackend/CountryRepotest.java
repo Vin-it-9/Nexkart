@@ -25,9 +25,7 @@ public class CountryRepotest {
         List<Country> countries = List.of(
                 new Country("India", "IN"),
                 new Country("United States", "US"),
-                new Country("United Kingdom", "UK"),
-                new Country("Canada", "CA"),
-                new Country("Australia", "AU")
+                new Country("United Kingdom", "UK")
         );
 
         List<Country> savedCountries = (List<Country>) repo.saveAll(countries);

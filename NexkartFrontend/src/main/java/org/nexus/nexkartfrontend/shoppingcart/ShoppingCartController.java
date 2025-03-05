@@ -37,9 +37,20 @@ public class ShoppingCartController {
         List<CartItem> cartItems = cartService.listCartItems(customer);
 
         float estimatedTotal = 0.0F;
+        float totalSavings = 0.0F;
+
 
         for (CartItem item : cartItems) {
             estimatedTotal += item.getSubtotal();
+        }
+
+        for (CartItem item : cartItems) {
+
+            float originalPrice = item.getProduct().getPrice();
+            float discountPrice = item.getProduct().getDiscountPrice();
+            int quantity = item.getQuantity();
+            totalSavings += (originalPrice - discountPrice) * quantity;
+
         }
 
         Address defaultAddress = addressService.getDefaultAddress(customer);
@@ -57,6 +68,8 @@ public class ShoppingCartController {
         model.addAttribute("shippingSupported", shippingRate != null);
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("estimatedTotal", estimatedTotal);
+        model.addAttribute("totalSavings", totalSavings);
+
 
         return "cart/shopping_cart";
     }
@@ -65,4 +78,5 @@ public class ShoppingCartController {
         String email = Utility.getEmailOfAuthenticatedCustomer(request);
         return customerService.getCustomerByEmail(email);
     }
+
 }

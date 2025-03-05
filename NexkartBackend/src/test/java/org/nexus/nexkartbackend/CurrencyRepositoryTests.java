@@ -22,13 +22,15 @@ public class CurrencyRepositoryTests {
     @Test
     public void testCreateCurrencies() {
         List<Currency> listCurrencies = Arrays.asList(
-                new Currency("Indian Rupee", "Rs", "IN")
+                new Currency("Indian Rupee", "Rs", "IN"),
+        new Currency("United State America", "usd", "USD")
         );
 
         repo.saveAll(listCurrencies);
 
         Iterable<Currency> iterable = repo.findAll();
 
-        assertThat(iterable).size().isEqualTo(12);
+        assertThat(iterable).size().isEqualTo(2);
+
     }
 }

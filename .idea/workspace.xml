@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0586fd1f-888c-4aa5-8d7c-832c45b2d525" name="Changes" comment="commit">
+      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/Repository/ReviewRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/review/ReviewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/review/ReviewService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NexkartBackend/src/test/java/org/nexus/nexkartbackend/ReviewRepositoryTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/AbstractReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/AbstractReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/MasterOrderReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/MasterOrderReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/OrderDetailReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/OrderDetailReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/ReportRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/report/ReportRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/resources/static/js/sales_report_by_date.js" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/resources/static/js/sales_report_by_date.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/resources/templates/reports/reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/resources/templates/reports/reports.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/java/org/nexus/nexkartbackend/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/test/java/org/nexus/nexkartbackend/CountryRepotest.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/test/java/org/nexus/nexkartbackend/CountryRepotest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartBackend/src/test/java/org/nexus/nexkartbackend/CurrencyRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartBackend/src/test/java/org/nexus/nexkartbackend/CurrencyRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/shoppingcart/ShoppingCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/shoppingcart/ShoppingCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/shoppingcart/ShoppingCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/java/org/nexus/nexkartfrontend/shoppingcart/ShoppingCartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/NexkartFrontend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Exception" />
         <option value="Class" />
       </list>
     </option>
@@ -29,25 +39,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Vin-it-9"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Vin-it-9&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Vin-it-9/Nexkart.git",
-    "accountId": "0a701ac8-763c-43f6-baaa-9e26fb6bcd1a"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Vin-it-9/Nexkart.git&quot;,
+    &quot;accountId&quot;: &quot;0a701ac8-763c-43f6-baaa-9e26fb6bcd1a&quot;
   }
-}]]></component>
+}</component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2tWeFCcVzd489R1dYFzzpTeooS9" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -56,27 +66,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.NexkartBackendApplication.executor": "Run",
-    "Spring Boot.NexkartFrontendApplication.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "application.passwordSafe",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.CountryRepotest.testCreateMultipleCountries.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CurrencyRepositoryTests.testCreateCurrencies.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReviewRepositoryTests.testCreateReview.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.NexkartBackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.NexkartFrontendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -105,8 +119,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
       </set>
     </attachedChunks>
   </component>
@@ -118,7 +132,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1740472154976</updated>
-      <workItem from="1740472157113" duration="5190000" />
+      <workItem from="1740472157113" duration="6091000" />
+      <workItem from="1740480214028" duration="468000" />
+      <workItem from="1740491507003" duration="18000" />
+      <workItem from="1740494091416" duration="1663000" />
+      <workItem from="1740561878790" duration="4579000" />
+      <workItem from="1740677598807" duration="7002000" />
+      <workItem from="1740685051695" duration="3662000" />
+      <workItem from="1740688930286" duration="945000" />
+      <workItem from="1740735156620" duration="6329000" />
+      <workItem from="1740742513941" duration="1581000" />
+      <workItem from="1740771173047" duration="5264000" />
+      <workItem from="1740777266177" duration="259000" />
+      <workItem from="1741116229583" duration="639000" />
+      <workItem from="1741120151328" duration="111000" />
+      <workItem from="1741120539828" duration="873000" />
+      <workItem from="1741163891744" duration="706000" />
+      <workItem from="1741164970918" duration="549000" />
+      <workItem from="1741181225144" duration="296000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -144,7 +175,63 @@
       <option name="project" value="LOCAL" />
       <updated>1740474799194</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740477523540</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740477523540</updated>
+    </task>
+    <task id="LOCAL-00005" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740480661709</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740480661709</updated>
+    </task>
+    <task id="LOCAL-00006" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740682516339</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1740682516339</updated>
+    </task>
+    <task id="LOCAL-00007" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740683196244</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1740683196244</updated>
+    </task>
+    <task id="LOCAL-00008" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740688526559</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1740688526559</updated>
+    </task>
+    <task id="LOCAL-00009" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740744071136</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740744071136</updated>
+    </task>
+    <task id="LOCAL-00010" summary="commit">
+      <option name="closed" value="true" />
+      <created>1740777004058</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1740777004058</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
