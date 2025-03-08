@@ -1,4 +1,4 @@
-# Nexkart E-Commerce Web Application
+# Nexkart E-Commerce Website
 
 ### Project Description:
 
